@@ -1,5 +1,6 @@
 PGraphics canvas;
 boolean fullHD;
+PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewindow size)
 int gwidth = 1920;
 int gheight = 1080;
 
@@ -40,7 +41,7 @@ void setup()
   MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "arrowLeft.png", "cupBoard");
   MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "arrowLeft.png", "bathroom");
   MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "arrowRight.png", "livingRoomReading");
-  
+
   hallway.addGameObject(bk1deskBackArrow); 
   hallway.addGameObject(cupBoardArrow);
   hallway.addGameObject(br1showerArrow);
@@ -51,53 +52,53 @@ void setup()
   MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 100, "arrowDown.png", true);
 
   cupBoard.addGameObject(hallwayBackArrow);
-  
+
   Scene bathroom = new Scene("bathroom", "br1shower.png");
-  
+
   MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 100, gheight / 2, "arrowRight.png", true);
   MoveToSceneObject br2sinkArrow = new MoveToSceneObject("goTobr2sink", gwidth/2, gheight - 100, "arrowDown.png", "bathroomSink");
-  
+
   bathroom.addGameObject(hallwayBackArrow_bathroom);
   bathroom.addGameObject(br2sinkArrow);
-  
+
   Scene bathroomSink = new Scene("bathroomSink", "br2sink.png");
-  
+
   MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth/2, gheight - 100, "arrowDown.png", true);
-  
+
   bathroomSink.addGameObject(br1showerBackArrow);
-  
-  
+
+
   Scene livingRoomReading = new Scene("livingRoomReading", "lr1reading.png");
-  
+
   MoveToSceneObject hallwaybackArrow_livingroom = new MoveToSceneObject("goBackToHallway_livingroom", gwidth/3, gheight - 300, "arrowUp.png", true);
   MoveToSceneObject kitchenArrow = new MoveToSceneObject("goToKitchen", 0, gheight/2, "arrowLeft.png", "kitchen");
   MoveToSceneObject TVArrow = new MoveToSceneObject("goToTV", gwidth - 100, gheight/2, "arrowRight.png", "LivingRoomTV");
-  
+
   livingRoomReading.addGameObject(hallwaybackArrow_livingroom);
   livingRoomReading.addGameObject(kitchenArrow);
   livingRoomReading.addGameObject(TVArrow);
-  
+
   Scene kitchen = new Scene("kitchen", "lr2kitchen.png");
-  
+
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "arrowDown.png", true);
-  
+
   kitchen.addGameObject(readingLRBackArrow);
-  
+
   Scene livingRoomTV = new Scene("LivingRoomTV", "lr3tv.png");
-  
+
   MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", 0, gheight /2, "arrowLeft.png", true);
   MoveToSceneObject bpArrow = new MoveToSceneObject("goTobp", 1300, gheight/2, "arrowUp.png", "bp");
-  
+
   livingRoomTV.addGameObject(readingLRBackArrow2);
   livingRoomTV.addGameObject(bpArrow);
-  
-  
+
+
   Scene bedroomParents = new Scene("bp", "bp.png");
-  
+
   MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 100, "arrowDown.png", true);
-  
+
   bedroomParents.addGameObject(TvBackArrow);
-  
+
 
   /* Collectable apple = new Collectable("apple", "back04_apple.png");
   MoveToSceneObject object7 = new MoveToSceneObject("goToScene04_scene01", 206, 461, 50, 50, "arrowUp.png", "scene04");
@@ -157,11 +158,10 @@ void setup()
 void draw()
 {  
   canvas.beginDraw();
-  sceneManager.getCurrentScene().draw(gwidth, gheight);
+  sceneManager.getCurrentScene().draw();
   sceneManager.getCurrentScene().updateScene();
   inventoryManager.clearMarkedForDeathCollectables();
-  inventoryManager.update();
-
+  inventoryManager.draw();
 
   canvas.stroke(255, 0, 0);
   canvas.strokeWeight(5);
@@ -169,15 +169,12 @@ void draw()
 
 
   canvas.endDraw();
-  
-  //mouse.x = mouseX;
-  //mouse.y = mouseY;
 
   if (fullHD) {
     image(canvas, 0, 0);
   } else {
-    PImage finalFrame = canvas.get();
-    finalFrame.resize(width, height);
+    finalFrame = canvas.get();
+    finalFrame.resize(width, height); //<-- fps killer, but I can't think of a better way to handle this simply
     image(finalFrame, 0, 0);
   }
 }

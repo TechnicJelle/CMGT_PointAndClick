@@ -33,17 +33,13 @@ class InventoryManager {
   }
 
 
-  public void update() //to show the invetory
-  {
-    for (int i = 0; i < 4; i++)
-    {
+  public void draw() {
+    for (int i = 0; i < 4; i++) {
       canvas.fill(128, 50);
       canvas.rect(gwidth - x, (gheight - y) - y * i, x, y);
     }
-    if (collectables.size() >0)
-    {
-      for (int j = 0; j < collectables.size(); j++)
-      {
+    if (collectables.size() > 0) {
+      for (int j = 0; j < collectables.size(); j++) {
         canvas.image(collectables.get(j).image, gwidth - x, (gheight - y) - y * j, x, y);
       }
     }

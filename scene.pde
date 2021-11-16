@@ -37,8 +37,8 @@ class Scene {
     }
   }
   
-  public void draw(int wwidth, int wheight) {
-    canvas.image(backgroundImage, 0, 0, wwidth, wheight);
+  public void draw() {
+    canvas.image(backgroundImage, 0, 0);
     for(GameObject object : gameObjects) {
       object.draw();
     }
