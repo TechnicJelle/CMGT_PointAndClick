@@ -13,11 +13,6 @@ class InventoryManager {
 
   public void addCollectable(Collectable collectable) {
     collectables.add(collectable);
-
-    // for(int i = 0; i < collectables.size(); i++)
-    // {
-    //   objectsInInventory.add(collectables.get(i).getName(),width - x, (height - y) - y * i, x, y);
-    //  }
   }
 
   public void removeCollectable(Collectable collectable) {

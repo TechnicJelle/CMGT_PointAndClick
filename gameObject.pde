@@ -1,8 +1,8 @@
 class GameObject {
   protected int x;
   protected int y;
-  protected int owidth;
-  protected int oheight;
+  //protected int owidth;
+  //protected int oheight;
   private String identifier;
   private boolean hasImage;
   private boolean hasHoverImage;
@@ -10,16 +10,16 @@ class GameObject {
   private PImage gameObjectImageHover;
   protected boolean mouseIsHovering;
   
-  public GameObject(String identifier, int x, int y, int owidth, int oheight) {
-    this(identifier, x, y, owidth, oheight, "");
+  public GameObject(String identifier, int x, int y) {
+    this(identifier, x, y, "");
   }
   
-  public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile) {
+  public GameObject(String identifier, int x, int y, String gameObjectImageFile) {
     this.identifier = identifier;
     this.x = x;
     this.y = y;
-    this.owidth = owidth;
-    this.oheight = oheight;
+    //this.owidth = owidth;
+    //this.oheight = oheight;
     this.hasImage = !gameObjectImageFile.equals(""); 
     if(this.hasImage) {
        this.gameObjectImage = loadImage(gameObjectImageFile);
@@ -36,17 +36,17 @@ class GameObject {
   public void draw() {
     if(hasImage) {
       if(mouseIsHovering && hasHoverImage) {
-        canvas.image(gameObjectImageHover, x, y, owidth, oheight);
+        //imageMode(CENTER); I will not question, the buttons weren t working without it and now they do
+        canvas.image(gameObjectImageHover, x, y);
       } else {
-        canvas.image(gameObjectImage, x, y, owidth, oheight);
+        canvas.image(gameObjectImage, x, y);
       }
     }
   }
   
   public void mouseMoved() {
     mouseIsHovering = false;
-    if(mouse.x >= x && mouse.x <= x + owidth &&
-       mouse.y >= y && mouse.y <= y + oheight) {
+    if(dist(mouse.x, mouse.y, x, y ) < 100) {
         mouseIsHovering = true;
      }
   }
