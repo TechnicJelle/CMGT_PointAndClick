@@ -13,7 +13,7 @@ void setup()
 {
   
   
-  /*Collectable apple = new Collectable("apple", "back04_apple.png");
+  Collectable apple = new Collectable("apple", "back04_apple.png");
   MoveToSceneObject object7 = new MoveToSceneObject("goToScene04_scene01", 206, 461, 50, 50, "arrowUp.png", "scene04");
   
   Scene scene01 = new Scene("scene01", "back01.png");
@@ -53,7 +53,7 @@ void setup()
   sceneManager.addScene(scene02);
   sceneManager.addScene(scene03);
   sceneManager.addScene(scene04);
-  */
+  
 }
 
 void draw()
@@ -61,6 +61,7 @@ void draw()
   sceneManager.getCurrentScene().draw(wwidth, wheight);
   sceneManager.getCurrentScene().updateScene();
   inventoryManager.clearMarkedForDeathCollectables();
+  inventoryManager.update();
 }
 
 void mouseMoved() {
