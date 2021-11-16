@@ -36,17 +36,17 @@ class GameObject {
   public void draw() {
     if(hasImage) {
       if(mouseIsHovering && hasHoverImage) {
-        image(gameObjectImageHover, x, y, owidth, oheight);
+        canvas.image(gameObjectImageHover, x, y, owidth, oheight);
       } else {
-        image(gameObjectImage, x, y, owidth, oheight);
+        canvas.image(gameObjectImage, x, y, owidth, oheight);
       }
     }
   }
   
   public void mouseMoved() {
     mouseIsHovering = false;
-    if(mouseX >= x && mouseX <= x + owidth &&
-       mouseY >= y && mouseY <= y + oheight) {
+    if(mouse.x >= x && mouse.x <= x + owidth &&
+       mouse.y >= y && mouse.y <= y + oheight) {
         mouseIsHovering = true;
      }
   }

@@ -13,7 +13,7 @@ class Room {
   public void update() //renders the scenes
   {
     for (int i = 0; i < scenes.size(); i++)
-      scenes.get(i).draw(wwidth, wheight);
+      scenes.get(i).draw(gwidth, gheight);
   }
 
   public String getRoomName()

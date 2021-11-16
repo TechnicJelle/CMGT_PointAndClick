@@ -24,7 +24,7 @@ class SceneManager {
     }
     else {
       throw new Exception("Scene not found with name: "+ sceneName + "." + 
-                           "Make sure it was added to the sceneManager.");
+                          " Make sure it was added to the sceneManager.");
     }
   }
   

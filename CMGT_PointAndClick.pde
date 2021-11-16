@@ -1,50 +1,53 @@
-int wwidth = 1920;
-int wheight = 1080;
+PGraphics canvas;
+boolean fullHD;
+int gwidth = 1920;
+int gheight = 1080;
+
+PVector mouse;
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 
 void settings()
 {
- //size(wwidth, wheight);
- fullScreen();
+  //size(gwidth, gheight);
+  fullScreen();
 }
 
 void setup()
 {
-  
+  canvas = createGraphics(gwidth, gheight);
+  fullHD = width == gwidth && height == gheight;
+
   Scene bk2beds  = new Scene("bk2beds", "bk2beds.png");
-  
-  MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", width/2, height - 100, 100, 100, "arrowDown.png", "bk1desk");
-  
+
+  MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, 100, 100, "arrowDown.png", "bk1desk");
+
   bk2beds.addGameObject(bk1deskArrow);
-  
-  
+
+
   Scene bk1desk = new Scene("bk1desk", "bk1desk.png");
-  
-  MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", width/2, height - 100, 100, 100, "arrowDown.png", true);
-  MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, height/2 - 100, 100, 100, "arrowLeft.png", "hallway");
-  
+
+  MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, 100, 100, "arrowDown.png", true);
+  MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, 100, 100, "arrowLeft.png", "hallway");
+
   bk1desk.addGameObject(bk2bedsBackArrow);
   bk1desk.addGameObject(hwArrow);
-  
+
   Scene hallway = new Scene("hallway", "hw.png");
-  
-  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", width/2 + 100, height/3, 100, 100, "arrowUp.png", true);
-  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", width/2 - 100, height/3*2, 100 , 100, "arrowLeft.png", "cupBoard");
-  
+
+  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2 + 100, gheight/3, 100, 100, "arrowUp.png", true);
+  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight/3*2, 100, 100, "arrowLeft.png", "cupBoard");
+
   hallway.addGameObject(bk1deskBackArrow); 
   hallway.addGameObject(cupBoardArrow);
-  
+
   Scene cupBoard = new Scene("cupBoard", "cb.png");
-  
-  MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", width/2, height- 100, 100, 100, "arrowDown.png", true);
-  
+
+  MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 100, 100, 100, "arrowDown.png", true);
+
   cupBoard.addGameObject(hallwayBackArrow);
-  
-  
-  
-  
+
   /* Collectable apple = new Collectable("apple", "back04_apple.png");
   MoveToSceneObject object7 = new MoveToSceneObject("goToScene04_scene01", 206, 461, 50, 50, "arrowUp.png", "scene04");
   
@@ -85,25 +88,68 @@ void setup()
   
   //Scene scene05 = ...
   */
+  
   sceneManager.addScene(bk2beds);
   sceneManager.addScene(bk1desk);
   sceneManager.addScene(hallway);
   sceneManager.addScene(cupBoard);
-  
+
+  mouse = screenScale(new PVector(mouseX, mouseY));
 }
 
 void draw()
-{
-  sceneManager.getCurrentScene().draw(wwidth, wheight);
+{  
+  canvas.beginDraw();
+  sceneManager.getCurrentScene().draw(gwidth, gheight);
   sceneManager.getCurrentScene().updateScene();
   inventoryManager.clearMarkedForDeathCollectables();
   inventoryManager.update();
+
+
+  canvas.stroke(255, 0, 0);
+  canvas.strokeWeight(5);
+  canvas.point(mouse.x, mouse.y);
+
+
+  canvas.endDraw();
+
+  if (fullHD) {
+    image(canvas, 0, 0);
+  } else {
+    PImage finalFrame = canvas.get();
+    finalFrame.resize(width, height);
+    image(finalFrame, 0, 0);
+  }
 }
 
 void mouseMoved() {
+  mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
 }
 
 void mouseClicked() {
+  mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseClicked();
+}
+
+PVector screenScale(PVector p) {
+  if (fullHD)
+    return p;
+  p = elemmult(p, new PVector(gwidth, gheight));
+  p = elemdiv(p, new PVector(width, height));
+  return p;
+}
+
+PVector elemmult(PVector a, PVector b) {
+  return new PVector(a.x * b.x, a.y * b.y);
+}
+
+PVector elemdiv(PVector a, PVector b) {
+  float x = 0;
+  float y = 0;
+  if (a.x != 0.0f && b.x != 0.0f)
+    x = a.x / b.x;
+  if (a.y != 0.0f && b.y != 0.0f)
+    y = a.y / b.y;
+  return new PVector(x, y);
 }

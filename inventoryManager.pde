@@ -42,14 +42,14 @@ class InventoryManager {
   {
     for (int i = 0; i < 4; i++)
     {
-      fill(128, 50);
-      rect(width - x, (height - y) - y * i, x, y);
+      canvas.fill(128, 50);
+      canvas.rect(gwidth - x, (gheight - y) - y * i, x, y);
     }
     if (collectables.size() >0)
     {
       for (int j = 0; j < collectables.size(); j++)
       {
-        image(collectables.get(j).image, width - x, (height - y) - y * j, x, y);
+        canvas.image(collectables.get(j).image, gwidth - x, (gheight - y) - y * j, x, y);
       }
     }
   }
