@@ -6,8 +6,10 @@ class GameObject {
   private String identifier;
   private boolean hasImage;
   private boolean hasHoverImage;
+  private boolean isQuad;
   private PImage gameObjectImage;
   private PImage gameObjectImageHover;
+  private Quad quad;
   protected boolean mouseIsHovering;
   private color debugCol;
 
@@ -27,6 +29,7 @@ class GameObject {
       this.debugCol = color(random(100, 255), random(100, 255), random(100, 255));
     }
     hasHoverImage = false;
+    isQuad = false;
     mouseIsHovering = false;
   }
 
@@ -40,6 +43,15 @@ class GameObject {
     }
   }
 
+  public void setQuad(float ax, float ay, float bx, float by, float cx, float cy, float dx, float dy) {
+    PVector a = new PVector(ax, ay);
+    PVector b = new PVector(bx, by);
+    PVector c = new PVector(cx, cy);
+    PVector d = new PVector(dx, dy);
+    quad = new Quad(a, b, c, d);
+    isQuad = true;
+  }
+
   public void draw() {
     if (hasImage) {
       if (mouseIsHovering && hasHoverImage) {
@@ -50,14 +62,22 @@ class GameObject {
           canvas.stroke(debugCol);
           canvas.strokeWeight(1);
           canvas.noFill();
-          canvas.rect(x, y, owidth, oheight);
+          if (isQuad) {
+            quad.drawDebug(debugCol);
+          } else {
+            canvas.rect(x, y, owidth, oheight);
+          }
         }
       }
     }
   }
 
   public void mouseMoved() {
-    mouseIsHovering = pointInRect(mouse.x, mouse.y, x, y, owidth, oheight);
+    if (isQuad) {
+      mouseIsHovering = quad.clickCheck(mouse);
+    } else {
+      mouseIsHovering = pointInRect(mouse.x, mouse.y, x, y, owidth, oheight);
+    }
   }
 
   public void mouseClicked() {

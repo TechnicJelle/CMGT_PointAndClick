@@ -11,16 +11,14 @@ PVector mouse;
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 
-void settings()
-{
+Task currentTask = null;
+
+void settings() {
   size(1600, 900);
   //fullScreen();
 }
 
-Task currentTask;
-
-void setup()
-{
+void setup() {
   canvas = createGraphics(gwidth, gheight);
   fullHD = width == gwidth && height == gheight;
 
@@ -35,6 +33,7 @@ void setup()
 
   MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, "ui/arrowLeft.png", "hallway");
+  hwArrow.setQuad(61.2, 30.0, 393.6, 97.2, 495.6, 792.0, 280.8, 1026.0);
 
   bk1desk.addGameObject(bk2bedsBackArrow);
   bk1desk.addGameObject(hwArrow);
@@ -161,7 +160,7 @@ void mouseReleased() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseClicked();
   inventoryManager.mouseClicked();
-  //println(mouse.x, mouse.y);
+  if (debugMode) println("new PVector(" + mouse.x + ", " + mouse.y + ");");
 }
 
 void keyPressed() {
