@@ -30,15 +30,19 @@ class GameObject {
     mouseIsHovering = false;
   }
 
-  public void setHoverImage(String gameObjectImageHoverFile) {
-    this.gameObjectImageHover = loadImage(gameObjectImageHoverFile);
-    hasHoverImage = true;
+  public void setHoverImage(String gameObjectImageHoverFile) throws Exception {
+    PImage newHoverImage = loadImage(gameObjectImageHoverFile);
+    if (newHoverImage.width == gameObjectImage.width && newHoverImage.height == gameObjectImage.height) {
+      this.gameObjectImageHover = newHoverImage;
+      hasHoverImage = true;
+    } else {
+      throw new Exception("Images were not the same size!");
+    }
   }
 
   public void draw() {
     if (hasImage) {
       if (mouseIsHovering && hasHoverImage) {
-        //imageMode(CENTER); I will not question, the buttons weren t working without it and now they do
         canvas.image(gameObjectImageHover, x, y);
       } else {
         canvas.image(gameObjectImage, x, y);
@@ -53,11 +57,7 @@ class GameObject {
   }
 
   public void mouseMoved() {
-    mouseIsHovering = false;
-    if (mouse.x >= x && mouse.x <= x + owidth &&
-      mouse.y >= y && mouse.y <= y + oheight) {
-      mouseIsHovering = true;
-    }
+    mouseIsHovering = pointInRect(mouse.x, mouse.y, x, y, owidth, oheight);
   }
 
   public void mouseClicked() {

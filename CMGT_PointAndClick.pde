@@ -13,7 +13,7 @@ final InventoryManager inventoryManager = new InventoryManager();
 
 void settings()
 {
-  size(gwidth, gheight);
+  size(1600, 900);
   //fullScreen();
 }
 
@@ -132,7 +132,6 @@ void draw()
   canvas.beginDraw();
   sceneManager.getCurrentScene().draw();
   sceneManager.getCurrentScene().updateScene();
-  inventoryManager.clearMarkedForDeathCollectables();
   inventoryManager.draw();
 
   canvas.stroke(255, 0, 0);
@@ -155,16 +154,22 @@ void draw()
 void mouseMoved() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
+  inventoryManager.mouseMoved();
 }
 
-void mouseClicked() {
+void mouseReleased() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseClicked();
+  inventoryManager.mouseClicked();
   //println(mouse.x, mouse.y);
 }
 
 void keyPressed() {
   inventoryManager.keyPressed();
+}
+
+boolean pointInRect(float px, float py, float x, float y, float w, float h) {
+  return px >= x && px <= x + w && py >= y && py <= y + h;
 }
 
 PVector screenScale(PVector p) {

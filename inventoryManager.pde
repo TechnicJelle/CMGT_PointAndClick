@@ -1,63 +1,103 @@
 class InventoryManager {
-  private ArrayList<Collectable> collectables;
-  private ArrayList<Collectable> markedForDeathCollectables;
+  private Collectable[] collectables;
+  private PVector[] slotPositions;
+  private int slotW = 100;
+  private int slotH = 100;
 
   public int selected = -1;
 
-  private int w = 100;
-  private int h = 100;
+  private int hovered = -1;
+  private boolean hoverOptim = true; //ignore this; it's only for a small optimization
+
 
   private int slots = 4;
 
   public InventoryManager() {
-    collectables = new ArrayList<Collectable>();
-    markedForDeathCollectables = new ArrayList<Collectable>();
-  }
+    collectables = new Collectable[slots];
+    slotPositions = new PVector[slots];
 
-  public void addCollectable(Collectable collectable) {
-    collectables.add(collectable);
-  }
-
-  public void removeCollectable(Collectable collectable) {
-    markedForDeathCollectables.add(collectable);
-  }
-
-  public boolean containsCollectable(Collectable collectable) {
-    return collectables.contains(collectable);
-  }
-
-  public void clearMarkedForDeathCollectables() {
-    if (markedForDeathCollectables.size() > 0) {
-      for (Collectable collectable : markedForDeathCollectables) {
-        collectables.remove(collectable);
-      }
-      markedForDeathCollectables  = new ArrayList<Collectable>();
+    int x = gwidth - slotW - 6;
+    int beginY = gheight - slots * slotH - 24;
+    for (int i = 0; i < slots; i++) {
+      collectables[i] = null;
+      slotPositions[i] = new PVector(x, beginY + i*(slotH+6));
     }
   }
 
+  public void addCollectable(Collectable collectable) throws Exception {
+    for (int i = 0; i < slots; i++) {
+      if (collectables[i] == null) {
+        collectables[i] = collectable;
+        return;
+      }
+    }
+    throw new Exception("Couldn't fit item into the inventory anymore!");
+  }
+  public boolean containsCollectable(Collectable collectable) {
+    for (int i = 0; i < slots; i++) {
+      if (collectables[i] == collectable) 
+        return true;
+    }
+    return false;
+  }
+
+  public void removeCollectable(Collectable collectable) throws Exception {
+    for (int i = 0; i < slots; i++) {
+      if (collectables[i] == collectable) {
+        collectables[i] = null;
+        return;
+      }
+    }
+    throw new Exception("Item couldn't be found and wasn't removed");
+  }
 
   public void draw() {
-    canvas.pushMatrix();
-    canvas.translate(gwidth-w - 6, gheight-slots*h - 24);
+    hoverOptim = true;
     for (int i = 0; i < slots; i++) {
       canvas.stroke(0);
-      if (selected == i) {
+      if (i == selected) {
         canvas.strokeWeight(4);
-        //if (collectables.get(i) != null) {
-        //  canvas.image(collectables.get(i).image, mouse.x, mouse.y);
-        //}
+      } else if (i == hovered) {
+        canvas.strokeWeight(3);
       } else {
         canvas.strokeWeight(2);
       }
       canvas.fill(128, 50);
-      canvas.rect(0, (h+6) * i, w, h, 12);
-    }
-    if (collectables.size() > 0) {
-      for (int i = 0; i < collectables.size(); i++) {
-        canvas.image(collectables.get(i).image, 0, (h+6) * i, w, h);
+      canvas.rect(slotPositions[i].x, slotPositions[i].y, slotW, slotH, 12);
+      if (collectables[i] != null) {
+        canvas.image(collectables[i].image, slotPositions[i].x, slotPositions[i].y, slotW, slotH);
       }
     }
-    canvas.popMatrix();
+
+    if (selected != -1 && collectables[selected] != null) {
+      canvas.image(collectables[selected].image, mouse.x, mouse.y);
+    }
+  }
+
+  public void mouseClicked() {
+    for (int i = 0; i < slots; i++) {
+      if (pointInRect(mouse.x, mouse.y, slotPositions[i].x, slotPositions[i].y, slotW, slotH)) {
+        selected = i;
+        return;
+      }
+    }
+    //Something was selected and was used to click on something else.
+    //That must be handled appropriately.
+    //For now, just deselect:
+    selected = -1;
+  }
+
+  public void mouseMoved() {
+    if (hoverOptim) {
+      hoverOptim = false;
+      for (int i = 0; i < slots; i++) {
+        if (pointInRect(mouse.x, mouse.y, slotPositions[i].x, slotPositions[i].y, slotW, slotH)) {
+          hovered = i;
+          return;
+        }
+      }
+      hovered = -1;
+    }
   }
 
   public void keyPressed() {
