@@ -1,0 +1,2 @@
+class TaskSweep extends Task {
+}
