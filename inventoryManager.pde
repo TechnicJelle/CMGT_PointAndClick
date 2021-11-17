@@ -40,8 +40,29 @@ class InventoryManager {
     }
     if (collectables.size() > 0) {
       for (int j = 0; j < collectables.size(); j++) {
+        if(j != keyPressed())
+        {
         canvas.image(collectables.get(j).image, gwidth - x, (gheight - y) - y * j, x, y);
+        }
+        else
+        {
+        canvas.image(collectables.get(j).image, mouse.x, mouse.y, x, y);
+        }
       }
     }
+  }
+  
+  public int keyPressed()
+  {
+    int a = -1;
+    if(key == '1')
+    a = 0;
+    if(key == '2')
+    a = 1;
+    if(key == '3')
+    a = 2;
+    if(key == '4')
+    a = 3;
+    return a;
   }
 }
