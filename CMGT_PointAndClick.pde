@@ -141,7 +141,9 @@ void draw()
   canvas.beginDraw();
   sceneManager.getCurrentScene().draw();
   sceneManager.getCurrentScene().updateScene();
-  inventoryManager.draw();
+
+  if (!(sceneManager.getCurrentScene() instanceof Task))
+    inventoryManager.draw();
 
   canvas.stroke(255, 0, 0);
   canvas.strokeWeight(5);
