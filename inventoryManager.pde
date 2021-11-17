@@ -41,6 +41,11 @@ class InventoryManager {
     return false;
   }
 
+  public boolean isSelected(Collectable collectable) {
+    if (selected == -1) return false;
+    return collectables[selected] == collectable;
+  }
+
   public void removeCollectable(Collectable collectable) throws Exception {
     for (int i = 0; i < slots; i++) {
       if (collectables[i] == collectable) {
@@ -70,7 +75,7 @@ class InventoryManager {
     }
 
     if (selected != -1 && collectables[selected] != null) {
-      canvas.image(collectables[selected].image, mouse.x, mouse.y);
+      canvas.image(collectables[selected].image, mouse.x-collectables[selected].image.width, mouse.y-collectables[selected].image.height);
     }
   }
 

@@ -20,6 +20,9 @@ void settings() {
 
 void setup() {
   canvas = createGraphics(gwidth, gheight);
+  canvas.beginDraw();
+  canvas.textSize(10);
+  //canvas.textFont(createFont("fonts/BothWays.ttf", 64));
   fullHD = width == gwidth && height == gheight;
 
   Scene bk2beds  = new Scene("bk2beds", "rooms/bedroomKids/bk2beds.png");
@@ -38,18 +41,6 @@ void setup() {
   bk1desk.addGameObject(bk2bedsBackArrow);
   bk1desk.addGameObject(hwArrow);
 
-  Scene hallway = new Scene("hallway", "rooms/hallWay/hw.png");
-
-  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2 + 100, gheight/3, "ui/arrowUp.png", true);
-  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "ui/arrowLeft.png", "cupBoard");
-  MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "ui/arrowLeft.png", "bathroom");
-  MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "ui/arrowRight.png", "livingRoomReading");
-
-  hallway.addGameObject(bk1deskBackArrow); 
-  hallway.addGameObject(cupBoardArrow);
-  hallway.addGameObject(br1showerArrow);
-  hallway.addGameObject(livingRoomArrow);
-
   Scene cupBoard = new Scene("cupBoard", "rooms/cupBoard/cb.png");
 
   Collectable broom = new Collectable("broom", "rooms/cupBoard/cbBroomIM.png");
@@ -59,6 +50,23 @@ void setup() {
 
   cupBoard.addGameObject(broomco);
   cupBoard.addGameObject(hallwayBackArrow);
+
+  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png");
+
+  Scene hallway = new Scene("hallway", "rooms/hallWay/hw.png");
+
+  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2 + 100, gheight/3, "ui/arrowUp.png", true);
+  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "ui/arrowLeft.png", "cupBoard");
+  MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "ui/arrowLeft.png", "bathroom");
+  MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "ui/arrowRight.png", "livingRoomReading");
+  MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 1084, 894, "ui/zoomIn.png", "taskSweep");
+  RequireObject startSweep = new RequireObject("startSweep", 1084, 894, "ui/arrowDown.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
+
+  hallway.addGameObject(bk1deskBackArrow);
+  hallway.addGameObject(cupBoardArrow);
+  hallway.addGameObject(br1showerArrow);
+  hallway.addGameObject(livingRoomArrow);
+  hallway.addGameObject(startSweep);
 
   Scene bathroom = new Scene("bathroom", "rooms/bathRoom/br1shower.png");
 
@@ -115,6 +123,7 @@ void setup() {
   sceneManager.addScene(kitchen);
   sceneManager.addScene(livingRoomTV);
   sceneManager.addScene(bedroomParents);
+  sceneManager.addScene(taskSweep);
 
   mouse = screenScale(new PVector(mouseX, mouseY));
 
@@ -124,6 +133,7 @@ void setup() {
   //catch(Exception e) {
   //  println(e);
   //}
+  canvas.endDraw();
 }
 
 void draw()

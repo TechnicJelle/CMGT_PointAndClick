@@ -8,13 +8,13 @@ class TextObject extends GameObject {
     super(identifier, x, y, gameObjectImageFile);
     this.text = text;
     displayText = false;
-    calculateTextArea(); //Automatically calculates the area 
-    //necessary to display the entire text.
+    calculateTextArea(); //Automatically calculates the area necessary to display the entire text.
   }
   @Override
     public void draw() {
     super.draw();
     if (displayText) {
+      canvas.stroke(0);
       canvas.fill(255);
       canvas.rect(this.x, this.y, textWidth + 30, textHeight, 8);
       canvas.fill(0);
@@ -30,7 +30,7 @@ class TextObject extends GameObject {
   }
 
   public void calculateTextArea() {
-    textWidth = textWidth(text);
+    textWidth = canvas.textWidth(text);
     float remaining = textWidth - 300;
     textWidth = (textWidth > 300) ? 300 : textWidth;
     textHeight = 50;
