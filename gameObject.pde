@@ -17,10 +17,8 @@ class GameObject {
     this(identifier, x, y, "");
   }
 
-  public GameObject(String identifier, int x, int y, String gameObjectImageFile) {
+  private void init(String identifier, String gameObjectImageFile) {
     this.identifier = identifier;
-    this.x = x;
-    this.y = y;
     this.hasImage = !gameObjectImageFile.equals(""); 
     if (this.hasImage) {
       this.gameObjectImage = loadImage(gameObjectImageFile);
@@ -31,6 +29,20 @@ class GameObject {
     hasHoverImage = false;
     isQuad = false;
     mouseIsHovering = false;
+  }
+
+  public GameObject(String identifier, int x, int y, String gameObjectImageFile, boolean center) {
+    init(identifier, gameObjectImageFile);
+    if (center) {
+      this.x = x - gameObjectImage.width/2;
+      this.y = y - gameObjectImage.height/2;
+    }
+  }
+
+  public GameObject(String identifier, int x, int y, String gameObjectImageFile) {
+    init(identifier, gameObjectImageFile);
+    this.x = x;
+    this.y = y;
   }
 
   public void setHoverImage(String gameObjectImageHoverFile) throws Exception {
@@ -73,10 +85,14 @@ class GameObject {
   }
 
   public void mouseMoved() {
+    mouseIsHovering = pointInGameObject(mouse);
+  }
+
+  public boolean pointInGameObject(PVector point) {
     if (isQuad) {
-      mouseIsHovering = quad.clickCheck(mouse);
+      return quad.clickCheck(point);
     } else {
-      mouseIsHovering = pointInRect(mouse.x, mouse.y, x, y, owidth, oheight);
+      return pointInRect(point.x, point.y, x, y, owidth, oheight);
     }
   }
 

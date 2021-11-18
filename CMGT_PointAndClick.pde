@@ -15,7 +15,10 @@ Task currentTask = null;
 
 void settings() {
   size(1600, 900);
+  //size(1920, 1080);
   //fullScreen();
+  //smooth(1);
+  //noSmooth();
 }
 
 void setup() {
@@ -51,7 +54,6 @@ void setup() {
   cupBoard.addGameObject(broomco);
   cupBoard.addGameObject(hallwayBackArrow);
 
-  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png");
 
   Scene hallway = new Scene("hallway", "rooms/hallWay/hw.png");
 
@@ -61,6 +63,7 @@ void setup() {
   MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "ui/arrowRight.png", "livingRoomReading");
   MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 1084, 894, "ui/zoomIn.png", "taskSweep");
   RequireObject startSweep = new RequireObject("startSweep", 1084, 894, "ui/arrowDown.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
+  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow);
 
   hallway.addGameObject(bk1deskBackArrow);
   hallway.addGameObject(cupBoardArrow);
@@ -93,11 +96,11 @@ void setup() {
   livingRoomReading.addGameObject(kitchenArrow);
   livingRoomReading.addGameObject(TVArrow);
 
-  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png");
   Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png");
 
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 1074, 572, "ui/zoomIn.png", "taskDish");
+  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow);
 
 
 
@@ -143,7 +146,7 @@ void setup() {
   mouse = screenScale(new PVector(mouseX, mouseY));
 
   //try {
-  //  sceneManager.goToScene("cupBoard");
+  //  sceneManager.goToScene("taskSweep");
   //} 
   //catch(Exception e) {
   //  println(e);
@@ -174,9 +177,9 @@ void draw()
     finalFrame.resize(width, height); //<-- fps killer, but I can't think of a better way to handle this simply
     image(finalFrame, 0, 0);
   }
+  text(frameRate, 10, 10);
   //image(loadImage("rooms/cupBoard/cbBroom2.png"), mouse.x, mouse.y);
 }
-
 void mouseMoved() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
@@ -196,6 +199,23 @@ void keyPressed() {
 
 boolean pointInRect(float px, float py, float x, float y, float w, float h) {
   return px >= x && px <= x + w && py >= y && py <= y + h;
+}
+
+boolean sameSide(PVector p1, PVector p2, PVector a, PVector b) {
+  PVector cp1 = PVector.sub(b, a).cross(PVector.sub(p1, a));
+  PVector cp2 = PVector.sub(b, a).cross(PVector.sub(p2, a));
+  if (cp1.dot(cp2) >= 0)
+    return true;
+  else
+    return false;
+}
+
+boolean pointInTriangle(PVector p, PVector a, PVector b, PVector c) {
+  return sameSide(p, a, b, c) && sameSide(p, b, a, c) && sameSide(p, c, a, b);
+}
+
+boolean pointInQuad(PVector p, PVector a, PVector b, PVector c, PVector d) {
+  return pointInTriangle(p, a, b, c) || pointInTriangle(p, a, c, d);
 }
 
 PVector screenScale(PVector p) {
