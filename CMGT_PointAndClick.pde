@@ -19,9 +19,9 @@ final InventoryManager inventoryManager = new InventoryManager();
 Task currentTask = null;
 
 void settings() {
-  size(1600, 900);
+  //size(1600, 900);
   //size(1920, 1080);
-  //fullScreen();
+  fullScreen();
   //smooth(1);
   //noSmooth();
 }
