@@ -19,8 +19,11 @@ class TaskSweep extends Task {
 
 
   void setup() {
-    size = int(random(60, 120));
-    //size = 1;
+    if (debugMode) {
+      size = 2;
+    } else {
+      size = int(random(60, 120));
+    }
     trashPos = new PVector[size];
     trashVel = new PVector[size];
     trashAcc = new PVector[size];

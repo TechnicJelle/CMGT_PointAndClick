@@ -1,10 +1,15 @@
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 PGraphics canvas;
 boolean fullHD;
 PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewindow size)
 int gwidth = 1920;
 int gheight = 1080;
 
-boolean debugMode = true;
+boolean debugMode = false;
+boolean analytics = true;
+Table table;
 
 PVector mouse;
 
@@ -22,6 +27,15 @@ void settings() {
 }
 
 void setup() {
+  if (analytics) {
+    table = new Table();
+
+    table.addColumn("millis");
+    table.addColumn("action");
+    table.addColumn("mouse.x");
+    table.addColumn("mouse.y");
+  }
+
   canvas = createGraphics(gwidth, gheight);
   canvas.beginDraw();
   canvas.textSize(10);
@@ -110,7 +124,6 @@ void setup() {
   CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
 
   RequireObject startDish = new RequireObject("startDish", 1074, 572, "ui/arrowUp.png", "You need a sponge first!", sponge, (GameObject)startDishArrow);
- 
 
   kitchen.addGameObject(readingLRBackArrow);
   kitchen.addGameObject(spongeco);
@@ -179,9 +192,23 @@ void draw()
     finalFrame.resize(width, height); //<-- fps killer, but I can't think of a better way to handle this simply
     image(finalFrame, 0, 0);
   }
-  text(frameRate, 10, 10);
+  if (debugMode) text(frameRate, 10, 10);
   //image(loadImage("rooms/cupBoard/cbBroom2.png"), mouse.x, mouse.y);
+  if (analytics && frameCount % 30 == 0) analyticRecord("mousePosition");
 }
+
+void exit() {
+  println("exiting");
+  if (analytics) {
+    analyticRecord("exit");
+    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+    Date now = new Date();
+    String strDate = sdfDate.format(now);
+    saveTable(table, "analytics/" + strDate + ".csv");
+  }
+  super.exit();
+}
+
 void mouseMoved() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
@@ -193,10 +220,20 @@ void mouseReleased() {
   sceneManager.getCurrentScene().mouseClicked();
   inventoryManager.mouseClicked();
   if (debugMode) println("new PVector(" + mouse.x + ", " + mouse.y + ");");
+  if (analytics) analyticRecord("mouseReleased");
 }
 
 void keyPressed() {
   inventoryManager.keyPressed();
+  if (analytics) analyticRecord(String.valueOf(key));
+}
+
+void analyticRecord(String action) {
+  TableRow newRow = table.addRow();
+  newRow.setInt("millis", millis());
+  newRow.setString("action", action);
+  newRow.setFloat("mouse.x", mouse.x);
+  newRow.setFloat("mouse.y", mouse.y);
 }
 
 boolean pointInRect(float px, float py, float x, float y, float w, float h) {
