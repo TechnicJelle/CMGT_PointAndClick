@@ -93,11 +93,25 @@ void setup() {
   livingRoomReading.addGameObject(kitchenArrow);
   livingRoomReading.addGameObject(TVArrow);
 
+  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png");
   Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png");
 
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
+  MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 1074, 572, "ui/zoomIn.png", "taskDish");
+
+
+
+
+  Collectable sponge = new Collectable("sponge", "rooms/livingRoom/Sponge.png");
+  CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
+
+  RequireObject startDish = new RequireObject("startDish", 1074, 572, "ui/arrowUp.png", "You need a sponge first!", sponge, (GameObject)startDishArrow);
 
   kitchen.addGameObject(readingLRBackArrow);
+  kitchen.addGameObject(spongeco);
+  kitchen.addGameObject(startDish);
+
+
   Scene livingRoomTV = new Scene("LivingRoomTV", "rooms/livingRoom/lr3tv.png");
 
   MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", 0, gheight /2, "ui/arrowLeft.png", true);
@@ -124,6 +138,7 @@ void setup() {
   sceneManager.addScene(livingRoomTV);
   sceneManager.addScene(bedroomParents);
   sceneManager.addScene(taskSweep);
+  sceneManager.addScene(taskDish);
 
   mouse = screenScale(new PVector(mouseX, mouseY));
 
