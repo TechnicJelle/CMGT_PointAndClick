@@ -7,8 +7,8 @@ PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewin
 int gwidth = 1920;
 int gheight = 1080;
 
-boolean debugMode = true;
-boolean analytics = false;
+boolean debugMode = false;
+boolean analytics = true;
 Table table;
 
 PVector mouse;
@@ -42,7 +42,7 @@ void setup() {
   //canvas.textFont(createFont("fonts/BothWays.ttf", 64));
   fullHD = width == gwidth && height == gheight;
 
-  Scene bk2beds  = new Scene("bk2beds", "rooms/bedroomKids/bk2beds.png");
+  Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
 
@@ -212,6 +212,12 @@ void exit() {
 }
 
 void mouseMoved() {
+  mouse = screenScale(new PVector(mouseX, mouseY));
+  sceneManager.getCurrentScene().mouseMoved();
+  inventoryManager.mouseMoved();
+}
+
+void mouseDragged() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
   inventoryManager.mouseMoved();
