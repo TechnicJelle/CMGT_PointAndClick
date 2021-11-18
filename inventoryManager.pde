@@ -75,7 +75,7 @@ class InventoryManager {
     }
 
     if (selected != -1 && collectables[selected] != null) {
-      canvas.image(collectables[selected].image, mouse.x-collectables[selected].image.width, mouse.y-collectables[selected].image.height);
+      canvas.image(collectables[selected].image, mouse.x-collectables[selected].image.width/2, mouse.y-collectables[selected].image.height/2);
     }
   }
 

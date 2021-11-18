@@ -7,8 +7,8 @@ PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewin
 int gwidth = 1920;
 int gheight = 1080;
 
-boolean debugMode = false;
-boolean analytics = true;
+boolean debugMode = true;
+boolean analytics = false;
 Table table;
 
 PVector mouse;
@@ -49,7 +49,7 @@ void setup() {
   bk2beds.addGameObject(bk1deskArrow);
 
 
-  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/bk1desk.png");
+  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDeskPosters.png");
 
   MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, "ui/arrowLeft.png", "hallway");
@@ -60,7 +60,7 @@ void setup() {
 
   Scene cupBoard = new Scene("cupBoard", "rooms/cupBoard/cb.png");
 
-  Collectable broom = new Collectable("broom", "rooms/cupBoard/cbBroomIM.png");
+  Collectable broom = new Collectable("broom", "collectables/Broom.png");
   CollectableObject broomco = new CollectableObject("broomco", 436, 90, "rooms/cupBoard/cbBroom2.png", broom);
 
   MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 100, "ui/arrowDown.png", true);
@@ -77,7 +77,7 @@ void setup() {
   MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "ui/arrowRight.png", "livingRoomReading");
   MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 1084, 894, "ui/zoomIn.png", "taskSweep");
   RequireObject startSweep = new RequireObject("startSweep", 1084, 894, "ui/arrowDown.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
-  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow);
+  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/BroomBackground.png", startSweepArrow);
 
   hallway.addGameObject(bk1deskBackArrow);
   hallway.addGameObject(cupBoardArrow);
@@ -120,7 +120,7 @@ void setup() {
 
 
 
-  Collectable sponge = new Collectable("sponge", "rooms/livingRoom/Sponge.png");
+  Collectable sponge = new Collectable("sponge", "collectables/Sponge.png");
   CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
 
   RequireObject startDish = new RequireObject("startDish", 1074, 572, "ui/arrowUp.png", "You need a sponge first!", sponge, (GameObject)startDishArrow);
@@ -161,7 +161,7 @@ void setup() {
   mouse = screenScale(new PVector(mouseX, mouseY));
 
   //try {
-  //  sceneManager.goToScene("taskSweep");
+  //  sceneManager.goToScene("taskDish");
   //} 
   //catch(Exception e) {
   //  println(e);
@@ -178,9 +178,11 @@ void draw()
   if (!(sceneManager.getCurrentScene() instanceof Task))
     inventoryManager.draw();
 
-  canvas.stroke(255, 0, 0);
-  canvas.strokeWeight(5);
-  canvas.point(mouse.x, mouse.y);
+  if (debugMode) {
+    canvas.stroke(255, 0, 0);
+    canvas.strokeWeight(5);
+    canvas.point(mouse.x, mouse.y);
+  }
 
 
   canvas.endDraw();

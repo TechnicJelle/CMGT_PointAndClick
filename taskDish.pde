@@ -6,10 +6,11 @@ class TaskDish extends Task {
 
 
 
-  PImage sponge;
+  PImage spongeCursor;
+  PImage spongeClick;
   PImage dishes;
 
-  PImage[] dryingRag;
+  PImage[] dryingRack;
   PImage plate;
 
   PImage[] stains;
@@ -30,15 +31,13 @@ class TaskDish extends Task {
   int[] randomStains;
 
 
-  void setup()
-  {
-    //fullScreen();
+  void setup() {
+    spongeCursor = loadImage("tasks/dishes/SpongeCursor.png");
+    spongeClick = loadImage("tasks/dishes/SpongeClick.png");
 
-
-    sponge = loadImage("rooms/livingRoom/Sponge" + ".png");
     dishes = loadImage("tasks/dishes/DirtyDishes.png");
-    dryingRag = new PImage[] {loadImage("tasks/dishes/DryingRagBase.png"), loadImage("tasks/dishes/DryingRag1.png"), loadImage("tasks/dishes/DryingRag2.png"), 
-      loadImage("tasks/dishes/DryingRag3.png"), loadImage("tasks/dishes/DryingRag4.png"), loadImage("tasks/dishes/DryingRag5.png")};
+    dryingRack = new PImage[] {loadImage("tasks/dishes/DryingRackBase.png"), loadImage("tasks/dishes/DryingRack1.png"), loadImage("tasks/dishes/DryingRack2.png"), 
+      loadImage("tasks/dishes/DryingRack3.png"), loadImage("tasks/dishes/DryingRack4.png"), loadImage("tasks/dishes/DryingRack5.png")};
     plate = loadImage("tasks/dishes/PlateBase.png");
     stains = new PImage[] {loadImage("tasks/dishes/Stain1.png"), loadImage("tasks/dishes/Stain2.png"), loadImage("tasks/dishes/Stain3.png"), 
       loadImage("tasks/dishes/Stain4.png"), loadImage("tasks/dishes/Stain5.png")};
@@ -63,14 +62,12 @@ class TaskDish extends Task {
       sceneManager.getCurrentScene().removeGameObject(sceneStarter);
     }
 
-    canvas.image(sponge, mouse.x - sponge.width/2, mouse.y - sponge.height/2);
-
 
     canvas.image(backgroundImage, 0, 0);
 
     canvas.pushMatrix();
     canvas.image(dishes, 1570, 573);
-    canvas.image(dryingRag[cleanPlates], 266, 543);
+    canvas.image(dryingRack[cleanPlates], 266, 543);
     canvas.popMatrix();
 
     if (hasADishToClean)
@@ -88,7 +85,7 @@ class TaskDish extends Task {
             canvas.image(stains[randomStains[i]], dirt[i].x, dirt[i].y);
         }
     }
-    canvas.image(sponge, mouse.x - sponge.width/2, mouse.y - sponge.height/2);
+    canvas.image(dist(mouse.x, mouse.y, 1001, 621) < 280 && hasADishToClean ? spongeClick : spongeCursor, mouse.x - spongeCursor.width/2, mouse.y - spongeCursor.height/2);
   }
 
   void mouseMoved()
@@ -101,7 +98,7 @@ class TaskDish extends Task {
     {
       isMouseOver = false;
     }
-    if (mouse.x > 266 && mouse.x < 266 + dryingRag[cleanPlates].width && mouse.y > 543 && mouse.y < 543 + dryingRag[cleanPlates].height)
+    if (mouse.x > 266 && mouse.x < 266 + dryingRack[cleanPlates].width && mouse.y > 543 && mouse.y < 543 + dryingRack[cleanPlates].height)
     {
       isMouseOver2 = true;
     } else

@@ -4,44 +4,58 @@ class TaskSweep extends Task {
     super(sceneName, backgroundImageFile, sceneStarter);
   }
 
+  PImage[] trashImgs;
+
+  int size;
   PVector[] trashPos;
   PVector[] trashVel;
   PVector[] trashAcc;
-  float[] trashSize;
+  int[] trashImg;
   boolean[] trashDone;
 
-  int size;
+
 
   GameObject curable;
 
   PVector broomCenter;
   Quad broomHitBox;
 
+  PImage broomCursor;
+
 
   void setup() {
+    trashImgs = new PImage[4];
+    trashImgs[0] = loadImage("tasks/sweep/JunkChips1.png");
+    trashImgs[1] = loadImage("tasks/sweep/JunkChips2.png");
+    trashImgs[2] = loadImage("tasks/sweep/JunkPopcorn1.png");
+    trashImgs[3] = loadImage("tasks/sweep/JunkPopcorn2.png");
+
     if (debugMode) {
-      size = 2;
+      size = 10;
     } else {
       size = int(random(60, 120));
     }
     trashPos = new PVector[size];
     trashVel = new PVector[size];
     trashAcc = new PVector[size];
-    trashSize = new float[size];
+    trashImg = new int[size];
     trashDone = new boolean[size];
 
     for (int i = 0; i < size; i++) {
       trashPos[i] = new PVector(random(gwidth), random(gheight));
       trashVel[i] = PVector.random2D();
       trashAcc[i] = new PVector(0, 0);
-      trashSize[i] = random(12, 24);
+      trashImg[i] = int(random(trashImgs.length));
       trashDone[i] = false;
     }
+
     broomCenter = new PVector(0, 0);
     PVector broomSize = new PVector(200, 70);
     broomHitBox = new Quad(broomCenter, broomSize);
-    curable = new GameObject("curable", gwidth-100, gheight/2, "tasks/sweep/curable.png", true);
-    curable.setQuad(1729.2, 453.6, 1863.6, 478.8, 1857.6, 596.4, 1726.8, 630.0);
+    curable = new GameObject("curable", gwidth-100, gheight/2, "tasks/sweep/Curable.png", true);
+    curable.setQuad(1647.6, 415.2, 1821.6, 470.4, 1822.8, 610.8, 1648.8, 672.0);
+
+    broomCursor = loadImage("tasks/sweep/BroomCursor.png");
   }
 
   void draw() {
@@ -93,37 +107,45 @@ class TaskSweep extends Task {
         pos.add(vel);
         acc.mult(0);
       }
-      canvas.stroke(0);
-      canvas.strokeWeight(2);
-      canvas.fill(255);
-      canvas.circle(trashPos[i].x, trashPos[i].y, trashSize[i]);
+      if (debugMode) {
+        canvas.stroke(0);
+        canvas.strokeWeight(2);
+        canvas.fill(255);
+        canvas.circle(trashPos[i].x, trashPos[i].y, 50);
+      }
+      canvas.pushStyle();
+      canvas.imageMode(CENTER);
+      canvas.image(trashImgs[trashImg[i]], trashPos[i].x, trashPos[i].y);
+      canvas.popStyle();
     }
 
     //canvas.stroke(255, 0, 0);
     //canvas.strokeWeight(5);
     //line(broom.x, broom.y, broom.x + diff.x, broom.y + diff.y);
 
-    canvas.stroke(0);
-    canvas.stroke(0);
-    canvas.strokeWeight(2);
-    canvas.fill(255);
-    broomHitBox.draw();
-    //broomHitBox.drawDebug(color(255, 0, 0));
+    if (debugMode) {
+      canvas.stroke(0);
+      canvas.strokeWeight(2);
+      canvas.fill(255);
+      broomHitBox.draw();
+      broomHitBox.drawDebug(color(255, 0, 0));
+    }
 
     if (allDone) {
       sceneManager.goToPreviousScene();
       sceneManager.getCurrentScene().removeGameObject(sceneStarter);
     }
 
-    //canvas.pushMatrix();
-    //canvas.translate(broomCenter.x, broomCenter.y);
-    //canvas.rotate(diff.heading() + HALF_PI);
-    //canvas.translate(-100, 0);
+    canvas.pushMatrix();
+    canvas.translate(broomCenter.x, broomCenter.y);
+    canvas.rotate(diff.heading() + HALF_PI);
+    canvas.translate(-100, 0);
     //canvas.stroke(0);
     //canvas.strokeWeight(2);
     //canvas.fill(255);
     //canvas.rect(0, 0, 200, 70);
-    //canvas.popMatrix();
+    canvas.image(broomCursor, 0, 0);
+    canvas.popMatrix();
 
     broomHitBox.popMatrix();
   }
