@@ -96,6 +96,7 @@ void setup() {
   livingRoomReading.addGameObject(kitchenArrow);
   livingRoomReading.addGameObject(TVArrow);
 
+
   Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png");
 
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
@@ -109,6 +110,7 @@ void setup() {
   CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
 
   RequireObject startDish = new RequireObject("startDish", 1074, 572, "ui/arrowUp.png", "You need a sponge first!", sponge, (GameObject)startDishArrow);
+ 
 
   kitchen.addGameObject(readingLRBackArrow);
   kitchen.addGameObject(spongeco);
