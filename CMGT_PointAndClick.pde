@@ -69,7 +69,7 @@ void setup() {
   cupBoard.addGameObject(hallwayBackArrow);
 
 
-  Scene hallway = new Scene("hallway", "rooms/hallWay/hw.png");
+  Scene hallway = new Scene("hallway", "rooms/hallWay/hw1.png");
 
   MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2 + 100, gheight/3, "ui/arrowUp.png", true);
   MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "ui/arrowLeft.png", "cupBoard");
