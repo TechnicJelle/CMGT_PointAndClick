@@ -52,7 +52,7 @@ class TaskSweep extends Task {
     broomCenter = new PVector(0, 0);
     PVector broomSize = new PVector(200, 70);
     broomHitBox = new Quad(broomCenter, broomSize);
-    curable = new GameObject("curable", gwidth-00, gheight/2, "tasks/sweep/CurableFullSize.png", true);
+    curable = new GameObject("curable", gwidth, gheight/2, "tasks/sweep/CurableFullSize.png", true);
     curable.setQuad(1684.8, 355.2, 1920, 412.8, 1920, 650, 1689.6, 715.2);
 
     broomCursor = loadImage("tasks/sweep/BroomCursor.png");

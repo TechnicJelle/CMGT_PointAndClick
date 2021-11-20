@@ -46,7 +46,9 @@ class Scene {
 
   public void mouseMoved() {
     for (GameObject object : gameObjects) {
-      object.mouseMoved();
+      if (object.mouseMoved()) {
+        //return;
+      }
     }
   }
 

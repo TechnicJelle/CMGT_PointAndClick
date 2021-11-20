@@ -7,7 +7,7 @@ PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewin
 int gwidth = 1920;
 int gheight = 1080;
 
-boolean debugMode = true;
+boolean debugMode = false;
 boolean analytics = false;
 Table table;
 
@@ -61,7 +61,9 @@ void setup() {
   Scene cupBoard = new Scene("cupBoard", "rooms/cupBoard/cb.png");
 
   Collectable broom = new Collectable("broom", "collectables/Broom.png");
-  CollectableObject broomco = new CollectableObject("broomco", 436, 90, "rooms/cupBoard/cbBroom2.png", broom);
+  CollectableObject broomco = new CollectableObject("broomco", 471, 37, "rooms/cupBoard/cbBroom.png", broom);
+  //broomco.generateHoverImage();
+  //broomco.setHoverImage("rooms/cupBoard/cbBroom2outline.png");
 
   MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 100, "ui/arrowDown.png", true);
 
@@ -81,8 +83,6 @@ void setup() {
 
   MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "livingRoomReading");
   livingRoomArrow.setQuad(814.0, 182.0, 865.0, 208.0, 886.0, 627.0, 848.0, 728.0);
-
-
 
   Quad sweepQuad = new Quad(931.2, 496.8, 1062.0, 496.8, 1233.6, 1072.8, 738.0, 1074.0);
   MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 732.5, 493.2, "rooms/hallWay/trashClick.png", "taskSweep");
@@ -124,7 +124,7 @@ void setup() {
   livingRoomReading.addGameObject(TVArrow);
 
 
-  Scene kitchen = new Scene("kitchen", "rooms/livingRoom/LrKitchen.png");
+  Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png");
 
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 1074, 572, "ui/zoomIn.png", "taskDish");
@@ -135,6 +135,7 @@ void setup() {
 
   Collectable sponge = new Collectable("sponge", "collectables/Sponge.png");
   CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
+  //spongeco.generateHoverImage();
 
   RequireObject startDish = new RequireObject("startDish", 1074, 572, "ui/arrowUp.png", "You need a sponge first!", sponge, (GameObject)startDishArrow);
 
@@ -182,8 +183,11 @@ void setup() {
   canvas.endDraw();
 }
 
-void draw()
-{  
+void draw() {
+  if (frameCount % 60 == 0) {
+    mouse = screenScale(new PVector(mouseX, mouseY));
+    sceneManager.getCurrentScene().mouseMoved();
+  }
   canvas.beginDraw();
   sceneManager.getCurrentScene().draw();
   sceneManager.getCurrentScene().updateScene();
@@ -208,7 +212,7 @@ void draw()
     image(finalFrame, 0, 0);
   }
   if (debugMode) text(frameRate, 10, 10);
-  //image(loadImage("rooms/cupBoard/cbBroom2.png"), mouse.x, mouse.y);
+  //image(loadImage("rooms/cupBoard/cbBroom.png"), mouse.x, mouse.y);
   if (analytics && frameCount % 30 == 0) analyticRecord("mousePosition");
 }
 

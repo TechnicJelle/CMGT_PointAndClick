@@ -86,9 +86,6 @@ class InventoryManager {
         return;
       }
     }
-    //Something was selected and was used to click on something else.
-    //That must be handled appropriately.
-    //For now, just deselect:
     selected = -1;
   }
 

@@ -45,14 +45,22 @@ class GameObject {
     this.y = y;
   }
 
-  public void setHoverImage(String gameObjectImageHoverFile) throws Exception {
+  public void generateHoverImage() {
+    PImage newHoverImage = gameObjectImage.copy();
+    newHoverImage.resize(newHoverImage.width+24, 0);
+    newHoverImage.filter(THRESHOLD, 1.0);
+    this.gameObjectImageHover = newHoverImage;
+    hasHoverImage = true;
+  }
+
+  public void setHoverImage(String gameObjectImageHoverFile) /*throws Exception*/ {
     PImage newHoverImage = loadImage(gameObjectImageHoverFile);
-    if (newHoverImage.width == gameObjectImage.width && newHoverImage.height == gameObjectImage.height) {
-      this.gameObjectImageHover = newHoverImage;
-      hasHoverImage = true;
-    } else {
-      throw new Exception("Images were not the same size!");
-    }
+    //if (newHoverImage.width == gameObjectImage.width && newHoverImage.height == gameObjectImage.height) {
+    this.gameObjectImageHover = newHoverImage;
+    hasHoverImage = true;
+    //} else {
+    //  throw new Exception("Images were not the same size!");
+    //}
   }
 
   public void setQuad(Quad q) {
@@ -70,13 +78,37 @@ class GameObject {
   }
 
   public void draw() {
-    if (hasImage) {
-      if (mouseIsHovering && hasHoverImage) {
-        canvas.image(gameObjectImageHover, x, y);
-      } else {
-        canvas.image(gameObjectImage, x, y);
+    //outline ->>
+    canvas.noFill();
+    if (mouseIsHovering) {
+      canvas.stroke(0);
+      canvas.strokeWeight(2);
+    } else {
+      canvas.stroke(0, 100);
+      canvas.strokeWeight(1);
+    }
+
+    if (isQuad) {
+      quad.draw();
+    } else {
+      if (hasHoverImage) {
+        if (mouseIsHovering) canvas.noTint();
+        else canvas.tint(0, 100);
+        canvas.pushStyle();
+        canvas.imageMode(CENTER);
+        canvas.image(gameObjectImageHover, x+gameObjectImage.width/2, y+gameObjectImage.height/2);
+        canvas.popStyle();
+        canvas.noTint();
+      } else if (hasImage) {
+        //canvas.rect(x, y, owidth, oheight);
       }
     }
+    //<-- outline
+
+    if (hasImage) {
+      canvas.image(gameObjectImage, x, y);
+    }
+
     if (debugMode) {
       canvas.stroke(mouseIsHovering ? 255 : debugCol);
       canvas.strokeWeight(1);
@@ -89,8 +121,8 @@ class GameObject {
     }
   }
 
-  public void mouseMoved() {
-    mouseIsHovering = pointInGameObject(mouse);
+  public boolean mouseMoved() {
+    return mouseIsHovering = pointInGameObject(mouse);
   }
 
   public boolean pointInGameObject(PVector point) {
