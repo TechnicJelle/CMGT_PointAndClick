@@ -33,13 +33,6 @@ class Quad {
 
 
   void drawDebug() {
-
-  void drawDebug(color col) {
-    canvas.pushStyle();
-    canvas.stroke(col);
-    canvas.strokeWeight(20);
-    canvas.noFill();
-
     canvas.triangle(a.x, a.y, b.x, b.y, c.x, c.y);
     canvas.triangle(a.x, a.y, c.x, c.y, d.x, d.y);
   }
