@@ -7,7 +7,7 @@ PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewin
 int gwidth = 1920;
 int gheight = 1080;
 
-boolean debugMode = false;
+boolean debugMode = true;
 boolean analytics = true;
 Table table;
 
@@ -52,7 +52,7 @@ void setup() {
   Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDeskPosters.png");
 
   MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
-  MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, "ui/arrowLeft.png", "hallway");
+  MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, "hallway");
   hwArrow.setQuad(61.2, 30.0, 393.6, 97.2, 495.6, 792.0, 280.8, 1026.0);
 
   bk1desk.addGameObject(bk2bedsBackArrow);
@@ -69,14 +69,24 @@ void setup() {
   cupBoard.addGameObject(hallwayBackArrow);
 
 
-  Scene hallway = new Scene("hallway", "rooms/hallWay/hw1.png");
+  Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png");
 
   MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2 + 100, gheight/3, "ui/arrowUp.png", true);
-  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "ui/arrowLeft.png", "cupBoard");
-  MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "ui/arrowLeft.png", "bathroom");
-  MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "ui/arrowRight.png", "livingRoomReading");
+
+  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "cupBoard");
+  cupBoardArrow.setQuad(1263.0, 128.0, 1617.0, 0.0, 1393.0, 1078.0, 1192.0, 910.0);
+
+  MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "bathroom");
+  br1showerArrow.setQuad(1102.0, 222.0, 1133.0, 205.0, 1111.0, 644.0, 1087.0, 569.0);
+
+  MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "livingRoomReading");
+  livingRoomArrow.setQuad(814.0, 182.0, 865.0, 208.0, 886.0, 627.0, 848.0, 728.0);
+
   MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 1084, 894, "ui/zoomIn.png", "taskSweep");
+  
+  
   RequireObject startSweep = new RequireObject("startSweep", 1084, 894, "ui/arrowDown.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
+  
   TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/BroomBackground.png", startSweepArrow);
 
   hallway.addGameObject(bk1deskBackArrow);

@@ -23,6 +23,7 @@ class TaskDish extends Task {
   boolean isMouseOver = false;
   boolean isMouseOver2 = false;
   boolean isPlateClean = true;
+  boolean addedAPlate = true;
 
   int cleanPlates = 0;
 
@@ -136,10 +137,12 @@ class TaskDish extends Task {
       }
       hasADishToClean = true;
       isPlateClean = false;
+      addedAPlate = false;
     }
 
-    if (isMouseOver2 && isPlateClean)
+    if (isMouseOver2 && isPlateClean && !addedAPlate)
     {
+      addedAPlate = true;
       hasADishToClean = false;
       cleanPlates++;
     }

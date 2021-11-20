@@ -32,6 +32,7 @@ class Quad {
     canvas.triangle(a.x, a.y, b.x, b.y, c.x, c.y);
     canvas.triangle(a.x, a.y, c.x, c.y, d.x, d.y);
     canvas.popStyle();
+    println("works");
   }
 
   void pushMatrix() {
