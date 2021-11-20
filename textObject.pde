@@ -4,7 +4,7 @@ class TextObject extends GameObject {
   private float textWidth;
   private float textHeight;
 
-  public TextObject(String identifier, int x, int y, String gameObjectImageFile, String text) {
+  public TextObject(String identifier, float x, float y, String gameObjectImageFile, String text) {
     super(identifier, x, y, gameObjectImageFile);
     this.text = text;
     displayText = false;
@@ -22,11 +22,13 @@ class TextObject extends GameObject {
     }
   }
   @Override
-    public void mouseClicked() {
+    public boolean mouseClicked() {
     displayText = false;
     if (mouseIsHovering) { 
       displayText = true;
+      return true;
     }
+    return false;
   }
 
   public void calculateTextArea() {

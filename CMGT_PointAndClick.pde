@@ -8,7 +8,7 @@ int gwidth = 1920;
 int gheight = 1080;
 
 boolean debugMode = true;
-boolean analytics = true;
+boolean analytics = false;
 Table table;
 
 PVector mouse;
@@ -19,9 +19,9 @@ final InventoryManager inventoryManager = new InventoryManager();
 Task currentTask = null;
 
 void settings() {
-  //size(1600, 900);
+  size(1600, 900);
   //size(1920, 1080);
-  fullScreen();
+  //fullScreen();
   //smooth(1);
   //noSmooth();
 }
@@ -49,7 +49,7 @@ void setup() {
   bk2beds.addGameObject(bk1deskArrow);
 
 
-  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDeskPosters.png");
+  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDesk.png");
 
   MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, "hallway");
@@ -71,10 +71,10 @@ void setup() {
 
   Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png");
 
-  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2 + 100, gheight/3, "ui/arrowUp.png", true);
+  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2, gheight-100, "ui/arrowDown.png", true);
 
   MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "cupBoard");
-  cupBoardArrow.setQuad(1263.0, 128.0, 1617.0, 0.0, 1393.0, 1078.0, 1192.0, 910.0);
+  cupBoardArrow.setQuad(1263.0, 128.0, 1630.0, -85, 1330.0, 1370, 1192.0, 910.0);
 
   MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "bathroom");
   br1showerArrow.setQuad(1102.0, 222.0, 1133.0, 205.0, 1111.0, 644.0, 1087.0, 569.0);
@@ -82,11 +82,14 @@ void setup() {
   MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "livingRoomReading");
   livingRoomArrow.setQuad(814.0, 182.0, 865.0, 208.0, 886.0, 627.0, 848.0, 728.0);
 
-  MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 1084, 894, "ui/zoomIn.png", "taskSweep");
-  
-  
-  RequireObject startSweep = new RequireObject("startSweep", 1084, 894, "ui/arrowDown.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
-  
+
+
+  Quad sweepQuad = new Quad(931.2, 496.8, 1062.0, 496.8, 1233.6, 1072.8, 738.0, 1074.0);
+  MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 732.5, 493.2, "rooms/hallWay/trashClick.png", "taskSweep");
+  startSweepArrow.setQuad(sweepQuad);
+  RequireObject startSweep = new RequireObject("startSweep", 732.5, 493.2, "rooms/hallWay/trash.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
+  startSweep.setQuad(sweepQuad);
+
   TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/BroomBackground.png", startSweepArrow);
 
   hallway.addGameObject(bk1deskBackArrow);
@@ -235,9 +238,9 @@ void mouseDragged() {
 
 void mouseReleased() {
   mouse = screenScale(new PVector(mouseX, mouseY));
+  if (debugMode) println("new PVector(" + mouse.x + ", " + mouse.y + ");");
   sceneManager.getCurrentScene().mouseClicked();
   inventoryManager.mouseClicked();
-  if (debugMode) println("new PVector(" + mouse.x + ", " + mouse.y + ");");
   if (analytics) analyticRecord("mouseReleased");
 }
 

@@ -39,8 +39,8 @@ class Scene {
 
   public void draw() {
     canvas.image(backgroundImage, 0, 0);
-    for (GameObject object : gameObjects) {
-      object.draw();
+    for (int i = gameObjects.size()-1; i >= 0; i--) {
+      gameObjects.get(i).draw();
     }
   }
 
@@ -52,7 +52,12 @@ class Scene {
 
   public void mouseClicked() {
     for (GameObject object : gameObjects) {
-      object.mouseClicked();
+      if (object.mouseClicked()) {
+        if (debugMode) println("C: " + object.identifier);
+        return;
+      } else {
+        if (debugMode) println("L: " + object.identifier);
+      }
     }
   }
 

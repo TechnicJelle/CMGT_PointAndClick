@@ -1,6 +1,6 @@
 class GameObject {
-  protected int x;
-  protected int y;
+  protected float x;
+  protected float y;
   protected int owidth;
   protected int oheight;
   private String identifier;
@@ -13,7 +13,7 @@ class GameObject {
   protected boolean mouseIsHovering;
   private color debugCol;
 
-  public GameObject(String identifier, int x, int y) {
+  public GameObject(String identifier, float x, float y) {
     this(identifier, x, y, "");
   }
 
@@ -24,14 +24,14 @@ class GameObject {
       this.gameObjectImage = loadImage(gameObjectImageFile);
       this.owidth = gameObjectImage.width;
       this.oheight = gameObjectImage.height;
-      this.debugCol = color(random(100, 255), random(100, 255), random(100, 255));
     }
+    this.debugCol = color(random(100, 255), random(100, 255), random(100, 255));
     hasHoverImage = false;
     isQuad = false;
     mouseIsHovering = false;
   }
 
-  public GameObject(String identifier, int x, int y, String gameObjectImageFile, boolean center) {
+  public GameObject(String identifier, float x, float y, String gameObjectImageFile, boolean center) {
     init(identifier, gameObjectImageFile);
     if (center) {
       this.x = x - gameObjectImage.width/2;
@@ -39,7 +39,7 @@ class GameObject {
     }
   }
 
-  public GameObject(String identifier, int x, int y, String gameObjectImageFile) {
+  public GameObject(String identifier, float x, float y, String gameObjectImageFile) {
     init(identifier, gameObjectImageFile);
     this.x = x;
     this.y = y;
@@ -55,13 +55,18 @@ class GameObject {
     }
   }
 
+  public void setQuad(Quad q) {
+    quad = q;
+    isQuad = true;
+  }
+
   public void setQuad(float ax, float ay, float bx, float by, float cx, float cy, float dx, float dy) {
     PVector a = new PVector(ax, ay);
     PVector b = new PVector(bx, by);
     PVector c = new PVector(cx, cy);
     PVector d = new PVector(dx, dy);
-    quad = new Quad(a, b, c, d);
-    isQuad = true;
+    Quad q = new Quad(a, b, c, d);
+    this.setQuad(q);
   }
 
   public void draw() {
@@ -70,16 +75,16 @@ class GameObject {
         canvas.image(gameObjectImageHover, x, y);
       } else {
         canvas.image(gameObjectImage, x, y);
-        if (debugMode) {
-          canvas.stroke(debugCol);
-          canvas.strokeWeight(1);
-          canvas.noFill();
-          if (isQuad) {
-            quad.drawDebug(debugCol);
-          } else {
-            canvas.rect(x, y, owidth, oheight);
-          }
-        }
+      }
+    }
+    if (debugMode) {
+      canvas.stroke(mouseIsHovering ? 255 : debugCol);
+      canvas.strokeWeight(1);
+      canvas.noFill();
+      if (isQuad) {
+        quad.drawDebug();
+      } else {
+        canvas.rect(x, y, owidth, oheight);
       }
     }
   }
@@ -90,13 +95,14 @@ class GameObject {
 
   public boolean pointInGameObject(PVector point) {
     if (isQuad) {
-      return quad.clickCheck(point);
+      return quad.pointCheck(point);
     } else {
       return pointInRect(point.x, point.y, x, y, owidth, oheight);
     }
   }
 
-  public void mouseClicked() {
+  public boolean mouseClicked() {
+    return mouseIsHovering;
   }
 
   public String getIdentifier() {

@@ -3,11 +3,11 @@ class CollectableObject extends GameObject {
   private GameObject replaceWith;
   private boolean willReplaceByAnotherGameObject;
 
-  public CollectableObject(String identifier, int x, int y, String image, Collectable collectable) {
+  public CollectableObject(String identifier, float x, float y, String image, Collectable collectable) {
     this(identifier, x, y, image, collectable, null);
   }
 
-  public CollectableObject(String identifier, int x, int y, String image, Collectable collectable, GameObject replaceWith) {
+  public CollectableObject(String identifier, float x, float y, String image, Collectable collectable, GameObject replaceWith) {
     super(identifier, x, y, image);
     this.collectable = collectable;
     if (replaceWith != null) {
@@ -24,19 +24,21 @@ class CollectableObject extends GameObject {
   }
 
   @Override
-    public void mouseClicked() {
+    public boolean mouseClicked() {
     if (mouseIsHovering) {
       try {
         inventoryManager.addCollectable(collectable);
       }
       catch (Exception e) {
         println(e);
-        return;
+        return true;
       }
       sceneManager.getCurrentScene().removeGameObject(this);
       if (willReplaceByAnotherGameObject) {
         sceneManager.getCurrentScene().addGameObject(replaceWith);
       }
+      return true;
     }
+    return false;
   }
 }

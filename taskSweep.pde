@@ -33,7 +33,8 @@ class TaskSweep extends Task {
     if (debugMode) {
       size = 10;
     } else {
-      size = int(random(60, 120));
+      //size = int(random(60, 120));
+      size = 10;
     }
     trashPos = new PVector[size];
     trashVel = new PVector[size];
@@ -99,7 +100,7 @@ class TaskSweep extends Task {
           vel.y *= -0.9;
         }
 
-        if (broomHitBox.clickCheck(pos))
+        if (broomHitBox.pointCheck(pos))
           acc.add(diff);
 
         vel.mult(0.9);
@@ -128,7 +129,10 @@ class TaskSweep extends Task {
       canvas.strokeWeight(2);
       canvas.fill(255);
       broomHitBox.draw();
-      broomHitBox.drawDebug(color(255, 0, 0));
+      canvas.stroke(255, 0, 0);
+      canvas.strokeWeight(1);
+      canvas.noFill();
+      broomHitBox.drawDebug();
     }
 
     if (allDone) {

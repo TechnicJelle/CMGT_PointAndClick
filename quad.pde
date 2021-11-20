@@ -16,7 +16,14 @@ class Quad {
     d = _d;
   }
 
-  boolean clickCheck(PVector p) {
+  Quad(float ax, float ay, float bx, float by, float cx, float cy, float dx, float dy) {
+    a = new PVector(ax, ay);
+    b = new PVector(bx, by);
+    c = new PVector(cx, cy);
+    d = new PVector(dx, dy);
+  }
+
+  boolean pointCheck(PVector p) {
     return pointInQuad(p, a, b, c, d);
   }
 
@@ -24,15 +31,9 @@ class Quad {
     canvas.quad(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y);
   }
 
-  void drawDebug(color col) {
-    canvas.pushStyle();
-    canvas.stroke(col);
-    canvas.strokeWeight(1);
-    canvas.noFill();
+  void drawDebug() {
     canvas.triangle(a.x, a.y, b.x, b.y, c.x, c.y);
     canvas.triangle(a.x, a.y, c.x, c.y, d.x, d.y);
-    canvas.popStyle();
-    println("works");
   }
 
   void pushMatrix() {
