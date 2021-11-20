@@ -31,10 +31,9 @@ class TaskSweep extends Task {
     trashImgs[3] = loadImage("tasks/sweep/JunkPopcorn2.png");
 
     if (debugMode) {
-      size = 10;
+      size = 50;
     } else {
-      //size = int(random(60, 120));
-      size = 10;
+      size = int(random(30, 50));
     }
     trashPos = new PVector[size];
     trashVel = new PVector[size];
@@ -53,8 +52,8 @@ class TaskSweep extends Task {
     broomCenter = new PVector(0, 0);
     PVector broomSize = new PVector(200, 70);
     broomHitBox = new Quad(broomCenter, broomSize);
-    curable = new GameObject("curable", gwidth-100, gheight/2, "tasks/sweep/Curable.png", true);
-    curable.setQuad(1647.6, 415.2, 1821.6, 470.4, 1822.8, 610.8, 1648.8, 672.0);
+    curable = new GameObject("curable", gwidth-00, gheight/2, "tasks/sweep/CurableFullSize.png", true);
+    curable.setQuad(1684.8, 355.2, 1920, 412.8, 1920, 650, 1689.6, 715.2);
 
     broomCursor = loadImage("tasks/sweep/BroomCursor.png");
   }

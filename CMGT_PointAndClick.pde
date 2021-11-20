@@ -90,7 +90,7 @@ void setup() {
   RequireObject startSweep = new RequireObject("startSweep", 732.5, 493.2, "rooms/hallWay/trash.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
   startSweep.setQuad(sweepQuad);
 
-  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/BroomBackground.png", startSweepArrow);
+  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow);
 
   hallway.addGameObject(bk1deskBackArrow);
   hallway.addGameObject(cupBoardArrow);
