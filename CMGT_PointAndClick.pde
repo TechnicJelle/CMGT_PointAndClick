@@ -124,7 +124,7 @@ void setup() {
   livingRoomReading.addGameObject(TVArrow);
 
 
-  Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png");
+  Scene kitchen = new Scene("kitchen", "rooms/livingRoom/LrKitchen.png");
 
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 1074, 572, "ui/zoomIn.png", "taskDish");
