@@ -21,7 +21,7 @@ TaskTracker taskTracker;
 void settings() {
   //size(1600, 900);
   //size(1920, 1080);
-  fullScreen();
+  fullScreen(P2D);
   //smooth(1);
   //noSmooth();
 }
@@ -36,7 +36,7 @@ void setup() {
     table.addColumn("mouse.y");
   }
 
-  canvas = createGraphics(gwidth, gheight);
+  canvas = createGraphics(gwidth, gheight, P2D);
   canvas.beginDraw();
   canvas.textSize(10);
   //canvas.textFont(createFont("fonts/BothWays.ttf", 64));
@@ -215,9 +215,8 @@ void draw() {
   if (fullHD) {
     image(canvas, 0, 0);
   } else {
-    finalFrame = canvas.get();
-    finalFrame.resize(width, height); //<-- fps killer, but I can't think of a better way to handle this simply
-    image(finalFrame, 0, 0);
+    //Thanks to hamoid at https://discourse.processing.org/t/faster-pimage-resizing/33593/16 for helping make this way faster!
+    image(canvas, 0, 0, width, height);
   }
   if (debugMode) text(frameRate, 10, 10);
   //image(loadImage("rooms/cupBoard/cbBroom.png"), mouse.x, mouse.y);
