@@ -13,8 +13,6 @@ class TaskSweep extends Task {
   int[] trashImg;
   boolean[] trashDone;
 
-
-
   GameObject curable;
 
   PVector broomCenter;
@@ -24,6 +22,7 @@ class TaskSweep extends Task {
 
 
   void setup() {
+    cursor(ARROW);
     trashImgs = new PImage[4];
     trashImgs[0] = loadImage("tasks/sweep/JunkChips1.png");
     trashImgs[1] = loadImage("tasks/sweep/JunkChips2.png");
@@ -60,7 +59,7 @@ class TaskSweep extends Task {
 
   void draw() {
     canvas.image(backgroundImage, 0, 0);
-    curable.draw();
+    curable.draw(false);
 
     PVector diff = PVector.sub(mouse, broomCenter).mult(0.1f);
     broomCenter.add(diff);

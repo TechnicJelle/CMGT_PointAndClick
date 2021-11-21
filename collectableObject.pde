@@ -19,8 +19,8 @@ class CollectableObject extends GameObject {
   }
 
   @Override
-    public void draw() {
-    super.draw();
+    public void draw(boolean drawOutline) {
+    super.draw(drawOutline);
   }
 
   @Override

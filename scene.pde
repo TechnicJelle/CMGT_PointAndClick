@@ -40,16 +40,22 @@ class Scene {
   public void draw() {
     canvas.image(backgroundImage, 0, 0);
     for (int i = gameObjects.size()-1; i >= 0; i--) {
-      gameObjects.get(i).draw();
+      gameObjects.get(i).draw(true);
     }
   }
 
   public void mouseMoved() {
+    boolean hand = false;
     for (GameObject object : gameObjects) {
       if (object.mouseMoved()) {
         //return;
+        hand = true;
       }
     }
+    if (hand)
+      cursor(HAND);
+    else
+      cursor(ARROW);
   }
 
   public void mouseClicked() {

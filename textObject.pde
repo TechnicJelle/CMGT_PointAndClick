@@ -11,8 +11,8 @@ class TextObject extends GameObject {
     calculateTextArea(); //Automatically calculates the area necessary to display the entire text.
   }
   @Override
-    public void draw() {
-    super.draw();
+    public void draw(boolean drawOutline) {
+    super.draw(drawOutline);
     if (displayText) {
       canvas.stroke(0);
       canvas.fill(255);

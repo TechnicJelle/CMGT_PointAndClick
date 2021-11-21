@@ -77,19 +77,20 @@ class GameObject {
     this.setQuad(q);
   }
 
-  public void draw() {
-    //outline ->>
-    canvas.noFill();
-    if (mouseIsHovering) {
-      canvas.stroke(0);
-      canvas.strokeWeight(2);
-    } else {
-      canvas.stroke(0, 100);
-      canvas.strokeWeight(1);
+  public void draw(boolean drawOutline) {
+    if (drawOutline) {
+      canvas.noFill();
+      if (mouseIsHovering) {
+        canvas.stroke(0);
+        canvas.strokeWeight(2);
+      } else {
+        canvas.stroke(0, 100);
+        canvas.strokeWeight(1);
+      }
     }
 
     if (isQuad) {
-      quad.draw();
+      if (drawOutline) quad.draw();
     } else {
       if (hasHoverImage) {
         if (mouseIsHovering) canvas.noTint();
@@ -103,7 +104,6 @@ class GameObject {
         //canvas.rect(x, y, owidth, oheight);
       }
     }
-    //<-- outline
 
     if (hasImage) {
       canvas.image(gameObjectImage, x, y);

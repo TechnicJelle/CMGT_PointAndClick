@@ -33,6 +33,7 @@ class TaskDish extends Task {
 
 
   void setup() {
+    noCursor();
     spongeCursor = loadImage("tasks/dishes/SpongeCursor.png");
     spongeClick = loadImage("tasks/dishes/SpongeClick.png");
 
@@ -61,6 +62,7 @@ class TaskDish extends Task {
     {
       sceneManager.goToPreviousScene();
       sceneManager.getCurrentScene().removeGameObject(sceneStarter);
+      cursor(ARROW);
     }
 
 

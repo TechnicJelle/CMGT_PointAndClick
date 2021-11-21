@@ -16,12 +16,12 @@ PVector mouse;
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 
-Task currentTask = null;
+TaskTracker taskTracker;
 
 void settings() {
-  size(1600, 900);
+  //size(1600, 900);
   //size(1920, 1080);
-  //fullScreen();
+  fullScreen();
   //smooth(1);
   //noSmooth();
 }
@@ -41,6 +41,8 @@ void setup() {
   canvas.textSize(10);
   //canvas.textFont(createFont("fonts/BothWays.ttf", 64));
   fullHD = width == gwidth && height == gheight;
+
+  taskTracker = new TaskTracker();
 
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png");
 
@@ -183,7 +185,12 @@ void setup() {
   canvas.endDraw();
 }
 
+int millisAtLastLog = 0;
 void draw() {
+  if (debugMode && millis() - millisAtLastLog > 5000) {
+    millisAtLastLog = millis();
+    println("fps: " + frameRate);
+  }
   if (frameCount % 60 == 0) {
     mouse = screenScale(new PVector(mouseX, mouseY));
     sceneManager.getCurrentScene().mouseMoved();
@@ -192,15 +199,16 @@ void draw() {
   sceneManager.getCurrentScene().draw();
   sceneManager.getCurrentScene().updateScene();
 
-  if (!(sceneManager.getCurrentScene() instanceof Task))
+  if (!(sceneManager.getCurrentScene() instanceof Task)) {
     inventoryManager.draw();
+    taskTracker.draw();
+  }
 
   if (debugMode) {
     canvas.stroke(255, 0, 0);
     canvas.strokeWeight(5);
     canvas.point(mouse.x, mouse.y);
   }
-
 
   canvas.endDraw();
 
@@ -232,12 +240,14 @@ void mouseMoved() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
   inventoryManager.mouseMoved();
+  taskTracker.mouseMoved();
 }
 
 void mouseDragged() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
   inventoryManager.mouseMoved();
+  taskTracker.mouseMoved();
 }
 
 void mouseReleased() {
@@ -245,10 +255,12 @@ void mouseReleased() {
   if (debugMode) println("new PVector(" + mouse.x + ", " + mouse.y + ");");
   sceneManager.getCurrentScene().mouseClicked();
   inventoryManager.mouseClicked();
+  taskTracker.mouseClicked();
   if (analytics) analyticRecord("mouseReleased");
 }
 
 void keyPressed() {
+  if (key == 'd') debugMode = !debugMode;
   inventoryManager.keyPressed();
   if (analytics) analyticRecord(String.valueOf(key));
 }
