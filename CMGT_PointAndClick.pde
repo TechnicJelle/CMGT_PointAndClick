@@ -7,14 +7,14 @@ PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewin
 int gwidth = 1920;
 int gheight = 1080;
 
-boolean debugMode = false;
+boolean debugMode = true;
 boolean analytics = false;
 Table table;
 
 PVector mouse;
 
-final SceneManager sceneManager = new SceneManager();
-final InventoryManager inventoryManager = new InventoryManager();
+SceneManager sceneManager;
+InventoryManager inventoryManager;
 
 TaskTracker taskTracker;
 
@@ -22,9 +22,9 @@ PFont bothways;
 int fontSize = 48;
 
 void settings() {
-  //size(1600, 900, P2D);
+  size(1600, 900, P2D);
   //size(1920, 1080, P2D);
-  fullScreen(P2D);
+  //fullScreen(P2D);
   //smooth(1);
   //noSmooth();
 }
@@ -39,6 +39,10 @@ void setup() {
     table.addColumn("mouse.y");
   }
 
+  sceneManager = new SceneManager();
+  inventoryManager = new InventoryManager();
+  taskTracker = new TaskTracker();
+
   canvas = createGraphics(gwidth, gheight, P2D);
   canvas.beginDraw();
 
@@ -47,15 +51,32 @@ void setup() {
 
   fullHD = width == gwidth && height == gheight;
 
-  taskTracker = new TaskTracker();
-
+  //bedroom kids 2: beds -->
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
+  
+  /* this is how you add trash:
+  TrashObject trashX = new TrashObject("trashX",Xpos,Ypos, "trash/image_name_in_the_data/trash_directory.png");
+  TrashObject trash1 = new TrashObject("trash1", 500, 500, "trash/Cup4.png");
+  TrashObject trash2 = new TrashObject("trash2", 500, 600, "trash/Cup5(Slightly_edited).png");
+  TrashObject trash3 = new TrashObject("trash3", 500, 700, "trash/ChipsBag.png");
+  TrashObject trash4 = new TrashObject("trash4", 600, 500, "trash/Sock1.png");
+  TrashObject trash5 = new TrashObject("trash5", 700, 500, "trash/Sock2.png");
+  
+  //then add them to the correct scene
+  bk2beds.addTrash(trash1);
+  bk2beds.addTrash(trash2);
+  bk2beds.addTrash(trash3);
+  bk2beds.addTrash(trash4);
+  bk2beds.addTrash(trash5);
+  */
 
   bk2beds.addGameObject(bk1deskArrow);
+  //<-- bedroom kids 2: beds
 
 
+  //bedroom kids 1: desk -->
   Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDesk.png", "ui/minimap/Bedroom_Kids_2.png");
 
   MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
@@ -64,7 +85,9 @@ void setup() {
 
   bk1desk.addGameObject(bk2bedsBackArrow);
   bk1desk.addGameObject(hwArrow);
+  //<-- bedroom kids 1: desk
 
+  //cupboard -->
   Scene cupBoard = new Scene("cupBoard", "rooms/cupBoard/cb.png", "ui/minimap/Closet.png");
 
   Collectable broom = new Collectable("broom", "collectables/Broom.png");
@@ -76,8 +99,9 @@ void setup() {
 
   cupBoard.addGameObject(broomco);
   cupBoard.addGameObject(hallwayBackArrow);
+  //<-- cupboard
 
-
+  //hallway -->
   Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png", "ui/minimap/Hallway.png");
 
   MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2, gheight-100, "ui/arrowDown.png", true);
@@ -99,12 +123,27 @@ void setup() {
 
   TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow, null, "Sweep the hallway");
 
-  hallway.addGameObject(bk1deskBackArrow);
-  hallway.addGameObject(startSweep);
-  hallway.addGameObject(cupBoardArrow);
-  hallway.addGameObject(br1showerArrow);
-  hallway.addGameObject(livingRoomArrow);
+  GameObject doorOutside = new GameObject("doorOutside", 500, 100) {
+    public boolean mouseClicked() {
+      if (super.mouseClicked()) {
+        inventoryManager.emptyTrash();
+        popup("Trash bag emptied!", 2500);
+        return true;
+      }
+      return false;
+    }
+  };
+  doorOutside.setQuad(932.4, 238.8, 1062.0, 238.8, 1056.0, 492.0, 939.6, 492.0);
 
+  hallway.addGameObject(doorOutside);
+  hallway.addGameObject(livingRoomArrow);
+  hallway.addGameObject(br1showerArrow);
+  hallway.addGameObject(cupBoardArrow);
+  hallway.addGameObject(startSweep);
+  hallway.addGameObject(bk1deskBackArrow);
+  //<-- hallway
+
+  //bathroom 1: shower -->
   Scene bathroom = new Scene("bathroom", "rooms/bathRoom/br1shower.png", "ui/minimap/Bathroom_1.png");
 
   MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 100, gheight / 2, "ui/arrowRight.png", true);
@@ -112,14 +151,17 @@ void setup() {
 
   bathroom.addGameObject(hallwayBackArrow_bathroom);
   bathroom.addGameObject(br2sinkArrow);
+  //<-- bathroom 1: shower
 
+  //bathroom 2: sink -->
   Scene bathroomSink = new Scene("bathroomSink", "rooms/bathRoom/br2sink.png", "ui/minimap/Bathroom_2.png");
 
   MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
 
   bathroomSink.addGameObject(br1showerBackArrow);
+  //<-- bathroom 2: sink
 
-
+  //livingroom 1: reading -->
   Scene livingRoomReading = new Scene("livingRoomReading", "rooms/livingRoom/lr1reading.png", "ui/minimap/Living_Room_1.png");
 
   MoveToSceneObject hallwaybackArrow_livingroom = new MoveToSceneObject("goBackToHallway_livingroom", gwidth/3, gheight - 300, "ui/arrowUp.png", true);
@@ -129,8 +171,9 @@ void setup() {
   livingRoomReading.addGameObject(hallwaybackArrow_livingroom);
   livingRoomReading.addGameObject(kitchenArrow);
   livingRoomReading.addGameObject(TVArrow);
+  //<-- livingroom 1: reading
 
-
+  //livingroom 2: kitchen -->
   Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png", "ui/minimap/Kitchen_1.png");
 
   Collectable sponge = new Collectable("sponge", "collectables/Sponge.png");
@@ -147,8 +190,9 @@ void setup() {
   kitchen.addGameObject(readingLRBackArrow);
   kitchen.addGameObject(spongeco);
   kitchen.addGameObject(startDish);
+  //<-- livingroom 2: kitchen
 
-
+  //livingroom 3: tv -->
   Scene livingRoomTV = new Scene("LivingRoomTV", "rooms/livingRoom/lr3tv.png", "ui/minimap/Living_Room_2.png");
 
   MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", 0, gheight /2, "ui/arrowLeft.png", true);
@@ -156,13 +200,17 @@ void setup() {
 
   livingRoomTV.addGameObject(readingLRBackArrow2);
   livingRoomTV.addGameObject(bpArrow);
+  //<-- livingroom 3: tv
 
 
+  //bedroom parents -->
   Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png", "ui/minimap/Bedroom_Parents.png");
 
   MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
 
   bedroomParents.addGameObject(TvBackArrow);
+  //<-- bedroom parents
+
 
   sceneManager.addScene(bk2beds);
   sceneManager.addScene(bk1desk);
@@ -213,6 +261,8 @@ void draw() {
     canvas.point(mouse.x, mouse.y);
   }
 
+  //canvas.image(loadImage("ui/TrashFull.png"), mouse.x, mouse.y);
+
   canvas.endDraw();
 
   if (fullHD) {
@@ -222,7 +272,6 @@ void draw() {
     image(canvas, 0, 0, width, height);
   }
   if (debugMode) text(frameRate, 10, 10);
-  //image(loadImage("rooms/cupBoard/cbBroom.png"), mouse.x, mouse.y);
   if (analytics && frameCount % 30 == 0) analyticRecord("mousePosition");
 }
 
@@ -265,6 +314,15 @@ void keyPressed() {
   if (key == 'd') debugMode = !debugMode;
   if (debugMode) {
     if (key == 'c') taskTracker.tasks.get(0).completed = !taskTracker.tasks.get(0).completed;
+    if (key == 't') {      
+      try {
+        inventoryManager.increaseTrash();
+      } 
+      catch(Exception e) {
+        println(e);
+      }
+    }
+    if (key == 'T') inventoryManager.emptyTrash();
   }
   inventoryManager.keyPressed();
   if (analytics) analyticRecord(String.valueOf(key));
@@ -358,4 +416,11 @@ int textHeight(String str, int specificWidth, int leading) {
 
   float totalLines = numTextLines + numberEmptyLines;
   return round(totalLines * leading);
+}
+
+void popup(String t, int millis) {
+  TextObject popup = new TextObject("popup", mouse.x + random(-100, 100), mouse.y + random(-100, 100), "", t, millis);
+  sceneManager.getCurrentScene().addGameObject(popup);
+  popup.show();
+  popup.markForDeletion();
 }

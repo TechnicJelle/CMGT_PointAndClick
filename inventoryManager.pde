@@ -9,8 +9,13 @@ class InventoryManager {
   private int hovered = -1;
   private boolean hoverOptim = true; //ignore this; it's only for a small optimization
 
-
   private int slots = 4;
+
+
+  private PImage[] trashBagStates;
+  private int trashBagState;
+  private int trashBagSlots = 5;
+
 
   public InventoryManager() {
     collectables = new Collectable[slots];
@@ -21,6 +26,19 @@ class InventoryManager {
     for (int i = 0; i < slots; i++) {
       collectables[i] = null;
       slotPositions[i] = new PVector(x, beginY + i*(slotH+6));
+    }
+
+    PImage trashBagFull = loadImage("ui/TrashFull.png");
+    PImage trashBagEmpty = loadImage("ui/TrashEmpty.png");
+    this.trashBagState = 0;
+    trashBagStates = new PImage[trashBagSlots];
+    int ih = trashBagEmpty.height / (trashBagSlots-1);
+    for (int i = 0; i < trashBagSlots; i++) {
+      trashBagStates[i] = createImage(trashBagFull.width, trashBagFull.height, ARGB);
+      trashBagStates[i] = trashBagEmpty.copy();
+      trashBagStates[i].copy(trashBagFull, 
+        0, trashBagFull.height - i*ih, trashBagFull.width, i*ih, 
+        0, trashBagFull.height - i*ih, trashBagFull.width, i*ih);
     }
   }
 
@@ -33,6 +51,7 @@ class InventoryManager {
     }
     throw new Exception("Couldn't fit item into the inventory anymore!");
   }
+
   public boolean containsCollectable(Collectable collectable) {
     for (int i = 0; i < slots; i++) {
       if (collectables[i] == collectable) 
@@ -56,6 +75,20 @@ class InventoryManager {
     throw new Exception("Item couldn't be found and wasn't removed");
   }
 
+  public void increaseTrash() throws Exception {
+    if (trashBagState < trashBagSlots-1)
+      trashBagState++;
+    else {
+      String t = "Couldn't fit trash into the bag anymore!\nYou should empty it outside";
+      popup(t, 3500);
+      throw new Exception(t);
+    }
+  }
+
+  public void emptyTrash() {
+    trashBagState = 0;
+  }
+
   public void draw() {
     hoverOptim = true;
     for (int i = 0; i < slots; i++) {
@@ -77,6 +110,8 @@ class InventoryManager {
     if (selected != -1 && collectables[selected] != null) {
       canvas.image(collectables[selected].image, mouse.x-collectables[selected].image.width/2, mouse.y-collectables[selected].image.height/2);
     }
+
+    canvas.image(trashBagStates[trashBagState], 1631, 871);
   }
 
   public void mouseClicked() {

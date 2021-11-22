@@ -39,10 +39,10 @@ class TaskTracker {
       canvas.rect(0, 326, phone.width, 180);
     }
 
-    canvas.translate(209, 7);
-    canvas.image(sceneManager.getCurrentScene().minimapImage, 0, 0);
+    canvas.translate(210, 7);
+    //timer here
 
-    canvas.translate(0, sceneManager.getCurrentScene().minimapImage.height);
+    canvas.translate(0, 24);
     changeFontSize(32);
     for (int i = 0; i < tasks.size(); i++) {
       Task task = tasks.get(i);
@@ -51,9 +51,8 @@ class TaskTracker {
       drawText(task.description, 42, fontSize*i);
     }
 
-
-
-
+    canvas.translate(0, 119);
+    canvas.image(sceneManager.getCurrentScene().minimapImage, 0, 0);
 
     canvas.popMatrix();
   }

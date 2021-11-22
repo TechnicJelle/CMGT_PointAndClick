@@ -3,7 +3,7 @@ class RequireObject extends TextObject {
   private GameObject replaceWith;
 
   public RequireObject(String identifier, float x, float y, String gameObjectImageFile, String text, Collectable collectable, GameObject replaceWith) {
-    super(identifier, x, y, gameObjectImageFile, text);
+    super(identifier, x, y, gameObjectImageFile, text, 2000);
     this.collectable = collectable;
     this.replaceWith = replaceWith;
   }

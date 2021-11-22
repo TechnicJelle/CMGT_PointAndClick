@@ -27,7 +27,7 @@ class CollectableObject extends GameObject {
     public boolean mouseClicked() {
     if (mouseIsHovering) {
       try {
-        inventoryManager.addCollectable(collectable);
+        onCollect();
       }
       catch (Exception e) {
         println(e);
@@ -40,5 +40,9 @@ class CollectableObject extends GameObject {
       return true;
     }
     return false;
+  }
+
+  public void onCollect() throws Exception {
+    inventoryManager.addCollectable(collectable);
   }
 }
