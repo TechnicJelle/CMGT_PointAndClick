@@ -84,3 +84,20 @@ class Quad {
     p.y += rotY;
   }
 }
+
+boolean sameSide(PVector p1, PVector p2, PVector a, PVector b) {
+  PVector cp1 = PVector.sub(b, a).cross(PVector.sub(p1, a));
+  PVector cp2 = PVector.sub(b, a).cross(PVector.sub(p2, a));
+  if (cp1.dot(cp2) >= 0)
+    return true;
+  else
+    return false;
+}
+
+boolean pointInTriangle(PVector p, PVector a, PVector b, PVector c) {
+  return sameSide(p, a, b, c) && sameSide(p, b, a, c) && sameSide(p, c, a, b);
+}
+
+boolean pointInQuad(PVector p, PVector a, PVector b, PVector c, PVector d) {
+  return pointInTriangle(p, a, b, c) || pointInTriangle(p, a, c, d);
+}
