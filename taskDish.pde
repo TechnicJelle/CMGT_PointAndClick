@@ -91,7 +91,7 @@ class TaskDish extends Task {
         }
     }
 
-    cursor(dist(mouse.x, mouse.y, 1001, 621) < 280 && hasADishToClean ? spongeClick : spongeCursor);
+    setCursor(dist(mouse.x, mouse.y, 1001, 621) < 280 && hasADishToClean ? spongeClick : spongeCursor);
     //canvas.image(dist(mouse.x, mouse.y, 1001, 621) < 280 && hasADishToClean ? spongeClick : spongeCursor, mouse.x - spongeCursor.width/2, mouse.y - spongeCursor.height/2);
   }
 

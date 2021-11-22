@@ -59,9 +59,9 @@ class Scene {
       }
     }
     if (hand)
-      cursor(HAND);
+      setCursor(HAND);
     else
-      cursor(ARROW);
+      setCursor(ARROW);
   }
 
   public void mouseClicked() {

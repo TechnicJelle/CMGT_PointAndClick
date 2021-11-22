@@ -22,7 +22,7 @@ class TaskSweep extends Task {
 
 
   void setup() {
-    cursor(ARROW);
+    setCursor(ARROW);
     trashImgs = new PImage[4];
     trashImgs[0] = loadImage("tasks/sweep/JunkChips1.png");
     trashImgs[1] = loadImage("tasks/sweep/JunkChips2.png");

@@ -21,6 +21,8 @@ TaskTracker taskTracker;
 PFont bothways;
 int fontSize = 48;
 
+int cursorInt;
+
 void settings() {
   size(1600, 900, P2D);
   //size(1920, 1080, P2D);
@@ -39,6 +41,8 @@ void setup() {
     table.addColumn("mouse.y");
   }
 
+  cursorInt = ARROW;
+
   sceneManager = new SceneManager();
   inventoryManager = new InventoryManager();
   taskTracker = new TaskTracker();
@@ -55,22 +59,6 @@ void setup() {
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
-  
-  /* this is how you add trash:
-  TrashObject trashX = new TrashObject("trashX",Xpos,Ypos, "trash/image_name_in_the_data/trash_directory.png");
-  TrashObject trash1 = new TrashObject("trash1", 500, 500, "trash/Cup4.png");
-  TrashObject trash2 = new TrashObject("trash2", 500, 600, "trash/Cup5(Slightly_edited).png");
-  TrashObject trash3 = new TrashObject("trash3", 500, 700, "trash/ChipsBag.png");
-  TrashObject trash4 = new TrashObject("trash4", 600, 500, "trash/Sock1.png");
-  TrashObject trash5 = new TrashObject("trash5", 700, 500, "trash/Sock2.png");
-  
-  //then add them to the correct scene
-  bk2beds.addTrash(trash1);
-  bk2beds.addTrash(trash2);
-  bk2beds.addTrash(trash3);
-  bk2beds.addTrash(trash4);
-  bk2beds.addTrash(trash5);
-  */
 
   bk2beds.addGameObject(bk1deskArrow);
   //<-- bedroom kids 2: beds
@@ -180,7 +168,7 @@ void setup() {
   CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
   //spongeco.generateHoverImage();
 
-  MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
+  MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 100, gheight/2, "ui/arrowRight.png", true);
   MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
   GameObject endDish = new GameObject("goToDishTask", 500, 553, "rooms/livingRoom/counterClean.png");
   endDish.setClickable(false);
@@ -188,8 +176,8 @@ void setup() {
   TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes");
 
   kitchen.addGameObject(readingLRBackArrow);
-  kitchen.addGameObject(spongeco);
   kitchen.addGameObject(startDish);
+  kitchen.addGameObject(spongeco);
   //<-- livingroom 2: kitchen
 
   //livingroom 3: tv -->
@@ -423,4 +411,15 @@ void popup(String t, int millis) {
   sceneManager.getCurrentScene().addGameObject(popup);
   popup.show();
   popup.markForDeletion();
+}
+
+void setCursor(int c) {
+  if (c != cursorInt) {
+    cursor(c);
+    println("Changed cursor to:", cursorInt = c);
+  }
+}
+
+void setCursor(PImage p) {
+  cursor(p);
 }

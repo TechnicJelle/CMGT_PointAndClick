@@ -19,7 +19,6 @@ class Task extends Scene {
   }
 
   void done() {
-    cursor(ARROW);
     sceneManager.goToPreviousScene();
     sceneManager.getCurrentScene().removeGameObject(sceneStarter);
     if (replaceWith != null)
