@@ -1,7 +1,7 @@
 class TaskSweep extends Task {
 
-  TaskSweep(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter) {
-    super(sceneName, backgroundImageFile, sceneStarter);
+  TaskSweep(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc);
   }
 
   PImage[] trashImgs;
@@ -53,13 +53,14 @@ class TaskSweep extends Task {
     broomHitBox = new Quad(broomCenter, broomSize);
     curable = new GameObject("curable", gwidth, gheight/2, "tasks/sweep/CurableFullSize.png", true);
     curable.setQuad(1684.8, 355.2, 1920, 412.8, 1920, 650, 1689.6, 715.2);
+    curable.setClickable(false);
 
     broomCursor = loadImage("tasks/sweep/BroomCursor.png");
   }
 
   void draw() {
     canvas.image(backgroundImage, 0, 0);
-    curable.draw(false);
+    curable.draw();
 
     PVector diff = PVector.sub(mouse, broomCenter).mult(0.1f);
     broomCenter.add(diff);
@@ -134,8 +135,7 @@ class TaskSweep extends Task {
     }
 
     if (allDone) {
-      sceneManager.goToPreviousScene();
-      sceneManager.getCurrentScene().removeGameObject(sceneStarter);
+      done();
     }
 
     canvas.pushMatrix();

@@ -12,14 +12,15 @@ class TextObject extends GameObject {
     millisAtLastShow = 0;
   }
 
-  public void draw(boolean drawOutline) {
-    super.draw(drawOutline);
+  public void draw() {
+    super.draw();
     if (displayText && millis() - millisAtLastShow >= millisToShow) {
       millisAtLastShow = millis();
       displayText = false;
     }
 
     if (displayText) {
+      changeFontSize(48);
       drawTextInRect(text, x, y);
     }
   }

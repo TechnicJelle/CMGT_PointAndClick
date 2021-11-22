@@ -12,9 +12,11 @@ class SceneManager {
 
   public void addScene(Scene scene) {
     scenes.put(scene.getSceneName(), scene);
-    if (scenesStack.size() == 0)
-    {
+    if (scenesStack.size() == 0) {
       scenesStack.push(scene);
+    }
+    if (scene instanceof Task) {
+      taskTracker.addTask((Task)scene);
     }
   }
 

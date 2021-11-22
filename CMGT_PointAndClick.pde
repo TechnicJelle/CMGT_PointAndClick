@@ -22,8 +22,8 @@ PFont bothways;
 int fontSize = 48;
 
 void settings() {
-  //size(1600, 900);
-  //size(1920, 1080);
+  //size(1600, 900, P2D);
+  //size(1920, 1080, P2D);
   fullScreen(P2D);
   //smooth(1);
   //noSmooth();
@@ -43,23 +43,20 @@ void setup() {
   canvas.beginDraw();
 
   bothways = createFont("fonts/BothWays.ttf", fontSize, true);
-  canvas.textFont(bothways);
-  canvas.textSize(fontSize);
-  canvas.textAlign(LEFT, TOP);
-  canvas.textLeading(fontSize);
+  changeFontSize(fontSize);
 
   fullHD = width == gwidth && height == gheight;
 
   taskTracker = new TaskTracker();
 
-  Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png");
+  Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
 
   bk2beds.addGameObject(bk1deskArrow);
 
 
-  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDesk.png");
+  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDesk.png", "ui/minimap/Bedroom_Kids_2.png");
 
   MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, "hallway");
@@ -68,7 +65,7 @@ void setup() {
   bk1desk.addGameObject(bk2bedsBackArrow);
   bk1desk.addGameObject(hwArrow);
 
-  Scene cupBoard = new Scene("cupBoard", "rooms/cupBoard/cb.png");
+  Scene cupBoard = new Scene("cupBoard", "rooms/cupBoard/cb.png", "ui/minimap/Closet.png");
 
   Collectable broom = new Collectable("broom", "collectables/Broom.png");
   CollectableObject broomco = new CollectableObject("broomco", 471, 37, "rooms/cupBoard/cbBroom.png", broom);
@@ -81,7 +78,7 @@ void setup() {
   cupBoard.addGameObject(hallwayBackArrow);
 
 
-  Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png");
+  Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png", "ui/minimap/Hallway.png");
 
   MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2, gheight-100, "ui/arrowDown.png", true);
 
@@ -100,7 +97,7 @@ void setup() {
   RequireObject startSweep = new RequireObject("startSweep", 732.5, 493.2, "rooms/hallWay/trash.png", "Use a broom to clean up this mess", broom, (GameObject)startSweepArrow);
   startSweep.setQuad(sweepQuad);
 
-  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow);
+  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow, null, "Sweep the hallway");
 
   hallway.addGameObject(bk1deskBackArrow);
   hallway.addGameObject(startSweep);
@@ -108,7 +105,7 @@ void setup() {
   hallway.addGameObject(br1showerArrow);
   hallway.addGameObject(livingRoomArrow);
 
-  Scene bathroom = new Scene("bathroom", "rooms/bathRoom/br1shower.png");
+  Scene bathroom = new Scene("bathroom", "rooms/bathRoom/br1shower.png", "ui/minimap/Bathroom_1.png");
 
   MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 100, gheight / 2, "ui/arrowRight.png", true);
   MoveToSceneObject br2sinkArrow = new MoveToSceneObject("goTobr2sink", gwidth/2, gheight - 100, "ui/arrowDown.png", "bathroomSink");
@@ -116,14 +113,14 @@ void setup() {
   bathroom.addGameObject(hallwayBackArrow_bathroom);
   bathroom.addGameObject(br2sinkArrow);
 
-  Scene bathroomSink = new Scene("bathroomSink", "rooms/bathRoom/br2sink.png");
+  Scene bathroomSink = new Scene("bathroomSink", "rooms/bathRoom/br2sink.png", "ui/minimap/Bathroom_2.png");
 
   MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
 
   bathroomSink.addGameObject(br1showerBackArrow);
 
 
-  Scene livingRoomReading = new Scene("livingRoomReading", "rooms/livingRoom/lr1reading.png");
+  Scene livingRoomReading = new Scene("livingRoomReading", "rooms/livingRoom/lr1reading.png", "ui/minimap/Living_Room_1.png");
 
   MoveToSceneObject hallwaybackArrow_livingroom = new MoveToSceneObject("goBackToHallway_livingroom", gwidth/3, gheight - 300, "ui/arrowUp.png", true);
   MoveToSceneObject kitchenArrow = new MoveToSceneObject("goToKitchen", 0, gheight/2, "ui/arrowLeft.png", "kitchen");
@@ -134,27 +131,25 @@ void setup() {
   livingRoomReading.addGameObject(TVArrow);
 
 
-  Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png");
-
-  MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
-  MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 1074, 572, "ui/zoomIn.png", "taskDish");
-  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow);
-
-
-
+  Scene kitchen = new Scene("kitchen", "rooms/livingRoom/lr2kitchen.png", "ui/minimap/Kitchen_1.png");
 
   Collectable sponge = new Collectable("sponge", "collectables/Sponge.png");
   CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
   //spongeco.generateHoverImage();
 
-  RequireObject startDish = new RequireObject("startDish", 1074, 572, "ui/arrowUp.png", "You need a sponge first!", sponge, (GameObject)startDishArrow);
+  MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 200, gheight - 100, "ui/arrowDown.png", true);
+  MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
+  GameObject endDish = new GameObject("goToDishTask", 500, 553, "rooms/livingRoom/counterClean.png");
+  endDish.setClickable(false);
+  RequireObject startDish = new RequireObject("startDish", 508, 549, "rooms/livingRoom/counterDirty.png", "You need a sponge first!", sponge, (GameObject)startDishArrow);
+  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes");
 
   kitchen.addGameObject(readingLRBackArrow);
   kitchen.addGameObject(spongeco);
   kitchen.addGameObject(startDish);
 
 
-  Scene livingRoomTV = new Scene("LivingRoomTV", "rooms/livingRoom/lr3tv.png");
+  Scene livingRoomTV = new Scene("LivingRoomTV", "rooms/livingRoom/lr3tv.png", "ui/minimap/Living_Room_2.png");
 
   MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", 0, gheight /2, "ui/arrowLeft.png", true);
   MoveToSceneObject bpArrow = new MoveToSceneObject("goTobp", 1300, gheight/2, "ui/arrowUp.png", "bp");
@@ -163,7 +158,7 @@ void setup() {
   livingRoomTV.addGameObject(bpArrow);
 
 
-  Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png");
+  Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png", "ui/minimap/Bedroom_Parents.png");
 
   MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
 
@@ -268,6 +263,9 @@ void mouseReleased() {
 
 void keyPressed() {
   if (key == 'd') debugMode = !debugMode;
+  if (debugMode) {
+    if (key == 'c') taskTracker.tasks.get(0).completed = !taskTracker.tasks.get(0).completed;
+  }
   inventoryManager.keyPressed();
   if (analytics) analyticRecord(String.valueOf(key));
 }
@@ -323,19 +321,30 @@ PVector elemdiv(PVector a, PVector b) {
   return new PVector(x, y);
 }
 
-void drawTextInRect(String someString, float x, float y) {
-  float m = 8;
-  canvas.fill(255);
-  canvas.stroke(0);
-  canvas.strokeWeight(1);
-  canvas.rect(x-m, y-m, canvas.textWidth(someString)+m*2, textHeight(someString, int(canvas.textWidth(someString)), fontSize) + m*2, fontSize/4);
+void changeFontSize(int fs) {
+  fontSize = fs;
+  canvas.textFont(bothways);
+  canvas.textSize(fontSize);
+  canvas.textAlign(LEFT, TOP);
+  canvas.textLeading(fontSize);
+}
 
+void drawText(String someString, float x, float y) {
   canvas.textFont(bothways);
   canvas.textSize(fontSize);
   canvas.textAlign(LEFT, TOP);
   canvas.fill(0);
   canvas.textLeading(fontSize);
   canvas.text(someString, x, y);
+}
+
+void drawTextInRect(String someString, float x, float y) {
+  float m = 8;
+  canvas.fill(255);
+  canvas.stroke(0);
+  canvas.strokeWeight(1);
+  canvas.rect(x-m, y-m, canvas.textWidth(someString)+m*2, textHeight(someString, int(canvas.textWidth(someString)), fontSize) + m*2, fontSize/4);
+  drawText(someString, x, y);
 }
 
 int textHeight(String str, int specificWidth, int leading) {

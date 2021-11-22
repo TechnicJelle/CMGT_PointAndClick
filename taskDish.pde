@@ -1,10 +1,8 @@
 class TaskDish extends Task {
 
-  TaskDish(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter) {
-    super(sceneName, backgroundImageFile, sceneStarter);
+  TaskDish(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc);
   }
-
-
 
   PImage spongeCursor;
   PImage spongeClick;
@@ -33,7 +31,13 @@ class TaskDish extends Task {
 
 
   void setup() {
-    noCursor();
+    //PImage img = createImage(1, 1, ARGB);
+    //img.loadPixels();
+    //for (int i = 0; i < img.pixels.length; i++) {
+    //  img.pixels[i] = color(255, 1);
+    //}
+    //img.updatePixels();
+    //cursor(img);
     spongeCursor = loadImage("tasks/dishes/SpongeCursor.png");
     spongeClick = loadImage("tasks/dishes/SpongeClick.png");
 
@@ -60,9 +64,7 @@ class TaskDish extends Task {
 
     if (cleanPlates == 5)
     {
-      sceneManager.goToPreviousScene();
-      sceneManager.getCurrentScene().removeGameObject(sceneStarter);
-      cursor(ARROW);
+      done();
     }
 
 
@@ -88,7 +90,9 @@ class TaskDish extends Task {
             canvas.image(stains[randomStains[i]], dirt[i].x, dirt[i].y);
         }
     }
-    canvas.image(dist(mouse.x, mouse.y, 1001, 621) < 280 && hasADishToClean ? spongeClick : spongeCursor, mouse.x - spongeCursor.width/2, mouse.y - spongeCursor.height/2);
+
+    cursor(dist(mouse.x, mouse.y, 1001, 621) < 280 && hasADishToClean ? spongeClick : spongeCursor);
+    //canvas.image(dist(mouse.x, mouse.y, 1001, 621) < 280 && hasADishToClean ? spongeClick : spongeCursor, mouse.x - spongeCursor.width/2, mouse.y - spongeCursor.height/2);
   }
 
   void mouseMoved()

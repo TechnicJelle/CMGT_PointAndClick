@@ -12,9 +12,25 @@ class GameObject {
   private Quad quad;
   protected boolean mouseIsHovering;
   private color debugCol;
+  private boolean clickable;
 
   public GameObject(String identifier, float x, float y) {
     this(identifier, x, y, "");
+  }
+
+  public GameObject(String identifier, float x, float y, String gameObjectImageFile) {
+    this(identifier, x, y, gameObjectImageFile, false);
+  }
+
+  public GameObject(String identifier, float x, float y, String gameObjectImageFile, boolean center) {
+    init(identifier, gameObjectImageFile);
+    if (center) {
+      this.x = x - gameObjectImage.width/2;
+      this.y = y - gameObjectImage.height/2;
+    } else {
+      this.x = x;
+      this.y = y;
+    }
   }
 
   private void init(String identifier, String gameObjectImageFile) {
@@ -29,20 +45,7 @@ class GameObject {
     hasHoverImage = false;
     isQuad = false;
     mouseIsHovering = false;
-  }
-
-  public GameObject(String identifier, float x, float y, String gameObjectImageFile, boolean center) {
-    init(identifier, gameObjectImageFile);
-    if (center) {
-      this.x = x - gameObjectImage.width/2;
-      this.y = y - gameObjectImage.height/2;
-    }
-  }
-
-  public GameObject(String identifier, float x, float y, String gameObjectImageFile) {
-    init(identifier, gameObjectImageFile);
-    this.x = x;
-    this.y = y;
+    clickable = true;
   }
 
   public void generateHoverImage() {
@@ -77,8 +80,12 @@ class GameObject {
     this.setQuad(q);
   }
 
-  public void draw(boolean drawOutline) {
-    if (drawOutline) {
+  public void setClickable(boolean c) {
+    clickable = c;
+  }
+
+  public void draw() {
+    if (clickable) {
       canvas.noFill();
       if (mouseIsHovering) {
         canvas.stroke(0);
@@ -90,7 +97,7 @@ class GameObject {
     }
 
     if (isQuad) {
-      if (drawOutline) quad.draw();
+      if (clickable) quad.draw();
     } else {
       if (hasHoverImage) {
         if (mouseIsHovering) canvas.noTint();
@@ -122,6 +129,7 @@ class GameObject {
   }
 
   public boolean mouseMoved() {
+    if (!clickable) return false;
     return mouseIsHovering = pointInGameObject(mouse);
   }
 
