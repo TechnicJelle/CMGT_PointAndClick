@@ -18,6 +18,9 @@ final InventoryManager inventoryManager = new InventoryManager();
 
 TaskTracker taskTracker;
 
+PFont bothways;
+int fontSize = 48;
+
 void settings() {
   //size(1600, 900);
   //size(1920, 1080);
@@ -38,8 +41,13 @@ void setup() {
 
   canvas = createGraphics(gwidth, gheight, P2D);
   canvas.beginDraw();
-  canvas.textSize(10);
-  //canvas.textFont(createFont("fonts/BothWays.ttf", 64));
+
+  bothways = createFont("fonts/BothWays.ttf", fontSize, true);
+  canvas.textFont(bothways);
+  canvas.textSize(fontSize);
+  canvas.textAlign(LEFT, TOP);
+  canvas.textLeading(fontSize);
+
   fullHD = width == gwidth && height == gheight;
 
   taskTracker = new TaskTracker();
@@ -89,16 +97,16 @@ void setup() {
   Quad sweepQuad = new Quad(931.2, 496.8, 1062.0, 496.8, 1233.6, 1072.8, 738.0, 1074.0);
   MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 732.5, 493.2, "rooms/hallWay/trashClick.png", "taskSweep");
   startSweepArrow.setQuad(sweepQuad);
-  RequireObject startSweep = new RequireObject("startSweep", 732.5, 493.2, "rooms/hallWay/trash.png", "You need a broom first!", broom, (GameObject)startSweepArrow);
+  RequireObject startSweep = new RequireObject("startSweep", 732.5, 493.2, "rooms/hallWay/trash.png", "Use a broom to clean up this mess", broom, (GameObject)startSweepArrow);
   startSweep.setQuad(sweepQuad);
 
   TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow);
 
   hallway.addGameObject(bk1deskBackArrow);
+  hallway.addGameObject(startSweep);
   hallway.addGameObject(cupBoardArrow);
   hallway.addGameObject(br1showerArrow);
   hallway.addGameObject(livingRoomArrow);
-  hallway.addGameObject(startSweep);
 
   Scene bathroom = new Scene("bathroom", "rooms/bathRoom/br1shower.png");
 
@@ -313,4 +321,49 @@ PVector elemdiv(PVector a, PVector b) {
   if (a.y != 0.0f && b.y != 0.0f)
     y = a.y / b.y;
   return new PVector(x, y);
+}
+
+void drawTextInRect(String someString, float x, float y) {
+  float m = 8;
+  canvas.fill(255);
+  canvas.stroke(0);
+  canvas.strokeWeight(1);
+  canvas.rect(x-m, y-m, canvas.textWidth(someString)+m*2, textHeight(someString, int(canvas.textWidth(someString)), fontSize) + m*2, fontSize/4);
+
+  canvas.textFont(bothways);
+  canvas.textSize(fontSize);
+  canvas.textAlign(LEFT, TOP);
+  canvas.fill(0);
+  canvas.textLeading(fontSize);
+  canvas.text(someString, x, y);
+}
+
+int textHeight(String str, int specificWidth, int leading) {
+  //source: https://forum.processing.org/one/topic/finding-text-height-from-a-text-area.html
+  // split by new lines first
+  String[] paragraphs = split(str, "\n");
+  int numberEmptyLines = -1;
+  int numTextLines = 0;
+  for (int i=0; i < paragraphs.length; i++) {
+    // anything with length 0 ignore and increment empty line count
+    if (paragraphs[i].length() == 0) {
+      numberEmptyLines++;
+    } else {      
+      numTextLines++;
+      // word wrap
+      String[] wordsArray = split(paragraphs[i], " ");
+      String tempString = "";
+      for (int k=0; k < wordsArray.length; k++) {
+        if (canvas.textWidth(tempString + wordsArray[k]) < specificWidth) {
+          tempString += wordsArray[k] + " ";
+        } else {
+          tempString = wordsArray[k] + " ";
+          numTextLines++;
+        }
+      }
+    }
+  }
+
+  float totalLines = numTextLines + numberEmptyLines;
+  return round(totalLines * leading);
 }
