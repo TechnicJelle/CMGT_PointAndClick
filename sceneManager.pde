@@ -15,9 +15,6 @@ class SceneManager {
     if (scenesStack.size() == 0) {
       scenesStack.push(scene);
     }
-    if (scene instanceof Task) {
-      taskTracker.addTask((Task)scene);
-    }
   }
 
   public void goToScene(String sceneName) throws Exception {
