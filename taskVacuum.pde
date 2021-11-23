@@ -1,7 +1,7 @@
 class TaskVacuum extends Task {
 
-  TaskVacuum(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
-    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc);
+  TaskVacuum(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation);
   }
 
   PVector[] dustP;
@@ -18,6 +18,7 @@ class TaskVacuum extends Task {
   PVector mse;
 
   void setup() {
+    setCursor(ARROW);
     speck = loadImage("tasks/vacuum/speck.png");
     head = loadImage("tasks/vacuum/vacuum.png");
     dustP = new PVector[specks];
@@ -55,7 +56,7 @@ class TaskVacuum extends Task {
 
     canvas.pushStyle();
     canvas.imageMode(CENTER);
-    canvas.image(head, mse.x-25, mse.y);
+    canvas.image(head, mse.x, mse.y);
     canvas.popStyle();
 
     float x1 = -100;
@@ -65,8 +66,8 @@ class TaskVacuum extends Task {
     float x3 = mse.x-300 - mse.x/2 + map(noise(millis()/3000.0f+99999), 0, 1, -200, 200);
     float y3 = mse.y + map(noise(millis()/3000.0f), 0, 1, -200, 200);
     //float y3 = mouse.y-0.5;
-    float x4 = mse.x-73;
-    float y4 = mse.y-0.5;
+    float x4 = mse.x-47;
+    float y4 = mse.y-0.4;
 
     canvas.strokeCap(ROUND);
     canvas.strokeJoin(ROUND);
@@ -86,7 +87,7 @@ class TaskVacuum extends Task {
   }
 
   void mouseUpdate() {
-    mse.x = constrain(mouse.x, 90, 1856);
+    mse.x = constrain(mouse.x, 66, 1856);
     mse.y = constrain(mouse.y, 132, 948);
   }
 

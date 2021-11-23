@@ -1,7 +1,7 @@
 class TaskSweep extends Task {
 
-  TaskSweep(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
-    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc);
+  TaskSweep(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation);
   }
 
   PImage[] trashImgs;

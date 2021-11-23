@@ -1,7 +1,7 @@
 class TaskDish extends Task {
 
-  TaskDish(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
-    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc);
+  TaskDish(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation);
   }
 
   PImage spongeCursor;

@@ -1,7 +1,7 @@
 class TaskFolding extends Task {
 
-  TaskFolding(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
-    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc);
+  TaskFolding(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation);
   }
 
   PImage pileOfClothes;
@@ -21,9 +21,11 @@ class TaskFolding extends Task {
   int folded = 0;
 
 
+
+
   void setup()
   {
-
+    setCursor(ARROW);
     pileOfClothes = loadImage("tasks/folding/pileOfClothes.png");
     foldedClothes = loadImage("tasks/folding/foldedClothes.png");
     cloth = loadImage("tasks/folding/tshirt.png");
@@ -64,7 +66,7 @@ class TaskFolding extends Task {
 
   void mouseClicked()
   {
-    println(mouse.x, mouse.y, pointInQuad[0], pointInQuad[1], pointInQuad[2]);
+    println(isMouseOverPile[1]);
 
     for (int i = 0; i < 3; i++)
     {

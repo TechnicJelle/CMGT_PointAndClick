@@ -3,14 +3,16 @@ class Task extends Scene {
   protected GameObject replaceWith;
   protected String description;
   public boolean completed;
+  protected PVector minimapLocation;
 
-  Task(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
+  Task(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation) {
     super(sceneName, backgroundImageFile, null);
     this.sceneStarter = sceneStarter;
     this.replaceWith = replaceWith;
     description = desc;
     completed = false;
     taskTracker.addTask(this);
+    this.minimapLocation = minimapLocation;
   }
 
   void setup() {
