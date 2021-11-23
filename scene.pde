@@ -44,6 +44,7 @@ class Scene {
   }
 
   public void draw() {
+
     canvas.image(backgroundImage, 0, 0);
     for (GameObject object : gameObjects) {
       object.draw();

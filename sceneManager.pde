@@ -15,9 +15,6 @@ class SceneManager {
     if (scenesStack.size() == 0) {
       scenesStack.push(scene);
     }
-    if (scene instanceof Task) {
-      taskTracker.addTask((Task)scene);
-    }
   }
 
   public void goToScene(String sceneName) throws Exception {
@@ -35,6 +32,12 @@ class SceneManager {
 
   public void goToPreviousScene() {
     scenesStack.pop();
+  }
+
+  public void goToPreviousScene(int n) {
+    for (int i = 0; i < n; i++) {
+      scenesStack.pop();
+    }
   }
 
   public Scene getCurrentScene() {

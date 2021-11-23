@@ -16,6 +16,7 @@ class InventoryManager {
   private int trashBagState;
   private int trashBagSlots = 5;
 
+  private int scoreInBag = 0;
 
   public InventoryManager() {
     collectables = new Collectable[slots];
@@ -87,6 +88,8 @@ class InventoryManager {
 
   public void emptyTrash() {
     trashBagState = 0;
+    score += scoreInBag;
+    scoreInBag = 0;
   }
 
   public void draw() {

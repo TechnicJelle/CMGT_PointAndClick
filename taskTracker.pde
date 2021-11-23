@@ -48,11 +48,22 @@ class TaskTracker {
       Task task = tasks.get(i);
       PImage img = task.completed ? taskDone : taskTodo;
       canvas.image(img, 0, fontSize*(i+1)-img.height);
-      drawText(task.description, 42, fontSize*i);
+      drawText(task.description, 36, fontSize*i);
     }
 
     canvas.translate(0, 119);
     canvas.image(sceneManager.getCurrentScene().minimapImage, 0, 0);
+    for (int i = 0; i < tasks.size(); i++) {
+      Task task = tasks.get(i);
+      if (task.completed) {
+        canvas.stroke(0, 255, 0);
+        canvas.strokeWeight(3);
+      } else {
+        canvas.stroke(255, 0, 0);
+        canvas.strokeWeight(5);
+      }
+      canvas.point(task.minimapLocation.x, task.minimapLocation.y);
+    }
 
     canvas.popMatrix();
   }

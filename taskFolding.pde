@@ -1,13 +1,14 @@
-class TaskCloths extends Task {
+class TaskFolding extends Task {
 
-  TaskCloths(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
-    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc);
+  TaskFolding(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation, int sa) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation, sa);
   }
-  PImage pileOfChlotes;
-  PImage foldedChlotes;
+
+  PImage pileOfClothes;
+  PImage foldedClothes;
   PImage cloth;
   Quad[] parts;
-  
+
 
   boolean[] lock = new boolean[] {false, false, false};
   boolean[] pointInQuad = new boolean[] {false, false, false};
@@ -16,7 +17,7 @@ class TaskCloths extends Task {
   boolean hasSomethingInHand = false;
   boolean hasClothToFold = false;
   boolean addedACloth = true;
-  
+
   int folded = 0;
 
 
@@ -24,10 +25,10 @@ class TaskCloths extends Task {
 
   void setup()
   {
-
-    pileOfChlotes = loadImage("pileOfChlotes.png");
-    foldedChlotes = loadImage("foldedChlotes.png");
-    cloth = loadImage("tshirt.png");
+    setCursor(ARROW);
+    pileOfClothes = loadImage("tasks/folding/pileOfClothes.png");
+    foldedClothes = loadImage("tasks/folding/foldedClothes.png");
+    cloth = loadImage("tasks/folding/tshirt.png");
     parts = new Quad[3];
     parts[0] = new Quad(new PVector(754, 300), new PVector(754, 350), new PVector(700, 370), new PVector(700, 320));
     parts[1] = new Quad(new PVector(754 + cloth.width, 300), new PVector(754 + cloth.width, 350), new PVector(800 + cloth.width, 370), new PVector(800 + cloth.width, 320));
@@ -37,14 +38,14 @@ class TaskCloths extends Task {
 
   void draw()
   {
-    if(folded == 5)
+    if (folded == 5)
     {
       done();
     }
     canvas.image(backgroundImage, 0, 0);
 
-    canvas.image(pileOfChlotes, 1297, 488);
-    canvas.image(foldedChlotes, 250, 455);
+    canvas.image(pileOfClothes, 1297, 488);
+    canvas.image(foldedClothes, 250, 455);
 
     if (hasClothToFold)
     {
@@ -78,7 +79,7 @@ class TaskCloths extends Task {
         }
 
 
-        if (parts[i].c.x > 754 && parts[i].c.x < 754 + cloth.width && parts[i].c.y > 300 && parts[i].c.y < 300 + cloth.height)
+        if ((parts[i].c.x > 754 && parts[i].c.x < 754 + cloth.width && parts[i].c.y > 300 && parts[i].c.y < 300 + cloth.height) && (parts[i].d.x > 754 && parts[i].d.x < 754 + cloth.width && parts[i].d.y > 300 && parts[i].d.y < 300 + cloth.height))
         {
           lock[i] = true;
           released[i] = true;
@@ -87,7 +88,7 @@ class TaskCloths extends Task {
       }
     }
 
-    if (isMouseOverPile[1])
+    if (isMouseOverPile[1] && !hasClothToFold)
     {
       hasClothToFold = true;
       addedACloth = false;
@@ -112,7 +113,7 @@ class TaskCloths extends Task {
 
   void mouseMoved()
   {
-    if (mouse.x > 1297 && mouse.x < 1297 + pileOfChlotes.width && mouse.y > 488 && mouse.y < 488 + pileOfChlotes.height)
+    if (mouse.x > 1297 && mouse.x < 1297 + pileOfClothes.width && mouse.y > 488 && mouse.y < 488 + pileOfClothes.height)
     {
       isMouseOverPile[1] = true;
     } else
@@ -120,7 +121,7 @@ class TaskCloths extends Task {
       isMouseOverPile[1] = false;
     }
 
-    if (mouse.x > 250 && mouse.x < 250 + foldedChlotes.width && mouse.y > 455 && mouse.y < 455 + foldedChlotes.height)
+    if (mouse.x > 250 && mouse.x < 250 + foldedClothes.width && mouse.y > 455 && mouse.y < 455 + foldedClothes.height)
     {
       isMouseOverPile[0] = true;
     } else

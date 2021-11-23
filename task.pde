@@ -3,13 +3,20 @@ class Task extends Scene {
   protected GameObject replaceWith;
   protected String description;
   public boolean completed;
+  protected PVector minimapLocation;
 
-  Task(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc) {
+  private int scoreAdd;
+
+  Task(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation, int sa) {
     super(sceneName, backgroundImageFile, null);
     this.sceneStarter = sceneStarter;
     this.replaceWith = replaceWith;
     description = desc;
     completed = false;
+    taskTracker.addTask(this);
+    this.minimapLocation = minimapLocation;
+    scoreAdd = sa;
+    scoreMax += scoreAdd;
   }
 
   void setup() {
@@ -24,6 +31,7 @@ class Task extends Scene {
     if (replaceWith != null)
       sceneManager.getCurrentScene().addGameObject(replaceWith);
     completed = true;
+    score += scoreAdd;
   }
 
   void mouseMoved() {
