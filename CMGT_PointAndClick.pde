@@ -56,7 +56,7 @@ void setup() {
   fullHD = width == gwidth && height == gheight;
 
   //Main menu
-  Scene mainMenu = new Scene("MainMenu", "Mainmenu.png", null);
+  MainMenu mainMenu = new MainMenu("MainMenu", "Mainmenu.png");
 
   MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 703.2, 136.8, "bk2beds");
   StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);

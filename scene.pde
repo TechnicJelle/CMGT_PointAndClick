@@ -7,7 +7,7 @@ class Scene {
   private ArrayList<GameObject> recentlyAddedGameObjects;
   private ArrayList<GameObject> markedForDeathGameObjects;
   
-  PImage pattern = loadImage("pattern.png");
+  
 
   public Scene(String sceneName, String backgroundImageFile, String minimapImageFile) {
     this.sceneName = sceneName;
@@ -46,10 +46,7 @@ class Scene {
   }
 
   public void draw() {
-    if(sceneName == "MainMenu")
-    {
-      canvas.background(lerpColor(#78C8A1, #F69E86, (((millis()/5000)%2==0)?millis()%5000:5000-millis()%5000)/5000.0));
-    }
+    
     canvas.image(backgroundImage, 0, 0);
     for (GameObject object : gameObjects) {
       object.draw();
