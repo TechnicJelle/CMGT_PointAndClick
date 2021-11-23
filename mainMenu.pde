@@ -45,10 +45,13 @@ class IntroVideoScene extends Scene {
     canvas.image(introVideo, 0, 0);
     if (introVideo.time() < 5)
       canvas.text("Press space to skip", 50, 50);
-    if (debugMode) println(introVideo.time(), introVideo.duration());
-    if (introVideo.time() >= introVideo.duration() - 0.01) {
-      end();
-    }
+    if (introVideo.duration() - introVideo.time() < 0.2)
+      canvas.text("Press space to start the game!", 50, 50);
+    if (debugMode)
+      println(introVideo.duration()  + " - " + introVideo.time() + " = " + (introVideo.duration() - introVideo.time()), frameRate);
+    //if (introVideo.time() >= introVideo.duration() - 0.01) {
+    //  end();
+    //}
   }
 
   private void end() {
