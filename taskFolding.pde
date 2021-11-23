@@ -86,7 +86,7 @@ class TaskFolding extends Task {
       }
     }
 
-    if (isMouseOverPile[1])
+    if (isMouseOverPile[1] && !hasClothToFold)
     {
       hasClothToFold = true;
       addedACloth = false;
