@@ -1,3 +1,5 @@
+import processing.video.*;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -24,7 +26,12 @@ int fontSize = 48;
 int cursorInt;
 
 int score;
-protected int scoreMax;
+int scoreMax;
+
+Movie introVideo;
+boolean introVideoLoaded;
+
+int millisAtGameStart;
 
 void settings() {
   size(1600, 900, P2D);
@@ -43,6 +50,9 @@ void setup() {
     table.addColumn("mouse.x");
     table.addColumn("mouse.y");
   }
+
+  introVideoLoaded = false;
+  thread("loadVideo");
 
   cursorInt = ARROW;
 
@@ -64,9 +74,12 @@ void setup() {
   //Main menu
   MainMenu mainMenu = new MainMenu("MainMenu", "Mainmenu.png");
 
-  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 703.2, 136.8, "bk2beds");
+  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 703.2, 136.8, "introVideoScene");
   StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);
   mainMenu.addGameObject(StartGame);
+
+  //Intro video
+  IntroVideoScene introVideoScene = new IntroVideoScene("introVideoScene", "Mainmenu.png");
 
 
   //bedroom kids 2: beds -->
@@ -274,6 +287,7 @@ void setup() {
   //<-- bedroom parents
 
   sceneManager.addScene(mainMenu);
+  sceneManager.addScene(introVideoScene);
   sceneManager.addScene(bk2beds);
   sceneManager.addScene(bk1desk);
   sceneManager.addScene(hallway);
@@ -400,6 +414,7 @@ void keyPressed() {
     }
     if (key == 'T') inventoryManager.emptyTrash();
   }
+  sceneManager.getCurrentScene().keyPressed();
   inventoryManager.keyPressed();
   if (analytics) analyticRecord(String.valueOf(key));
 }
@@ -504,7 +519,8 @@ void popup(String t, int millis) {
 void setCursor(int c) {
   if (c != cursorInt) {
     cursor(c);
-    println("Changed cursor to:", cursorInt = c);
+    cursorInt = c;
+    if (debugMode) println("Changed cursor to:", cursorInt);
   }
 }
 
@@ -513,5 +529,7 @@ void setCursor(PImage p) {
 }
 
 boolean inGame() {
-  return !(sceneManager.getCurrentScene() instanceof Task || sceneManager.getCurrentScene() instanceof MainMenu);
+  return !(sceneManager.getCurrentScene() instanceof Task 
+    ||     sceneManager.getCurrentScene() instanceof MainMenu 
+    ||     sceneManager.getCurrentScene() instanceof IntroVideoScene);
 }

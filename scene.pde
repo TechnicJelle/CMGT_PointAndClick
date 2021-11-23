@@ -9,8 +9,8 @@ class Scene {
 
   public Scene(String sceneName, String backgroundImageFile, String minimapImageFile) {
     this.sceneName = sceneName;
-    this.backgroundImage = loadImage(backgroundImageFile);
-    if (minimapImageFile != null) this.minimapImage = loadImage(minimapImageFile);
+    if (backgroundImageFile != null && !backgroundImageFile.equals("")) this.backgroundImage = loadImage(backgroundImageFile);
+    if (minimapImageFile != null && !minimapImageFile.equals("")) this.minimapImage = loadImage(minimapImageFile);
     gameObjects = new ArrayList<GameObject>();
     markedForDeathGameObjects = new ArrayList<GameObject>();
     recentlyAddedGameObjects = new ArrayList<GameObject>();
@@ -44,7 +44,6 @@ class Scene {
   }
 
   public void draw() {
-
     canvas.image(backgroundImage, 0, 0);
     for (GameObject object : gameObjects) {
       object.draw();
@@ -75,6 +74,9 @@ class Scene {
         if (debugMode) println("L: " + object.identifier);
       }
     }
+  }
+
+  public void keyPressed() {
   }
 
   public String getSceneName() {
