@@ -59,8 +59,12 @@ void setup() {
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
+  MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 0, 0, "pileOfChlotes.png", "TaskFolding");
+  
+  TaskCloths taskCloths = new TaskCloths("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the Cloths");
 
   bk2beds.addGameObject(bk1deskArrow);
+  bk2beds.addGameObject(foldingTask);
   //<-- bedroom kids 2: beds
 
 
@@ -184,7 +188,8 @@ void setup() {
   Scene livingRoomTV = new Scene("LivingRoomTV", "rooms/livingRoom/lr3tv.png", "ui/minimap/Living_Room_2.png");
 
   MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", 0, gheight /2, "ui/arrowLeft.png", true);
-  MoveToSceneObject bpArrow = new MoveToSceneObject("goTobp", 1300, gheight/2, "ui/arrowUp.png", "bp");
+  MoveToSceneObject bpArrow = new MoveToSceneObject("goTobp", 1300, gheight/2, "bp");
+  bpArrow.setQuad(1214.0, 633.9823, 1487.0, 741.23895, 1651.0, 32.920353, 1276.0, 61.592922);
 
   livingRoomTV.addGameObject(readingLRBackArrow2);
   livingRoomTV.addGameObject(bpArrow);
@@ -212,6 +217,7 @@ void setup() {
   sceneManager.addScene(bedroomParents);
   sceneManager.addScene(taskSweep);
   sceneManager.addScene(taskDish);
+  sceneManager.addScene(taskCloths);
 
   mouse = screenScale(new PVector(mouseX, mouseY));
 
