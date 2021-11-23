@@ -65,7 +65,7 @@ class TaskCloths extends Task {
 
   void mouseClicked()
   {
-    println(mouseX, mouseY, pointInQuad[0], pointInQuad[1], pointInQuad[2]);
+    println(isMouseOverPile[1]);
 
     for (int i = 0; i < 3; i++)
     {
@@ -112,7 +112,7 @@ class TaskCloths extends Task {
 
   void mouseMoved()
   {
-    if (mouseX > 1297 && mouseX < 1297 + pileOfChlotes.width && mouseY > 488 && mouseY < 488 + pileOfChlotes.height)
+    if (mouse.x > 1297 && mouse.x < 1297 + pileOfChlotes.width && mouse.y > 488 && mouse.y < 488 + pileOfChlotes.height)
     {
       isMouseOverPile[1] = true;
     } else
@@ -120,7 +120,7 @@ class TaskCloths extends Task {
       isMouseOverPile[1] = false;
     }
 
-    if (mouseX > 250 && mouseX < 250 + foldedChlotes.width && mouseY > 455 && mouseY < 455 + foldedChlotes.height)
+    if (mouse.x > 250 && mouse.x < 250 + foldedChlotes.width && mouse.y > 455 && mouse.y < 455 + foldedChlotes.height)
     {
       isMouseOverPile[0] = true;
     } else
@@ -142,15 +142,15 @@ class TaskCloths extends Task {
       {
         if (i!=2)
         {
-          parts[i].c.x = mouseX;
-          parts[i].d.x = mouseX;
-          parts[i].c.y = mouseY + 25;
-          parts[i].d.y = mouseY - 25;
+          parts[i].c.x = mouse.x;
+          parts[i].d.x = mouse.x;
+          parts[i].c.y = mouse.y + 25;
+          parts[i].d.y = mouse.y - 25;
         } else {
-          parts[i].c.y = mouseY;
-          parts[i].d.y = mouseY;
-          parts[i].c.x = mouseX + 83;
-          parts[i].d.x = mouseX - 83;
+          parts[i].c.y = mouse.y;
+          parts[i].d.y = mouse.y;
+          parts[i].c.x = mouse.x + 83;
+          parts[i].d.x = mouse.x - 83;
         }
       }
     }
