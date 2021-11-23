@@ -77,7 +77,7 @@ class TaskFolding extends Task {
         }
 
 
-        if (parts[i].c.x > 754 && parts[i].c.x < 754 + cloth.width && parts[i].c.y > 300 && parts[i].c.y < 300 + cloth.height)
+        if ((parts[i].c.x > 754 && parts[i].c.x < 754 + cloth.width && parts[i].c.y > 300 && parts[i].c.y < 300 + cloth.height) && (parts[i].d.x > 754 && parts[i].d.x < 754 + cloth.width && parts[i].d.y > 300 && parts[i].d.y < 300 + cloth.height))
         {
           lock[i] = true;
           released[i] = true;
