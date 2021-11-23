@@ -24,9 +24,9 @@ int fontSize = 48;
 int cursorInt;
 
 void settings() {
-  //size(1600, 900, P2D);
+  size(1600, 900, P2D);
   //size(1920, 1080, P2D);
-  fullScreen(P2D);
+  //fullScreen(P2D);
   //smooth(1);
   //noSmooth();
 }
@@ -106,7 +106,7 @@ void setup() {
   cupBoardArrow.setQuad(1265.0, 128.0, 1634.0, -86, 1331.0, 1370, 1192.0, 910.0);
 
   MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "bathroom");
-  br1showerArrow.setQuad(1102.0, 222.0, 1133.0, 205.0, 1111.0, 644.0, 1087.0, 569.0);
+  br1showerArrow.setQuad(1102.0, 222.0, 1133.0, 205.0, 1111.0, 644.0, 1088.5, 569.0);
 
   MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "livingRoomReading");
   livingRoomArrow.setQuad(814.0, 182.0, 865.0, 208.0, 886.0, 627.0, 848.0, 728.0);
@@ -142,8 +142,9 @@ void setup() {
   //bathroom 1: shower -->
   Scene bathroom = new Scene("bathroom", "rooms/bathRoom/br1shower.png", "ui/minimap/Bathroom_1.png");
 
-  MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 100, gheight / 2, "ui/arrowRight.png", true);
-  MoveToSceneObject br2sinkArrow = new MoveToSceneObject("goTobr2sink", gwidth/2, gheight - 100, "ui/arrowDown.png", "bathroomSink");
+  MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 100, gheight / 2, true);
+  hallwayBackArrow_bathroom.setQuad(1721.0, 157.5, 1920.0, 99.9, 1920.0, 1800, 1584.0, 1069.2);
+  MoveToSceneObject br2sinkArrow = new MoveToSceneObject("goTobr2sink", 0, gheight/2, "ui/arrowLeft.png", "bathroomSink");
 
   bathroom.addGameObject(hallwayBackArrow_bathroom);
   bathroom.addGameObject(br2sinkArrow);
@@ -152,9 +153,13 @@ void setup() {
   //bathroom 2: sink -->
   Scene bathroomSink = new Scene("bathroomSink", "rooms/bathRoom/br2sink.png", "ui/minimap/Bathroom_2.png");
 
-  MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
+  MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth-100, gheight/2, "ui/arrowRight.png", true);
+  MoveToSceneObject br1showerHallWayArrow = new MoveToSceneObject("goBackToHallway", 0, gheight/2, true);
+  br1showerHallWayArrow.setQuad(0, -15, 140.4, 72.0, 296.4, 1080, 0, 1080);
+  br1showerHallWayArrow.setBackAmount(2);
 
   bathroomSink.addGameObject(br1showerBackArrow);
+  bathroomSink.addGameObject(br1showerHallWayArrow);
 
   TrashObject trash1 = new TrashObject("trash1", 808.8, 758.4, "trash/Vomit.png");
   bathroomSink.addTrash(trash1);
@@ -181,12 +186,15 @@ void setup() {
   //spongeco.generateHoverImage();
 
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 100, gheight/2, "ui/arrowRight.png", true);
+  MoveToSceneObject kitchenGoToTVArrow = new MoveToSceneObject("kitchenGoToTV", 0, gheight/2, "ui/arrowLeft.png", true);
+  kitchenGoToTVArrow.setAfterwardsScene("LivingRoomTV");
   MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
   GameObject endDish = new GameObject("goToDishTask", 500, 553, "rooms/livingRoom/counterClean.png");
   endDish.setClickable(false);
   RequireObject startDish = new RequireObject("startDish", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the disches with a sponge!", sponge, (GameObject)startDishArrow);
   TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes", new PVector(101, 57));
 
+  kitchen.addGameObject(kitchenGoToTVArrow);
   kitchen.addGameObject(readingLRBackArrow);
   kitchen.addGameObject(startDish);
   kitchen.addGameObject(spongeco);
@@ -200,6 +208,10 @@ void setup() {
   bpArrow.setQuad(1214.0, 634, 1487.0, 741, 1651.0, 32, 1276.0, 62);
 
 
+  MoveToSceneObject tvGoToKitchenArrow = new MoveToSceneObject("tvGoToKitchenArrow", gwidth - 100, gheight/2, "ui/arrowRight.png", true);
+  tvGoToKitchenArrow.setAfterwardsScene("kitchen");
+
+
   Quad vacuumQuad = new Quad(949.2, 530.4, 1309.2, 670.8, 590, 1080, 0, 840);
   MoveToSceneObject startVacuumArrow = new MoveToSceneObject("goToVacuumTask", 117, 531, "rooms/livingRoom/dustStart.png", "taskVacuum");
   startVacuumArrow.setQuad(vacuumQuad);
@@ -207,6 +219,7 @@ void setup() {
   startVacuum.setQuad(vacuumQuad);
   TaskVacuum taskVacuum = new TaskVacuum("taskVacuum", "tasks/vacuum/rug.png", startVacuumArrow, null, "Vacuum the livingroom", new PVector(80, 134));
 
+  livingRoomTV.addGameObject(tvGoToKitchenArrow);
   livingRoomTV.addGameObject(readingLRBackArrow2);
   livingRoomTV.addGameObject(bpArrow);
   livingRoomTV.addGameObject(startVacuum);
@@ -316,7 +329,9 @@ void mouseDragged() {
 void mouseReleased() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   if (debugMode) println("new PVector(" + mouse.x + ", " + mouse.y + ");");
+  sceneManager.getCurrentScene().mouseMoved();
   sceneManager.getCurrentScene().mouseClicked();
+  sceneManager.getCurrentScene().mouseMoved();
   inventoryManager.mouseClicked();
   taskTracker.mouseClicked();
   if (analytics) analyticRecord("mouseReleased");
@@ -326,10 +341,10 @@ void keyPressed() {
   if (key == 'd') debugMode = !debugMode;
   if (debugMode) {
     if (key == 'c') taskTracker.tasks.get(0).completed = !taskTracker.tasks.get(0).completed;
-    if (key == 't') {      
+    if (key == 't') {
       try {
         inventoryManager.increaseTrash();
-      } 
+      }
       catch(Exception e) {
         println(e);
       }

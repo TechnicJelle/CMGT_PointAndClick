@@ -34,6 +34,12 @@ class SceneManager {
     scenesStack.pop();
   }
 
+  public void goToPreviousScene(int n) {
+    for (int i = 0; i < n; i++) {
+      scenesStack.pop();
+    }
+  }
+
   public Scene getCurrentScene() {
     return scenesStack.peek();
   }
