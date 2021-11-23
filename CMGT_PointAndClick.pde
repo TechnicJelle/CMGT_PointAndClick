@@ -65,6 +65,18 @@ void setup() {
 
   bk2beds.addGameObject(bk1deskArrow);
   bk2beds.addGameObject(foldingTask);
+
+  TrashObject trash2 = new TrashObject("trash2", 690, 900, "trash/Cup4.png");
+  bk2beds.addTrash(trash2);
+
+  TrashObject trash3 = new TrashObject("trash3", 1223, 575, "trash/Sock1.png");
+  bk2beds.addTrash(trash3);
+
+  TrashObject trash4 = new TrashObject("trash4", 1270, 770, "trash/RCan1.png");
+  bk2beds.addTrash(trash4);
+
+  TrashObject trash5 = new TrashObject("trash5", 782, 612, "trash/Sock2.png");
+  bk2beds.addTrash(trash5);
   //<-- bedroom kids 2: beds
 
 
@@ -77,6 +89,19 @@ void setup() {
 
   bk1desk.addGameObject(bk2bedsBackArrow);
   bk1desk.addGameObject(hwArrow);
+
+
+  TrashObject trash6 = new TrashObject("trash6", 954.75, 600.25, "trash/Magazine.png");
+  bk1desk.addTrash(trash6);
+
+  TrashObject trash7 = new TrashObject("trash7", 850, 530, "trash/Pizza.png");
+  bk1desk.addTrash(trash7);
+
+  TrashObject trash8 = new TrashObject("trash8", 600, 840, "trash/Bottle.png");
+  bk1desk.addTrash(trash8);
+
+  TrashObject trash9 = new TrashObject("trash9", 1290, 612, "trash/Clothes.png");
+  bk1desk.addTrash(trash9);
   //<-- bedroom kids 1: desk
 
   //cupboard -->
