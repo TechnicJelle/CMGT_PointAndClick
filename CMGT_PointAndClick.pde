@@ -23,6 +23,9 @@ int fontSize = 48;
 
 int cursorInt;
 
+int score;
+protected int scoreMax;
+
 void settings() {
   size(1600, 900, P2D);
   //size(1920, 1080, P2D);
@@ -42,6 +45,9 @@ void setup() {
   }
 
   cursorInt = ARROW;
+
+  score = 0;
+  scoreMax = 0;
 
   sceneManager = new SceneManager();
   inventoryManager = new InventoryManager();
@@ -69,21 +75,21 @@ void setup() {
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 0, 0, "tasks/folding/pileOfClothes.png", "TaskFolding");
 
-  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218));
+  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 400);
 
   bk2beds.addGameObject(bk1deskArrow);
   bk2beds.addGameObject(foldingTask);
 
-  TrashObject trash2 = new TrashObject("trash2", 690, 900, "trash/Cup4.png");
+  TrashObject trash2 = new TrashObject("trash2", 690, 900, "trash/Cup4.png", 20);
   bk2beds.addTrash(trash2);
 
-  TrashObject trash3 = new TrashObject("trash3", 1223, 575, "trash/Sock1.png");
+  TrashObject trash3 = new TrashObject("trash3", 1223, 575, "trash/Sock1.png", 10);
   bk2beds.addTrash(trash3);
 
-  TrashObject trash4 = new TrashObject("trash4", 1270, 770, "trash/RCan1.png");
+  TrashObject trash4 = new TrashObject("trash4", 1270, 770, "trash/RCan1.png", 20);
   bk2beds.addTrash(trash4);
 
-  TrashObject trash5 = new TrashObject("trash5", 782, 612, "trash/Sock2.png");
+  TrashObject trash5 = new TrashObject("trash5", 782, 612, "trash/Sock2.png", 10);
   bk2beds.addTrash(trash5);
   //<-- bedroom kids 2: beds
 
@@ -99,16 +105,16 @@ void setup() {
   bk1desk.addGameObject(hwArrow);
 
 
-  TrashObject trash6 = new TrashObject("trash6", 954.75, 600.25, "trash/Magazine.png");
+  TrashObject trash6 = new TrashObject("trash6", 954.75, 600.25, "trash/Magazine.png", 15);
   bk1desk.addTrash(trash6);
 
-  TrashObject trash7 = new TrashObject("trash7", 850, 530, "trash/Pizza.png");
+  TrashObject trash7 = new TrashObject("trash7", 850, 530, "trash/Pizza.png", 20);
   bk1desk.addTrash(trash7);
 
-  TrashObject trash8 = new TrashObject("trash8", 600, 840, "trash/Bottle.png");
+  TrashObject trash8 = new TrashObject("trash8", 600, 840, "trash/Bottle.png", 15);
   bk1desk.addTrash(trash8);
 
-  TrashObject trash9 = new TrashObject("trash9", 1290, 612, "trash/Clothes.png");
+  TrashObject trash9 = new TrashObject("trash9", 1290, 612, "trash/Clothes.png", 10);
   bk1desk.addTrash(trash9);
   //<-- bedroom kids 1: desk
 
@@ -150,7 +156,7 @@ void setup() {
   RequireObject startSweep = new RequireObject("startSweep", 732.5, 493.2, "rooms/hallWay/trash.png", "Use a broom to clean up this mess", broom, (GameObject)startSweepArrow);
   startSweep.setQuad(sweepQuad);
 
-  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow, null, "Sweep the hallway", new PVector(155, 52));
+  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow, null, "Sweep the hallway", new PVector(155, 52), 1000);
 
   GameObject doorOutside = new GameObject("doorOutside", 500, 100) {
     public boolean mouseClicked() {
@@ -194,7 +200,7 @@ void setup() {
   bathroomSink.addGameObject(br1showerBackArrow);
   bathroomSink.addGameObject(br1showerHallWayArrow);
 
-  TrashObject trash1 = new TrashObject("trash1", 808.8, 758.4, "trash/Vomit.png");
+  TrashObject trash1 = new TrashObject("trash1", 808.8, 758.4, "trash/Vomit.png", 100);
   bathroomSink.addTrash(trash1);
   //<-- bathroom 2: sink
 
@@ -225,7 +231,7 @@ void setup() {
   GameObject endDish = new GameObject("goToDishTask", 500, 553, "rooms/livingRoom/counterClean.png");
   endDish.setClickable(false);
   RequireObject startDish = new RequireObject("startDish", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the disches with a sponge!", sponge, (GameObject)startDishArrow);
-  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes", new PVector(101, 57));
+  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes", new PVector(101, 57), 500);
 
   kitchen.addGameObject(kitchenGoToTVArrow);
   kitchen.addGameObject(readingLRBackArrow);
@@ -250,7 +256,7 @@ void setup() {
   startVacuumArrow.setQuad(vacuumQuad);
   RequireObject startVacuum = new RequireObject("startVacuum", 117, 531, "rooms/livingRoom/dust.png", "Use a vacuum to suck up this dust!", vacuum, (GameObject)startVacuumArrow);
   startVacuum.setQuad(vacuumQuad);
-  TaskVacuum taskVacuum = new TaskVacuum("taskVacuum", "tasks/vacuum/rug.png", startVacuumArrow, null, "Vacuum the livingroom", new PVector(80, 134));
+  TaskVacuum taskVacuum = new TaskVacuum("taskVacuum", "tasks/vacuum/rug.png", startVacuumArrow, null, "Vacuum the livingroom", new PVector(80, 134), 600);
 
   livingRoomTV.addGameObject(tvGoToKitchenArrow);
   livingRoomTV.addGameObject(readingLRBackArrow2);
@@ -308,7 +314,7 @@ void draw() {
   sceneManager.getCurrentScene().draw();
   sceneManager.getCurrentScene().updateScene();
 
-  if (!(sceneManager.getCurrentScene() instanceof Task)) {
+  if (inGame()) {
     inventoryManager.draw();
     taskTracker.draw();
   }
@@ -329,7 +335,11 @@ void draw() {
     //Thanks to hamoid at https://discourse.processing.org/t/faster-pimage-resizing/33593/16 for helping make this way faster!
     image(canvas, 0, 0, width, height);
   }
-  if (debugMode) text(frameRate, 10, 10);
+
+  if (debugMode) { 
+    text(frameRate, 10, 10);
+    text(score + "/" + scoreMax, 10, 40);
+  }
   if (analytics && frameCount % 30 == 0) analyticRecord("mousePosition");
 }
 
@@ -348,15 +358,19 @@ void exit() {
 void mouseMoved() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
-  inventoryManager.mouseMoved();
-  taskTracker.mouseMoved();
+  if (inGame()) {
+    inventoryManager.mouseMoved();
+    taskTracker.mouseMoved();
+  }
 }
 
 void mouseDragged() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   sceneManager.getCurrentScene().mouseMoved();
-  inventoryManager.mouseMoved();
-  taskTracker.mouseMoved();
+  if (inGame()) {
+    inventoryManager.mouseMoved();
+    taskTracker.mouseMoved();
+  }
 }
 
 void mouseReleased() {
@@ -365,8 +379,10 @@ void mouseReleased() {
   sceneManager.getCurrentScene().mouseMoved();
   sceneManager.getCurrentScene().mouseClicked();
   sceneManager.getCurrentScene().mouseMoved();
-  inventoryManager.mouseClicked();
-  taskTracker.mouseClicked();
+  if (inGame()) {
+    inventoryManager.mouseClicked();
+    taskTracker.mouseClicked();
+  }
   if (analytics) analyticRecord("mouseReleased");
 }
 
@@ -494,4 +510,8 @@ void setCursor(int c) {
 
 void setCursor(PImage p) {
   cursor(p);
+}
+
+boolean inGame() {
+  return !(sceneManager.getCurrentScene() instanceof Task || sceneManager.getCurrentScene() instanceof MainMenu);
 }

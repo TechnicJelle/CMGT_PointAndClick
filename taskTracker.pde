@@ -23,52 +23,49 @@ class TaskTracker {
   }
 
   void draw() {
-    if (sceneManager.getCurrentScene().getSceneName() != "MainMenu")
-    {
-      canvas.pushMatrix();
-      if (phoneUp) {
-        canvas.translate(0, 574);
-      } else {
-        canvas.translate(0, 900);
-      }
-      canvas.image(phone, 0, 0);
-
-      if (debugMode) {
-        canvas.stroke(0);
-        canvas.strokeWeight(1);
-        canvas.noFill();
-        canvas.rect(0, 0, phone.width, gheight);
-        canvas.rect(0, 326, phone.width, 180);
-      }
-
-      canvas.translate(210, 7);
-      //timer here
-
-      canvas.translate(0, 24);
-      changeFontSize(32);
-      for (int i = 0; i < tasks.size(); i++) {
-        Task task = tasks.get(i);
-        PImage img = task.completed ? taskDone : taskTodo;
-        canvas.image(img, 0, fontSize*(i+1)-img.height);
-        drawText(task.description, 36, fontSize*i);
-      }
-
-      canvas.translate(0, 119);
-      canvas.image(sceneManager.getCurrentScene().minimapImage, 0, 0);
-      for (int i = 0; i < tasks.size(); i++) {
-        Task task = tasks.get(i);
-        if (task.completed) {
-          canvas.stroke(0, 255, 0);
-          canvas.strokeWeight(3);
-        } else {
-          canvas.stroke(255, 0, 0);
-          canvas.strokeWeight(5);
-        }
-        canvas.point(task.minimapLocation.x, task.minimapLocation.y);
-      }
-
-      canvas.popMatrix();
+    canvas.pushMatrix();
+    if (phoneUp) {
+      canvas.translate(0, 574);
+    } else {
+      canvas.translate(0, 900);
     }
+    canvas.image(phone, 0, 0);
+
+    if (debugMode) {
+      canvas.stroke(0);
+      canvas.strokeWeight(1);
+      canvas.noFill();
+      canvas.rect(0, 0, phone.width, gheight);
+      canvas.rect(0, 326, phone.width, 180);
+    }
+
+    canvas.translate(210, 7);
+    //timer here
+
+    canvas.translate(0, 24);
+    changeFontSize(32);
+    for (int i = 0; i < tasks.size(); i++) {
+      Task task = tasks.get(i);
+      PImage img = task.completed ? taskDone : taskTodo;
+      canvas.image(img, 0, fontSize*(i+1)-img.height);
+      drawText(task.description, 36, fontSize*i);
+    }
+
+    canvas.translate(0, 119);
+    canvas.image(sceneManager.getCurrentScene().minimapImage, 0, 0);
+    for (int i = 0; i < tasks.size(); i++) {
+      Task task = tasks.get(i);
+      if (task.completed) {
+        canvas.stroke(0, 255, 0);
+        canvas.strokeWeight(3);
+      } else {
+        canvas.stroke(255, 0, 0);
+        canvas.strokeWeight(5);
+      }
+      canvas.point(task.minimapLocation.x, task.minimapLocation.y);
+    }
+
+    canvas.popMatrix();
   }
 
   void mouseMoved() {

@@ -1,7 +1,7 @@
 class TaskVacuum extends Task {
 
-  TaskVacuum(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation) {
-    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation);
+  TaskVacuum(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation, int sa) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation, sa);
   }
 
   PVector[] dustP;

@@ -6,8 +6,6 @@ class Scene {
 
   private ArrayList<GameObject> recentlyAddedGameObjects;
   private ArrayList<GameObject> markedForDeathGameObjects;
-  
-  
 
   public Scene(String sceneName, String backgroundImageFile, String minimapImageFile) {
     this.sceneName = sceneName;
@@ -46,7 +44,7 @@ class Scene {
   }
 
   public void draw() {
-    
+
     canvas.image(backgroundImage, 0, 0);
     for (GameObject object : gameObjects) {
       object.draw();
