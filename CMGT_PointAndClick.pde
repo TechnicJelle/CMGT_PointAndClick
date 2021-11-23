@@ -155,6 +155,9 @@ void setup() {
   MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
 
   bathroomSink.addGameObject(br1showerBackArrow);
+  
+  TrashObject trash1 = new TrashObject("trash1", 808.8, 758.4, "trash/Vomit.png");
+  bathroomSink.addTrash(trash1);
   //<-- bathroom 2: sink
 
   //livingroom 1: reading -->
