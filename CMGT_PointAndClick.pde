@@ -59,9 +59,9 @@ void setup() {
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
-  MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 0, 0, "pileOfChlotes.png", "TaskFolding");
-  
-  TaskCloths taskCloths = new TaskCloths("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the Cloths");
+  MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 0, 0, "tasks/folding/pileOfClothes.png", "TaskFolding");
+
+  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the Clothes");
 
   bk2beds.addGameObject(bk1deskArrow);
   bk2beds.addGameObject(foldingTask);
@@ -217,7 +217,7 @@ void setup() {
   sceneManager.addScene(bedroomParents);
   sceneManager.addScene(taskSweep);
   sceneManager.addScene(taskDish);
-  sceneManager.addScene(taskCloths);
+  sceneManager.addScene(taskFolding);
 
   mouse = screenScale(new PVector(mouseX, mouseY));
 

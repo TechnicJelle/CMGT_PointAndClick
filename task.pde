@@ -10,6 +10,7 @@ class Task extends Scene {
     this.replaceWith = replaceWith;
     description = desc;
     completed = false;
+    taskTracker.addTask(this);
   }
 
   void setup() {
