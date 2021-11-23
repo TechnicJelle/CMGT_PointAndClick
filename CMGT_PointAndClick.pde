@@ -55,6 +55,14 @@ void setup() {
 
   fullHD = width == gwidth && height == gheight;
 
+  //Main menu
+  Scene mainMenu = new Scene("MainMenu", "Mainmenu.png", null);
+
+  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 703.2, 136.8, "bk2beds");
+  StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);
+  mainMenu.addGameObject(StartGame);
+
+
   //bedroom kids 2: beds -->
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
@@ -259,7 +267,7 @@ void setup() {
   bedroomParents.addGameObject(TvBackArrow);
   //<-- bedroom parents
 
-
+  sceneManager.addScene(mainMenu);
   sceneManager.addScene(bk2beds);
   sceneManager.addScene(bk1desk);
   sceneManager.addScene(hallway);

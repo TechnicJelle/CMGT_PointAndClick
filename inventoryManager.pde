@@ -90,28 +90,31 @@ class InventoryManager {
   }
 
   public void draw() {
-    hoverOptim = true;
-    for (int i = 0; i < slots; i++) {
-      canvas.stroke(0);
-      if (i == selected) {
-        canvas.strokeWeight(4);
-      } else if (i == hovered) {
-        canvas.strokeWeight(3);
-      } else {
-        canvas.strokeWeight(2);
+    if (sceneManager.getCurrentScene().getSceneName() != "MainMenu")
+    {
+      hoverOptim = true;
+      for (int i = 0; i < slots; i++) {
+        canvas.stroke(0);
+        if (i == selected) {
+          canvas.strokeWeight(4);
+        } else if (i == hovered) {
+          canvas.strokeWeight(3);
+        } else {
+          canvas.strokeWeight(2);
+        }
+        canvas.fill(128, 50);
+        canvas.rect(slotPositions[i].x, slotPositions[i].y, slotW, slotH, 12);
+        if (collectables[i] != null) {
+          canvas.image(collectables[i].image, slotPositions[i].x, slotPositions[i].y, slotW, slotH);
+        }
       }
-      canvas.fill(128, 50);
-      canvas.rect(slotPositions[i].x, slotPositions[i].y, slotW, slotH, 12);
-      if (collectables[i] != null) {
-        canvas.image(collectables[i].image, slotPositions[i].x, slotPositions[i].y, slotW, slotH);
+
+      if (selected != -1 && collectables[selected] != null) {
+        canvas.image(collectables[selected].image, mouse.x-collectables[selected].image.width/2, mouse.y-collectables[selected].image.height/2);
       }
-    }
 
-    if (selected != -1 && collectables[selected] != null) {
-      canvas.image(collectables[selected].image, mouse.x-collectables[selected].image.width/2, mouse.y-collectables[selected].image.height/2);
+      canvas.image(trashBagStates[trashBagState], 1631, 871);
     }
-
-    canvas.image(trashBagStates[trashBagState], 1631, 871);
   }
 
   public void mouseClicked() {
