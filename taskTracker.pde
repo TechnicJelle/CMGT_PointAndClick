@@ -48,7 +48,7 @@ class TaskTracker {
       Task task = tasks.get(i);
       PImage img = task.completed ? taskDone : taskTodo;
       canvas.image(img, 0, fontSize*(i+1)-img.height);
-      drawText(task.description, 42, fontSize*i);
+      drawText(task.description, 36, fontSize*i);
     }
 
     canvas.translate(0, 119);

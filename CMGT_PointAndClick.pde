@@ -61,7 +61,7 @@ void setup() {
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 0, 0, "tasks/folding/pileOfClothes.png", "TaskFolding");
 
-  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the Clothes");
+  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes");
 
   bk2beds.addGameObject(bk1deskArrow);
   bk2beds.addGameObject(foldingTask);
@@ -84,12 +84,16 @@ void setup() {
 
   Collectable broom = new Collectable("broom", "collectables/Broom.png");
   CollectableObject broomco = new CollectableObject("broomco", 471, 37, "rooms/cupBoard/cbBroom.png", broom);
+
+  Collectable vacuum = new Collectable("vacuum", "collectables/Vacuum.png");
+  CollectableObject vacuumco = new CollectableObject("vacuumco", 743, 200, "rooms/cupBoard/cbVacuum.png", vacuum);
   //broomco.generateHoverImage();
   //broomco.setHoverImage("rooms/cupBoard/cbBroom2outline.png");
 
   MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 100, "ui/arrowDown.png", true);
 
   cupBoard.addGameObject(broomco);
+  cupBoard.addGameObject(vacuumco);
   cupBoard.addGameObject(hallwayBackArrow);
   //<-- cupboard
 
@@ -191,8 +195,17 @@ void setup() {
   MoveToSceneObject bpArrow = new MoveToSceneObject("goTobp", 1300, gheight/2, "bp");
   bpArrow.setQuad(1214.0, 633.9823, 1487.0, 741.23895, 1651.0, 32.920353, 1276.0, 61.592922);
 
+
+  TaskVacuum taskVacuum = new TaskVacuum("taskVacuum", "tasks/vacuum/rug.png", startSweepArrow, null, "Vacuum the livingroom");
+  Quad vacuumQuad = new Quad(931.2, 496.8, 1062.0, 496.8, 1233.6, 1072.8, 738.0, 1074.0);
+  MoveToSceneObject startVacuumArrow = new MoveToSceneObject("goToVacuumTask", 732.5, 493.2, "rooms/hallWay/trashClick.png", "taskVacuum");
+  startVacuumArrow.setQuad(vacuumQuad);
+  RequireObject startVacuum = new RequireObject("startVacuum", 732.5, 493.2, "rooms/hallWay/trash.png", "Use a vacuum to clean up this mess", vacuum, (GameObject)startVacuumArrow);
+  startVacuum.setQuad(vacuumQuad);
+
   livingRoomTV.addGameObject(readingLRBackArrow2);
   livingRoomTV.addGameObject(bpArrow);
+  livingRoomTV.addGameObject(startVacuum);
   //<-- livingroom 3: tv
 
 
@@ -218,6 +231,7 @@ void setup() {
   sceneManager.addScene(taskSweep);
   sceneManager.addScene(taskDish);
   sceneManager.addScene(taskFolding);
+  sceneManager.addScene(taskVacuum);
 
   mouse = screenScale(new PVector(mouseX, mouseY));
 
