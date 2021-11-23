@@ -7,7 +7,7 @@ PImage finalFrame; //Improves fps (Only needed when screen resolution != gamewin
 int gwidth = 1920;
 int gheight = 1080;
 
-boolean debugMode = true;
+boolean debugMode = false;
 boolean analytics = false;
 Table table;
 
@@ -24,9 +24,9 @@ int fontSize = 48;
 int cursorInt;
 
 void settings() {
-  size(1600, 900, P2D);
+  //size(1600, 900, P2D);
   //size(1920, 1080, P2D);
-  //fullScreen(P2D);
+  fullScreen(P2D);
   //smooth(1);
   //noSmooth();
 }
@@ -155,7 +155,7 @@ void setup() {
   MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
 
   bathroomSink.addGameObject(br1showerBackArrow);
-  
+
   TrashObject trash1 = new TrashObject("trash1", 808.8, 758.4, "trash/Vomit.png");
   bathroomSink.addTrash(trash1);
   //<-- bathroom 2: sink
