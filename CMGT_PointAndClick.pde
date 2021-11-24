@@ -79,8 +79,18 @@ void setup() {
   StartGame.setXY(gwidth/2, 400, true);
   StartGame.setHoverImage("data/menus/main/btn_playH.png");
 
+  GameObject HighScoreButton = new GameObject("HighScoreButton", 0, 0, "data/menus/main/btn_high.png");
+  HighScoreButton.setXY(gwidth/2, 600, true);
+  HighScoreButton.setHoverImage("data/menus/main/btn_highH.png");
+
+  GameObject ExitButton = new GameObject("ExitButton", 0, 0, "data/menus/main/btn_exit.png");
+  ExitButton.setXY(gwidth/2, 800, true);
+  ExitButton.setHoverImage("data/menus/main/btn_exitH.png");
+
   //StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);
   mainMenu.addGameObject(StartGame);
+  mainMenu.addGameObject(HighScoreButton);
+  mainMenu.addGameObject(ExitButton);
 
   //Intro video
   IntroVideoScene introVideoScene = new IntroVideoScene("introVideoScene", "menus/main/phone.png");
