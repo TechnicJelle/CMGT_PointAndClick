@@ -1,7 +1,20 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+
 import processing.video.*;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
+Minim minim;
+AudioPlayer[] songs;
+
+boolean song1IsPlaying;
 
 PGraphics canvas;
 boolean fullHD;
@@ -51,6 +64,10 @@ void setup() {
     table.addColumn("mouse.x");
     table.addColumn("mouse.y");
   }
+
+  //load music
+  minim = new Minim(this  );
+  songs = new AudioPlayer[] {minim.loadFile("data/sound/music/Petar_Ivaylov_Trichkov_-_Beat_1.wav"), minim.loadFile("data/sound/music/Petar_Ivaylov_Trichkov_-_Beat_2.wav"), minim.loadFile("data/sound/music/Petar_Ivaylov_Trichkov_-_Beat_3.wav")};
 
   introVideoLoaded = false;
   thread("loadVideo");
@@ -418,6 +435,12 @@ void setup() {
 
 int millisAtLastLog = 0;
 void draw() {
+  //sound
+  
+  
+  
+  
+  
   if (debugMode && millis() - millisAtLastLog > 5000) {
     millisAtLastLog = millis();
     println("fps: " + frameRate);

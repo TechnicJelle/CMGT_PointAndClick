@@ -8,7 +8,11 @@ class MainMenu extends Scene {
   }
 
   void draw() {
-
+   
+    songs[1].loop();
+    songs[1].play();
+  
+    
     canvas.background(lerpColor(#78C8A1, #F69E86, (((millis()/5000)%2==0)?millis()%5000:5000-millis()%5000)/5000.0));
 
     for (int i = 0; i < perPattern; i++)
@@ -26,6 +30,7 @@ class MainMenu extends Scene {
 
   void mouseClicked() {
     if (introVideoLoaded) super.mouseClicked();
+    songs[1].pause();
   }
 }
 
