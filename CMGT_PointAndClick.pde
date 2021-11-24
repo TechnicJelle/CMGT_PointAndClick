@@ -96,50 +96,53 @@ void setup() {
   IntroVideoScene introVideoScene = new IntroVideoScene("introVideoScene", "menus/main/phone.png");
 
 
-  //bedroom kids 2: beds -->
-  Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/bk1beds.png", "ui/minimap/Bedroom_Kids_1.png");
+  //bedroom kids 1: beds -->
+  Scene bk1beds = new Scene("bk1beds", "rooms/bedroomKids/bk1beds.png", "ui/minimap/Bedroom_Kids_1.png");
 
-  MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 105, "ui/arrowDown.png", "bk1desk");
-  bk2beds.addGameObject(bk1deskArrow);
+  MoveToSceneObject bk2deskArrow = new MoveToSceneObject("goTobk2desk", gwidth/2, gheight - 105, "ui/arrowDown.png", "bk2desk");
+  bk1beds.addGameObject(bk2deskArrow);
 
   TrashObject trash2 = new TrashObject("trash2", 690, 900, "trash/Cup4.png", 20);
-  bk2beds.addTrash(trash2);
+  bk1beds.addTrash(trash2);
 
   TrashObject trash3 = new TrashObject("trash3", 1223, 575, "trash/Sock1.png", 10);
-  bk2beds.addTrash(trash3);
+  bk1beds.addTrash(trash3);
 
   TrashObject trash4 = new TrashObject("trash4", 1270, 770, "trash/RCan1.png", 20);
-  bk2beds.addTrash(trash4);
+  bk1beds.addTrash(trash4);
 
   TrashObject trash5 = new TrashObject("trash5", 782, 612, "trash/Sock2.png", 10);
-  bk2beds.addTrash(trash5);
-  //<-- bedroom kids 2: beds
+  bk1beds.addTrash(trash5);
+  //<-- bedroom kids 1: beds
 
 
-  //bedroom kids 1: desk -->
-  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/bk2desk.png", "ui/minimap/Bedroom_Kids_2.png");
+  //bedroom kids 2: desk -->
+  Scene bk2desk = new Scene("bk2desk", "rooms/bedroomKids/bk2desk.png", "ui/minimap/Bedroom_Kids_2.png");
 
-  MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
+  MoveToSceneObject bk1bedsBackArrow = new MoveToSceneObject("goBackTobk1beds", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
   MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 105, "hallway");
   hwArrow.setQuad(59, 30.0, 393.6, 97.2, 494, 792.0, 280.8, 1026.0);
 
-  bk1desk.addGameObject(bk2bedsBackArrow);
-  bk1desk.addGameObject(hwArrow);
+  bk2desk.addGameObject(bk1bedsBackArrow);
+  bk2desk.addGameObject(hwArrow);
 
+  Collectable plate2 = new Collectable("plate2", "collectables/PlateDirty2.png");
+  CollectableObject plate2co = new CollectableObject("plate2co", 875, 591, "rooms/bedroomKids/PlateDirty2.png", plate2);
+  bk2desk.addGameObject(plate2co);
 
   TrashObject trash6 = new TrashObject("trash6", 954.75, 600.25, "trash/Magazine.png", 15);
-  bk1desk.addTrash(trash6);
+  bk2desk.addTrash(trash6);
 
-  TrashObject trash7 = new TrashObject("trash7", 865, 540, "trash/Pizzasmall.png", 20);
-  bk1desk.addTrash(trash7);
+  TrashObject trash7 = new TrashObject("trash7", 865, 580, "trash/Pizzasmall.png", 20);
+  bk2desk.addTrash(trash7);
 
   TrashObject trash8 = new TrashObject("trash8", 600, 840, "trash/Bottle.png", 15);
-  bk1desk.addTrash(trash8);
+  bk2desk.addTrash(trash8);
 
   Collectable clothes1 = new Collectable("clothes1", "collectables/Clothes.png");
   CollectableObject clothes1co = new CollectableObject("clothes1", 1290, 612, "rooms/bedroomKids/Clothes.png", clothes1);
-  bk1desk.addGameObject(clothes1co);
-  //<-- bedroom kids 1: desk
+  bk2desk.addGameObject(clothes1co);
+  //<-- bedroom kids 2: desk
 
   //cupboard -->
   Scene cupBoard = new Scene("cupBoard", "rooms/cupBoard/cb.png", "ui/minimap/Closet.png");
@@ -158,6 +161,10 @@ void setup() {
   cupBoard.addGameObject(vacuumco);
   cupBoard.addGameObject(hallwayBackArrow);
 
+  Collectable plate4 = new Collectable("plate4", "collectables/PlateDirty4.png");
+  CollectableObject plate4co = new CollectableObject("plate4co", 1209, 723, "rooms/cupBoard/PlateDirty4.png", plate4);
+  cupBoard.addGameObject(plate4co);
+
   TrashObject trash10 = new TrashObject("trash10", 1300, 125.0, "trash/AlcBottle.png", 10);
   TrashObject trash11 = new TrashObject("trash11", 1000, 800, "trash/BCan1.png", 10);
   cupBoard.addTrash(trash10);
@@ -167,7 +174,7 @@ void setup() {
   //hallway -->
   Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png", "ui/minimap/Hallway.png");
 
-  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2, gheight-105, "ui/arrowDown.png", true);
+  MoveToSceneObject bk2deskBackArrow = new MoveToSceneObject("goBackTobk2desk", gwidth/2, gheight-105, "ui/arrowDown.png", true);
 
   MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 105, gheight- 500, "cupBoard");
   cupBoardArrow.setQuad(1265.0, 128.0, 1634.0, -86, 1331.0, 1370, 1192.0, 910.0);
@@ -203,7 +210,7 @@ void setup() {
   hallway.addGameObject(br1showerArrow);
   hallway.addGameObject(cupBoardArrow);
   hallway.addGameObject(startSweep);
-  hallway.addGameObject(bk1deskBackArrow);
+  hallway.addGameObject(bk2deskBackArrow);
   //<-- hallway
 
   //bathroom 1: shower -->
@@ -236,6 +243,10 @@ void setup() {
 
   bathroomSink.addGameObject(br1showerBackArrow);
   bathroomSink.addGameObject(br1showerHallWayArrow);
+
+  Collectable plate1 = new Collectable("plate1", "collectables/PlateDirty1.png");
+  CollectableObject plate1co = new CollectableObject("plate1co", 1015, 465, "rooms/bathRoom/PlateDirty1.png", plate1);
+  bathroomSink.addGameObject(plate1co);
 
   TrashObject trash1 = new TrashObject("trash1", 808.8, 758.4, "trash/Vomit.png", 100);
   bathroomSink.addTrash(trash1);
@@ -282,15 +293,38 @@ void setup() {
   MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 105, gheight/2, "ui/arrowRight.png", true);
   MoveToSceneObject kitchenGoToTVArrow = new MoveToSceneObject("kitchenGoToTV", -5, gheight/2, "ui/arrowLeft.png", true);
   kitchenGoToTVArrow.setAfterwardsScene("LivingRoomTV");
-  MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
-  GameObject endDish = new GameObject("goToDishTask", 500, 553, "rooms/livingRoom/counterClean.png");
+
+  Collectable plate5 = new Collectable("plate5", "collectables/PlateDirty5.png");
+  CollectableObject plate5co = new CollectableObject("plate5co", 1740, 694, "rooms/livingRoom/PlateDirty5.png", plate5);
+  kitchen.addGameObject(plate5co);
+
+  //bedroomparents->
+  Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png", "ui/minimap/Bedroom_Parents.png");
+  Collectable plate3 = new Collectable("plate3", "collectables/PlateDirty3.png");
+  CollectableObject plate3co = new CollectableObject("plate3co", 766, 426, "rooms/bedroomParents/PlateDirty3.png", plate3);
+  bedroomParents.addGameObject(plate3co);
+  //<-bedroomparents
+
+  //folding task
+  Collectable[] dishesCollectables = new Collectable[] { plate1, plate2, plate3, plate4, plate5 };
+  String[] dishesPileStates = new String[] {
+    "piles/dishes/state0empty.png", 
+    "piles/dishes/state1.png", 
+    "piles/dishes/state2.png", 
+    "piles/dishes/state3.png", 
+    "piles/dishes/state4.png", 
+    "piles/dishes/state5.png"};
+  MoveToSceneObject startDishArrow = new MoveToSceneObject("startDishArrow", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
+  RequireObject requireSponge = new RequireObject("requireSponge", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the dishes with a sponge!", sponge, (GameObject)startDishArrow);
+  RequireObject requirePlates = new RequireObject("requirePlates", 1152.0, 571.2, dishesPileStates, "Bring all dirty plates here", dishesCollectables, (GameObject)requireSponge);
+
+  GameObject endDish = new GameObject("endDish", 516, 560, "rooms/livingRoom/inRackClean.png");
   endDish.setClickable(false);
-  RequireObject startDish = new RequireObject("startDish", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the dishes with a sponge!", sponge, (GameObject)startDishArrow);
   TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes", new PVector(101, 57), 500);
 
   kitchen.addGameObject(kitchenGoToTVArrow);
   kitchen.addGameObject(readingLRBackArrow);
-  kitchen.addGameObject(startDish);
+  kitchen.addGameObject(requirePlates);
   kitchen.addGameObject(spongeco);
 
   TrashObject trash21 = new TrashObject("trash21", 807.6, 900.0, "trash/Pizza.png", 10);
@@ -307,7 +341,7 @@ void setup() {
   kitchen.addTrash(trash24);
 
   Collectable clothes3 = new Collectable("clothes3", "collectables/Cap.png");
-  CollectableObject clothes3co = new CollectableObject("clothes3co", 560.0, 600.0, "rooms/livingRoom/Cap.png", clothes3);
+  CollectableObject clothes3co = new CollectableObject("clothes3co", 600, 631, "rooms/livingRoom/CapR.png", clothes3);
   kitchen.addGameObject(clothes3co);
   //<-- livingroom 2: kitchen
 
@@ -351,14 +385,13 @@ void setup() {
 
 
   //bedroom parents -->
-  Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png", "ui/minimap/Bedroom_Parents.png");
 
   MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
 
   //folding task
   Collectable[] foldingCollectables = new Collectable[] { clothes1, clothes2, clothes3, clothes4 };
   String[] foldingPileStates = new String[] {
-    "piles/clothes/state0.png", 
+    "piles/clothes/state0empty.png", 
     "piles/clothes/state1.png", 
     "piles/clothes/state2.png", 
     "piles/clothes/state3.png", 
@@ -387,8 +420,8 @@ void setup() {
 
   sceneManager.addScene(mainMenu);
   sceneManager.addScene(introVideoScene);
-  sceneManager.addScene(bk2beds);
-  sceneManager.addScene(bk1desk);
+  sceneManager.addScene(bk1beds);
+  sceneManager.addScene(bk2desk);
   sceneManager.addScene(hallway);
   sceneManager.addScene(cupBoard);
   sceneManager.addScene(bathroom);
@@ -446,7 +479,7 @@ void draw() {
     endGame();
   }
 
-  //canvas.image(loadImage("ui/TrashFull.png"), mouse.x, mouse.y);
+  if (debugMode) canvas.image(loadImage("rooms/livingRoom/CapR.png"), mouse.x, mouse.y);
 
   canvas.endDraw();
 

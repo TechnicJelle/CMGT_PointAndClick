@@ -66,7 +66,7 @@ class IntroVideoScene extends Scene {
 
   private void end() {
     try {
-      sceneManager.goToScene("bk2beds");
+      sceneManager.goToScene("bk1beds");
       introVideo = null; //allow the gc to clear the video from memory
     } 
     catch (Exception e) {
