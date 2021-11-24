@@ -19,18 +19,13 @@ class GameObject {
   }
 
   public GameObject(String identifier, float x, float y, String gameObjectImageFile) {
-    this(identifier, x, y, gameObjectImageFile, false);
+    init(identifier, gameObjectImageFile);
+    this.setXY(x, y);
   }
 
   public GameObject(String identifier, float x, float y, String gameObjectImageFile, boolean center) {
     init(identifier, gameObjectImageFile);
-    if (center) {
-      this.x = x - gameObjectImage.width/2;
-      this.y = y - gameObjectImage.height/2;
-    } else {
-      this.x = x;
-      this.y = y;
-    }
+    this.setXY(x, y, center);
   }
 
   private void init(String identifier, String gameObjectImageFile) {
@@ -46,6 +41,20 @@ class GameObject {
     isQuad = false;
     mouseIsHovering = false;
     clickable = true;
+  }
+
+  public void setXY(float x, float y) {
+    this.setXY(x, y, false);
+  }
+
+  public void setXY(float x, float y, boolean center) {
+    if (center) {
+      this.x = x - gameObjectImage.width/2;
+      this.y = y - gameObjectImage.height/2;
+    } else {
+      this.x = x;
+      this.y = y;
+    }
   }
 
   public void generateHoverImage() {
@@ -85,45 +94,33 @@ class GameObject {
   }
 
   public void draw() {
-    if (clickable) {
-      canvas.noFill();
-      if (mouseIsHovering) {
-        canvas.stroke(0);
-        canvas.strokeWeight(2);
-      } else {
-        canvas.stroke(0, 100);
-        canvas.strokeWeight(1);
-      }
-    }
-
     if (isQuad) {
-      if (clickable) quad.draw();
-    } else {
-      if (hasHoverImage) {
-        if (mouseIsHovering) canvas.noTint();
-        else canvas.tint(0, 100);
-        canvas.pushStyle();
-        canvas.imageMode(CENTER);
-        canvas.image(gameObjectImageHover, x+gameObjectImage.width/2, y+gameObjectImage.height/2);
-        canvas.popStyle();
-        canvas.noTint();
-      } else if (hasImage) {
-        //canvas.rect(x, y, owidth, oheight);
+      if (clickable) {
+        canvas.noFill();
+        if (mouseIsHovering) {
+          canvas.stroke(0);
+          canvas.strokeWeight(2);
+        } else {
+          canvas.stroke(0, 100);
+          canvas.strokeWeight(1);
+        }
+
+        if (clickable) quad.draw();
       }
     }
 
     if (hasImage) {
       canvas.image(gameObjectImage, x, y);
-      if (hasHoverImage) {
-        if (mouseIsHovering) canvas.noTint();
-        else canvas.tint(0, 100);
-        canvas.pushStyle();
-        canvas.imageMode(CENTER);
-        canvas.image(gameObjectImageHover, x+gameObjectImage.width/2, y+gameObjectImage.height/2);
-        canvas.popStyle();
-        canvas.noTint();
-      }
     }
+
+    if (hasHoverImage && mouseIsHovering) {
+      canvas.pushStyle();
+      canvas.imageMode(CENTER);
+      canvas.image(gameObjectImageHover, x+gameObjectImage.width/2, y+gameObjectImage.height/2);
+      canvas.popStyle();
+    }
+
+
 
     if (debugMode) {
       canvas.stroke(mouseIsHovering ? 255 : debugCol);

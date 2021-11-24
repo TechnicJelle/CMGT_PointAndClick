@@ -75,9 +75,10 @@ void setup() {
   //Main menu
   MainMenu mainMenu = new MainMenu("MainMenu", "menus/main/phone.png");
 
-  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 723.6, 160.8,"data/menus/main/btn_play.png", "introVideoScene");
+  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 0, 0, "data/menus/main/btn_play.png", "introVideoScene");
+  StartGame.setXY(gwidth/2, 400, true);
   StartGame.setHoverImage("data/menus/main/btn_playH.png");
-  
+
   //StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);
   mainMenu.addGameObject(StartGame);
 
@@ -274,7 +275,7 @@ void setup() {
   MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
   GameObject endDish = new GameObject("goToDishTask", 500, 553, "rooms/livingRoom/counterClean.png");
   endDish.setClickable(false);
-  RequireObject startDish = new RequireObject("startDish", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the disches with a sponge!", sponge, (GameObject)startDishArrow);
+  RequireObject startDish = new RequireObject("startDish", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the dishes with a sponge!", sponge, (GameObject)startDishArrow);
   TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes", new PVector(101, 57), 500);
 
   kitchen.addGameObject(kitchenGoToTVArrow);
