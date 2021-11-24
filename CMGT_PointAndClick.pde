@@ -416,7 +416,7 @@ void draw() {
   }
 
   millisLeft = 5 * 60 * 1000 - (millis() - millisAtGameStart);
-  if (score == scoreMax || millisLeft <= 0) {
+  if (score == scoreMax || millisLeft <= 0 && inGame()) {
     endGame();
   }
 
