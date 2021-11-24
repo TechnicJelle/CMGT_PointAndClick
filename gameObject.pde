@@ -114,6 +114,15 @@ class GameObject {
 
     if (hasImage) {
       canvas.image(gameObjectImage, x, y);
+      if (hasHoverImage) {
+        if (mouseIsHovering) canvas.noTint();
+        else canvas.tint(0, 100);
+        canvas.pushStyle();
+        canvas.imageMode(CENTER);
+        canvas.image(gameObjectImageHover, x+gameObjectImage.width/2, y+gameObjectImage.height/2);
+        canvas.popStyle();
+        canvas.noTint();
+      }
     }
 
     if (debugMode) {

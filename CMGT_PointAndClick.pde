@@ -75,7 +75,7 @@ void setup() {
   //Main menu
   MainMenu mainMenu = new MainMenu("MainMenu", "menus/main/phone.png");
 
-  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 0,0,"data/menus/main/btn_play.png", "introVideoScene");
+  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 723.6, 160.8,"data/menus/main/btn_play.png", "introVideoScene");
   StartGame.setHoverImage("data/menus/main/btn_playH.png");
   
   //StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);

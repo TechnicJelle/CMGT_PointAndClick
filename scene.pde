@@ -48,6 +48,7 @@ class Scene {
     for (GameObject object : gameObjects) {
       object.draw();
     }
+    
   }
 
   public void mouseMoved() {
