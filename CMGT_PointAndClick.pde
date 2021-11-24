@@ -86,7 +86,7 @@ void setup() {
   //bedroom kids 2: beds -->
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
-  MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
+  MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 105, "ui/arrowDown.png", "bk1desk");
   bk2beds.addGameObject(bk1deskArrow);
 
   TrashObject trash2 = new TrashObject("trash2", 690, 900, "trash/Cup4.png", 20);
@@ -106,8 +106,8 @@ void setup() {
   //bedroom kids 1: desk -->
   Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDesk.png", "ui/minimap/Bedroom_Kids_2.png");
 
-  MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
-  MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 100, "hallway");
+  MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
+  MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 105, "hallway");
   hwArrow.setQuad(59, 30.0, 393.6, 97.2, 494, 792.0, 280.8, 1026.0);
 
   bk1desk.addGameObject(bk2bedsBackArrow);
@@ -138,7 +138,7 @@ void setup() {
   //broomco.generateHoverImage();
   //broomco.setHoverImage("rooms/cupBoard/cbBroom2outline.png");
 
-  MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 100, "ui/arrowDown.png", true);
+  MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 105, "ui/arrowDown.png", true);
 
   cupBoard.addGameObject(broomco);
   cupBoard.addGameObject(vacuumco);
@@ -153,9 +153,9 @@ void setup() {
   //hallway -->
   Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png", "ui/minimap/Hallway.png");
 
-  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2, gheight-100, "ui/arrowDown.png", true);
+  MoveToSceneObject bk1deskBackArrow = new MoveToSceneObject("goBackTobk1desk", gwidth/2, gheight-105, "ui/arrowDown.png", true);
 
-  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 100, gheight- 500, "cupBoard");
+  MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 105, gheight- 500, "cupBoard");
   cupBoardArrow.setQuad(1265.0, 128.0, 1634.0, -86, 1331.0, 1370, 1192.0, 910.0);
 
   MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "bathroom");
@@ -195,9 +195,9 @@ void setup() {
   //bathroom 1: shower -->
   Scene bathroom = new Scene("bathroom", "rooms/bathRoom/br1shower.png", "ui/minimap/Bathroom_1.png");
 
-  MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 100, gheight / 2, true);
+  MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 105, gheight / 2, true);
   hallwayBackArrow_bathroom.setQuad(1721.0, 157.5, 1920.0, 99.9, 1920.0, 1800, 1584.0, 1069.2);
-  MoveToSceneObject br2sinkArrow = new MoveToSceneObject("goTobr2sink", 0, gheight/2, "ui/arrowLeft.png", "bathroomSink");
+  MoveToSceneObject br2sinkArrow = new MoveToSceneObject("goTobr2sink", -5, gheight/2, "ui/arrowLeft.png", "bathroomSink");
 
   bathroom.addGameObject(hallwayBackArrow_bathroom);
   bathroom.addGameObject(br2sinkArrow);
@@ -215,7 +215,7 @@ void setup() {
   //bathroom 2: sink -->
   Scene bathroomSink = new Scene("bathroomSink", "rooms/bathRoom/br2sink.png", "ui/minimap/Bathroom_2.png");
 
-  MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth-100, gheight/2, "ui/arrowRight.png", true);
+  MoveToSceneObject br1showerBackArrow = new MoveToSceneObject("goBackTobr1shower", gwidth-105, gheight/2, "ui/arrowRight.png", true);
   MoveToSceneObject br1showerHallWayArrow = new MoveToSceneObject("goBackToHallway", 0, gheight/2, true);
   br1showerHallWayArrow.setQuad(0, -15, 140.4, 72.0, 296.4, 1080, 0, 1080);
   br1showerHallWayArrow.setBackAmount(2);
@@ -238,8 +238,8 @@ void setup() {
 
   MoveToSceneObject hallwaybackArrow_livingroom = new MoveToSceneObject("goBackToHallway_livingroom", gwidth/3, gheight - 300, true);
   hallwaybackArrow_livingroom.setQuad(334.8, 86.4, 770.4, 102.0, 796.8, 818, 428, 878.4);
-  MoveToSceneObject kitchenArrow = new MoveToSceneObject("goToKitchen", 0, gheight/2, "ui/arrowLeft.png", "kitchen");
-  MoveToSceneObject TVArrow = new MoveToSceneObject("goToTV", gwidth - 100, gheight/2, "ui/arrowRight.png", "LivingRoomTV");
+  MoveToSceneObject kitchenArrow = new MoveToSceneObject("goToKitchen", -5, gheight/2, "ui/arrowLeft.png", "kitchen");
+  MoveToSceneObject TVArrow = new MoveToSceneObject("goToTV", gwidth - 105, gheight/2, "ui/arrowRight.png", "LivingRoomTV");
 
   livingRoomReading.addGameObject(hallwaybackArrow_livingroom);
   livingRoomReading.addGameObject(kitchenArrow);
@@ -265,8 +265,8 @@ void setup() {
   CollectableObject spongeco = new CollectableObject("spongeco", 1334, 610, "rooms/livingRoom/Sponge.png", sponge);
   //spongeco.generateHoverImage();
 
-  MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 100, gheight/2, "ui/arrowRight.png", true);
-  MoveToSceneObject kitchenGoToTVArrow = new MoveToSceneObject("kitchenGoToTV", 0, gheight/2, "ui/arrowLeft.png", true);
+  MoveToSceneObject readingLRBackArrow = new MoveToSceneObject("goBackToLRReading", gwidth - 105, gheight/2, "ui/arrowRight.png", true);
+  MoveToSceneObject kitchenGoToTVArrow = new MoveToSceneObject("kitchenGoToTV", -5, gheight/2, "ui/arrowLeft.png", true);
   kitchenGoToTVArrow.setAfterwardsScene("LivingRoomTV");
   MoveToSceneObject startDishArrow = new MoveToSceneObject("goToDishTask", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
   GameObject endDish = new GameObject("goToDishTask", 500, 553, "rooms/livingRoom/counterClean.png");
@@ -298,12 +298,12 @@ void setup() {
   //livingroom 3: tv -->
   Scene livingRoomTV = new Scene("LivingRoomTV", "rooms/livingRoom/lr3tv.png", "ui/minimap/Living_Room_2.png");
 
-  MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", 0, gheight /2, "ui/arrowLeft.png", true);
+  MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", -5, gheight /2, "ui/arrowLeft.png", true);
   MoveToSceneObject bpArrow = new MoveToSceneObject("goTobp", 1300, gheight/2, "bp");
   bpArrow.setQuad(1214.0, 634, 1487.0, 741, 1651.0, 32, 1276.0, 62);
 
 
-  MoveToSceneObject tvGoToKitchenArrow = new MoveToSceneObject("tvGoToKitchenArrow", gwidth - 100, gheight/2, "ui/arrowRight.png", true);
+  MoveToSceneObject tvGoToKitchenArrow = new MoveToSceneObject("tvGoToKitchenArrow", gwidth - 105, gheight/2, "ui/arrowRight.png", true);
   tvGoToKitchenArrow.setAfterwardsScene("kitchen");
 
 
@@ -336,9 +336,9 @@ void setup() {
   //bedroom parents -->
   Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png", "ui/minimap/Bedroom_Parents.png");
 
-  MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "tasks/folding/pileOfClothes.png", "TaskFolding");
 
+  MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
   TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 400);
 
   bedroomParents.addGameObject(foldingTask);
