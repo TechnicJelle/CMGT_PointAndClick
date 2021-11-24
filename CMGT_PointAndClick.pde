@@ -32,6 +32,7 @@ Movie introVideo;
 boolean introVideoLoaded;
 
 int millisAtGameStart;
+int millisLeft;
 
 void settings() {
   size(1600, 900, P2D);
@@ -72,26 +73,21 @@ void setup() {
   fullHD = width == gwidth && height == gheight;
 
   //Main menu
-  MainMenu mainMenu = new MainMenu("MainMenu", "Mainmenu.png");
+  MainMenu mainMenu = new MainMenu("MainMenu", "menus/main/phone.png");
 
   MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 703.2, 136.8, "introVideoScene");
   StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);
   mainMenu.addGameObject(StartGame);
 
   //Intro video
-  IntroVideoScene introVideoScene = new IntroVideoScene("introVideoScene", "Mainmenu.png");
+  IntroVideoScene introVideoScene = new IntroVideoScene("introVideoScene", "menus/main/phone.png");
 
 
   //bedroom kids 2: beds -->
   Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 100, "ui/arrowDown.png", "bk1desk");
-  MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 0, 0, "tasks/folding/pileOfClothes.png", "TaskFolding");
-
-  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 400);
-
   bk2beds.addGameObject(bk1deskArrow);
-  bk2beds.addGameObject(foldingTask);
 
   TrashObject trash2 = new TrashObject("trash2", 690, 900, "trash/Cup4.png", 20);
   bk2beds.addTrash(trash2);
@@ -282,9 +278,18 @@ void setup() {
   Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png", "ui/minimap/Bedroom_Parents.png");
 
   MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 100, "ui/arrowDown.png", true);
+  MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "tasks/folding/pileOfClothes.png", "TaskFolding");
+
+  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 400);
+
+  bedroomParents.addGameObject(foldingTask);
 
   bedroomParents.addGameObject(TvBackArrow);
   //<-- bedroom parents
+
+  //endscreen -->
+  EndScreen endscreen = new EndScreen("endscreen");
+  //<-- endscreen
 
   sceneManager.addScene(mainMenu);
   sceneManager.addScene(introVideoScene);
@@ -302,6 +307,7 @@ void setup() {
   sceneManager.addScene(taskDish);
   sceneManager.addScene(taskFolding);
   sceneManager.addScene(taskVacuum);
+  sceneManager.addScene(endscreen);
 
   mouse = screenScale(new PVector(mouseX, mouseY));
 
@@ -312,6 +318,8 @@ void setup() {
   //  println(e);
   //}
   canvas.endDraw();
+
+  millisAtGameStart = millis();
 }
 
 int millisAtLastLog = 0;
@@ -339,6 +347,11 @@ void draw() {
     canvas.point(mouse.x, mouse.y);
   }
 
+  millisLeft = 5 * 60 * 1000 - (millis() - millisAtGameStart);
+  if (millisLeft <= 0) {
+    endGame();
+  }
+
   //canvas.image(loadImage("ui/TrashFull.png"), mouse.x, mouse.y);
 
   canvas.endDraw();
@@ -353,8 +366,21 @@ void draw() {
   if (debugMode) { 
     text(frameRate, 10, 10);
     text(score + "/" + scoreMax, 10, 40);
+    text(millisLeft, 10, 90);
   }
   if (analytics && frameCount % 30 == 0) analyticRecord("mousePosition");
+}
+
+void endGame() {
+  try {
+    sceneManager.goToScene("endscreen");
+  } 
+  catch (Exception e) {
+    println(e);
+  }
+  EndScreen es = (EndScreen)sceneManager.getCurrentScene();
+  es.calculateScore();
+  score += millisLeft;
 }
 
 void exit() {
@@ -413,6 +439,7 @@ void keyPressed() {
       }
     }
     if (key == 'T') inventoryManager.emptyTrash();
+    if (key == 'e') endGame();
   }
   sceneManager.getCurrentScene().keyPressed();
   inventoryManager.keyPressed();
@@ -531,5 +558,6 @@ void setCursor(PImage p) {
 boolean inGame() {
   return !(sceneManager.getCurrentScene() instanceof Task 
     ||     sceneManager.getCurrentScene() instanceof MainMenu 
-    ||     sceneManager.getCurrentScene() instanceof IntroVideoScene);
+    ||     sceneManager.getCurrentScene() instanceof IntroVideoScene
+    ||     sceneManager.getCurrentScene() instanceof EndScreen);
 }

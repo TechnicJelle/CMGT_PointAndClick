@@ -66,7 +66,7 @@ class TaskFolding extends Task {
 
   void mouseClicked()
   {
-    println(isMouseOverPile[1]);
+    if (debugMode) println(isMouseOverPile[1]);
 
     for (int i = 0; i < 3; i++)
     {
