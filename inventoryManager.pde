@@ -14,7 +14,7 @@ class InventoryManager {
 
   private PImage[] trashBagStates;
   private int trashBagState;
-  private int trashBagSlots = 5;
+  private int trashBagSlots = 1+5; //The number after the 1+ is the amount of trash you can pick up. Change that if you want to change the number of pieces of trash you can pick of.
 
   private int scoreInBag = 0;
 
@@ -50,7 +50,9 @@ class InventoryManager {
         return;
       }
     }
-    throw new Exception("Couldn't fit item into the inventory anymore!");
+    String t = "Couldn't fit item into the inventory anymore!";
+    popup(t, 3500);
+    throw new Exception(t);
   }
 
   public boolean containsCollectable(Collectable collectable) {

@@ -7,7 +7,7 @@ class GameObject {
   private boolean hasImage;
   private boolean hasHoverImage;
   private boolean isQuad;
-  private PImage gameObjectImage;
+  protected PImage gameObjectImage;
   private PImage gameObjectImageHover;
   private Quad quad;
   protected boolean mouseIsHovering;

@@ -84,7 +84,7 @@ void setup() {
 
 
   //bedroom kids 2: beds -->
-  Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/BedroomBeds.png", "ui/minimap/Bedroom_Kids_1.png");
+  Scene bk2beds = new Scene("bk2beds", "rooms/bedroomKids/bk1beds.png", "ui/minimap/Bedroom_Kids_1.png");
 
   MoveToSceneObject bk1deskArrow = new MoveToSceneObject("goTobk1desk", gwidth/2, gheight - 105, "ui/arrowDown.png", "bk1desk");
   bk2beds.addGameObject(bk1deskArrow);
@@ -104,7 +104,7 @@ void setup() {
 
 
   //bedroom kids 1: desk -->
-  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/BedroomDesk.png", "ui/minimap/Bedroom_Kids_2.png");
+  Scene bk1desk = new Scene("bk1desk", "rooms/bedroomKids/bk2desk.png", "ui/minimap/Bedroom_Kids_2.png");
 
   MoveToSceneObject bk2bedsBackArrow = new MoveToSceneObject("goBackTobk2beds", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
   MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 105, "hallway");
@@ -123,8 +123,9 @@ void setup() {
   TrashObject trash8 = new TrashObject("trash8", 600, 840, "trash/Bottle.png", 15);
   bk1desk.addTrash(trash8);
 
-  TrashObject trash9 = new TrashObject("trash9", 1290, 612, "trash/Clothes.png", 10);
-  bk1desk.addTrash(trash9);
+  Collectable clothes1 = new Collectable("clothes1", "collectables/Clothes.png");
+  CollectableObject clothes1co = new CollectableObject("clothes1", 1290, 612, "rooms/bedroomKids/Clothes.png", clothes1);
+  bk1desk.addGameObject(clothes1co);
   //<-- bedroom kids 1: desk
 
   //cupboard -->
@@ -285,14 +286,16 @@ void setup() {
   TrashObject trash22 = new TrashObject("trash22", 264.0, 260.6, "trash/egg.png", 10);
   kitchen.addTrash(trash22);
 
-  TrashObject trash23 = new TrashObject("trash23", 942.4, 643.4, "trash/Stoolshirt.png", 10);
-  kitchen.addTrash(trash23);
+  Collectable clothes2 = new Collectable("clothes2", "collectables/StoolShirt.png");
+  CollectableObject clothes2co = new CollectableObject("clothes2co", 942.4, 643.4, "rooms/livingRoom/StoolShirt.png", clothes2);
+  kitchen.addGameObject(clothes2co);
 
   TrashObject trash24 = new TrashObject("trash24", 1472.4, 966.0, "trash/Cup5(Slightly_edited).png", 10);
   kitchen.addTrash(trash24);
 
-  TrashObject trash25 = new TrashObject("trash25", 560.0, 600.0, "trash/Cap.png", 10);
-  kitchen.addTrash(trash25);
+  Collectable clothes3 = new Collectable("clothes3", "collectables/Cap.png");
+  CollectableObject clothes3co = new CollectableObject("clothes3co", 560.0, 600.0, "rooms/livingRoom/Cap.png", clothes3);
+  kitchen.addGameObject(clothes3co);
   //<-- livingroom 2: kitchen
 
   //livingroom 3: tv -->
@@ -319,8 +322,9 @@ void setup() {
   livingRoomTV.addGameObject(bpArrow);
   livingRoomTV.addGameObject(startVacuum);
 
-  TrashObject trash26 = new TrashObject("trash26", 793.2, 587.4, "trash/LivingRoomShirt.png", 10);
-  livingRoomTV.addTrash(trash26);
+  Collectable clothes4 = new Collectable("clothes4", "collectables/LivingRoomShirt.png");
+  CollectableObject clothes4co = new CollectableObject("clothes4co", 793.2, 587.4, "rooms/livingRoom/Shirt.png", clothes4);
+  livingRoomTV.addGameObject(clothes4co);
 
   TrashObject trash27 = new TrashObject("trash27", 724.8, 345.8, "trash/Sock2.png", 10);
   livingRoomTV.addTrash(trash27);
@@ -336,12 +340,21 @@ void setup() {
   //bedroom parents -->
   Scene bedroomParents = new Scene("bp", "rooms/bedroomParents/bp.png", "ui/minimap/Bedroom_Parents.png");
 
-  MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "tasks/folding/pileOfClothes.png", "TaskFolding");
-
   MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
+
+  //folding task
+  Collectable[] foldingCollectables = new Collectable[] { clothes1, clothes2, clothes3, clothes4 };
+  String[] foldingPileStates = new String[] {
+    "piles/clothes/state0.png", 
+    "piles/clothes/state1.png", 
+    "piles/clothes/state2.png", 
+    "piles/clothes/state3.png", 
+    "piles/clothes/state4.png"};
+  MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "piles/clothes/state4start.png", "TaskFolding");
+  RequireObject startFolding = new RequireObject("startFolding", 777.6, 511.2, foldingPileStates, "Bring all clothes here", foldingCollectables, (GameObject)foldingTask);
   TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 400);
 
-  bedroomParents.addGameObject(foldingTask);
+  bedroomParents.addGameObject(startFolding);
 
   bedroomParents.addGameObject(TvBackArrow);
 
@@ -436,7 +449,7 @@ void draw() {
     text(score + "/" + scoreMax, 10, 40);
     text(millisLeft, 10, 90);
   }
-  
+
   if (analytics && frameCount % 30 == 0) analyticRecord("mousePosition");
 }
 

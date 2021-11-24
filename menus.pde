@@ -48,7 +48,7 @@ class IntroVideoScene extends Scene {
 
     canvas.image(introVideo, 0, 0);
 
-    if (introVideo.time() < 5)
+    if (introVideo.time() < 2)
       canvas.text("Press space to skip", 50, 50);
 
     if (introVideo.duration() - introVideo.time() < 0.2)
