@@ -398,7 +398,7 @@ void setup() {
     "piles/clothes/state4.png"};
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "piles/clothes/state4start.png", "TaskFolding");
   RequireObject startFolding = new RequireObject("startFolding", 777.6, 511.2, foldingPileStates, "Bring all clothes here", foldingCollectables, (GameObject)foldingTask);
-  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/sweep/taskSweepBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 400);
+  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/folding/FoldingBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 400);
 
   bedroomParents.addGameObject(startFolding);
 

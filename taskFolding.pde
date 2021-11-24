@@ -26,9 +26,9 @@ class TaskFolding extends Task {
   void setup()
   {
     setCursor(ARROW);
-    pileOfClothes = loadImage("tasks/folding/pileOfClothes.png");
-    foldedClothes = loadImage("tasks/folding/foldedClothes.png");
-    cloth = loadImage("tasks/folding/tshirt.png");
+    pileOfClothes = loadImage("tasks/folding/unfoldedClothes1.png");
+    foldedClothes = loadImage("tasks/folding/foldedClothes1.png");
+    cloth = loadImage("tasks/folding/tshirt2.png");
     parts = new Quad[3];
     parts[0] = new Quad(new PVector(754, 300), new PVector(754, 350), new PVector(700, 370), new PVector(700, 320));
     parts[1] = new Quad(new PVector(754 + cloth.width, 300), new PVector(754 + cloth.width, 350), new PVector(800 + cloth.width, 370), new PVector(800 + cloth.width, 320));
