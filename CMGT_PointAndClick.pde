@@ -117,7 +117,7 @@ void setup() {
   TrashObject trash6 = new TrashObject("trash6", 954.75, 600.25, "trash/Magazine.png", 15);
   bk1desk.addTrash(trash6);
 
-  TrashObject trash7 = new TrashObject("trash7", 850, 530, "trash/Pizza.png", 20);
+  TrashObject trash7 = new TrashObject("trash7", 865, 540, "trash/Pizzasmall.png", 20);
   bk1desk.addTrash(trash7);
 
   TrashObject trash8 = new TrashObject("trash8", 600, 840, "trash/Bottle.png", 15);
@@ -143,6 +143,11 @@ void setup() {
   cupBoard.addGameObject(broomco);
   cupBoard.addGameObject(vacuumco);
   cupBoard.addGameObject(hallwayBackArrow);
+  
+  TrashObject trash10 = new TrashObject("trash10", 1300, 125.0, "trash/AlcBottle.png", 10);
+  TrashObject trash11 = new TrashObject("trash11", 1000, 800, "trash/BCan1.png", 10);
+  cupBoard.addTrash(trash10);
+  cupBoard.addTrash(trash11);
   //<-- cupboard
 
   //hallway -->
@@ -196,6 +201,15 @@ void setup() {
 
   bathroom.addGameObject(hallwayBackArrow_bathroom);
   bathroom.addGameObject(br2sinkArrow);
+  
+   TrashObject trash12 = new TrashObject("trash12",1392.0, 871 , "trash/BCan2.png", 10);
+ bathroom.addTrash(trash12);
+  
+   TrashObject trash13 = new TrashObject("trash13", 652.8, 969.6, "trash/Cup5(Slightly_edited).png", 10);
+  bathroom.addTrash(trash13);
+  
+   TrashObject trash14 = new TrashObject("trash14", 808.4, 726.4, "trash/ConfettiMed.png", 10);
+ bathroom.addTrash(trash14);
   //<-- bathroom 1: shower
 
   //bathroom 2: sink -->
@@ -211,6 +225,12 @@ void setup() {
 
   TrashObject trash1 = new TrashObject("trash1", 808.8, 758.4, "trash/Vomit.png", 100);
   bathroomSink.addTrash(trash1);
+  
+  TrashObject trash15 = new TrashObject("trash15", 527.2, 670.0, "trash/Partyhat1.png", 10);
+ bathroomSink.addTrash(trash15);
+ 
+ TrashObject trash16 = new TrashObject("trash16", 1236.0, 950.4, "trash/PaperBall.png", 10);
+ bathroomSink.addTrash(trash16);
   //<-- bathroom 2: sink
 
   //livingroom 1: reading -->
@@ -224,6 +244,18 @@ void setup() {
   livingRoomReading.addGameObject(hallwaybackArrow_livingroom);
   livingRoomReading.addGameObject(kitchenArrow);
   livingRoomReading.addGameObject(TVArrow);
+  
+   TrashObject trash17 = new TrashObject("trash17", 510.8, 850.6, "trash/ConfettyBig.png", 10);
+ livingRoomReading.addTrash(trash17);
+ 
+  TrashObject trash18 = new TrashObject("trash18", 1015.2, 58.4, "trash/Cup4.png", 10);
+livingRoomReading.addTrash(trash18);
+ 
+  TrashObject trash19 = new TrashObject("trash19", 1540.8, 668.4, "trash/ChipsBag.png", 10);
+ livingRoomReading.addTrash(trash19);
+ 
+ TrashObject trash20 = new TrashObject("trash20", 1050.4, 800.0, "trash/Partyhat2.png", 10);
+ livingRoomReading.addTrash(trash20);
   //<-- livingroom 1: reading
 
   //livingroom 2: kitchen -->
@@ -246,6 +278,21 @@ void setup() {
   kitchen.addGameObject(readingLRBackArrow);
   kitchen.addGameObject(startDish);
   kitchen.addGameObject(spongeco);
+  
+  TrashObject trash21 = new TrashObject("trash21",807.6, 900.0, "trash/Pizza.png", 10);
+ kitchen.addTrash(trash21);
+ 
+ TrashObject trash22 = new TrashObject("trash22", 264.0, 260.6, "trash/egg.png", 10);
+kitchen.addTrash(trash22);
+ 
+ TrashObject trash23 = new TrashObject("trash23", 942.4, 643.4, "trash/Stoolshirt.png", 10);
+ kitchen.addTrash(trash23);
+ 
+ TrashObject trash24 = new TrashObject("trash24", 1472.4, 966.0, "trash/Cup5(Slightly_edited).png", 10);
+ kitchen.addTrash(trash24);
+ 
+ TrashObject trash25 = new TrashObject("trash25", 560.0, 600.0, "trash/Cap.png", 10);
+ kitchen.addTrash(trash25);
   //<-- livingroom 2: kitchen
 
   //livingroom 3: tv -->
@@ -271,6 +318,18 @@ void setup() {
   livingRoomTV.addGameObject(readingLRBackArrow2);
   livingRoomTV.addGameObject(bpArrow);
   livingRoomTV.addGameObject(startVacuum);
+  
+   TrashObject trash26 = new TrashObject("trash26",793.2, 587.4, "trash/LivingRoomShirt.png", 10);
+ livingRoomTV.addTrash(trash26);
+ 
+  TrashObject trash27 = new TrashObject("trash27", 724.8, 345.8, "trash/Sock2.png", 10);
+  livingRoomTV.addTrash(trash27);
+ 
+  TrashObject trash28 = new TrashObject("trash28", 577.2, 978.0, "trash/PaperBall.png", 10);
+  livingRoomTV.addTrash(trash28);
+ 
+  TrashObject trash29 = new TrashObject("trash29", 1250.6, 743.2, "trash/Partyhat1.png", 10);
+  livingRoomTV.addTrash(trash29);
   //<-- livingroom 3: tv
 
 
@@ -285,6 +344,15 @@ void setup() {
   bedroomParents.addGameObject(foldingTask);
 
   bedroomParents.addGameObject(TvBackArrow);
+  
+  TrashObject trash30 = new TrashObject("trash30", 430.0, 530.6, "trash/Bottle.png", 10);
+  bedroomParents.addTrash(trash30);
+  
+  TrashObject trash31 = new TrashObject("trash31", 1560.8, 885.6, "trash/BCan2.png", 10);
+  bedroomParents.addTrash(trash31);
+  
+  TrashObject trash32 = new TrashObject("trash32",1283.6, 580.2, "trash/ConfettySmol.png", 10);
+  bedroomParents.addTrash(trash32);
   //<-- bedroom parents
 
   //endscreen -->
