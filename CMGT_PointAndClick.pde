@@ -479,7 +479,7 @@ void draw() {
     endGame();
   }
 
-  if (debugMode) canvas.image(loadImage("rooms/livingRoom/CapR.png"), mouse.x, mouse.y);
+  //if (debugMode) canvas.image(loadImage("rooms/livingRoom/CapR.png"), mouse.x, mouse.y);
 
   canvas.endDraw();
 
