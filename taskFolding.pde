@@ -20,7 +20,7 @@ class TaskFolding extends Task {
 
   int folded = -1;
 
-  int chlotesLeft = 0;
+  int clothesLeft = 0;
 
   //int tshirt = 0;
 
@@ -45,8 +45,8 @@ class TaskFolding extends Task {
       done();
     }
     canvas.image(backgroundImage, 0, 0);
-    if (chlotesLeft < 4)
-      canvas.image(pileOfClothes[chlotesLeft], 1297, 488);
+    if (clothesLeft < 4)
+      canvas.image(pileOfClothes[clothesLeft], 1297, 488);
     if (folded >=0)
       canvas.image(foldedClothes[folded], 250, 455);
 
@@ -126,7 +126,7 @@ class TaskFolding extends Task {
         lock[i] = false;
         released[i] = true;
       }
-      chlotesLeft++;
+      clothesLeft++;
     }
 
     if (isMouseOverPile[0] && !addedACloth && theClothIsFolded())
@@ -139,8 +139,8 @@ class TaskFolding extends Task {
 
   void mouseMoved()
   {
-    if (chlotesLeft < 4)
-      if (mouse.x > 1297 && mouse.x < 1297 + pileOfClothes[chlotesLeft].width && mouse.y > 488 && mouse.y < 488 + pileOfClothes[chlotesLeft].height)
+    if (clothesLeft < 4)
+      if (mouse.x > 1297 && mouse.x < 1297 + pileOfClothes[clothesLeft].width && mouse.y > 488 && mouse.y < 488 + pileOfClothes[clothesLeft].height)
       {
         isMouseOverPile[1] = true;
       } else
@@ -148,7 +148,7 @@ class TaskFolding extends Task {
         isMouseOverPile[1] = false;
       }
 
-    if (mouse.x > 0 && mouse.x < gwidth/2 && mouse.y > 0 && mouse.y < gheight)
+    if (mouse.x > 0 && mouse.x < 550)
     {
       isMouseOverPile[0] = true;
     } else
