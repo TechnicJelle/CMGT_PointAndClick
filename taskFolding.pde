@@ -4,9 +4,9 @@ class TaskFolding extends Task {
     super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation, sa);
   }
 
-  PImage pileOfClothes;
-  PImage foldedClothes;
-  PImage cloth;
+  PImage[] pileOfClothes;
+  PImage[] foldedClothes;
+  PImage[] cloths;
   Quad[] parts;
 
 
@@ -18,40 +18,63 @@ class TaskFolding extends Task {
   boolean hasClothToFold = false;
   boolean addedACloth = true;
 
-  int folded = 0;
+  int folded = -1;
 
+  int chlotesLeft = 0;
 
+  //int tshirt = 0;
 
 
   void setup()
   {
     setCursor(ARROW);
-    pileOfClothes = loadImage("tasks/folding/unfoldedClothes1.png");
-    foldedClothes = loadImage("tasks/folding/foldedClothes1.png");
-    cloth = loadImage("tasks/folding/tshirt2.png");
+    pileOfClothes = new PImage[] { loadImage("tasks/folding/unfoldedClothes1.png"), loadImage("tasks/folding/unfoldedClothes2.png"), loadImage("tasks/folding/unfoldedClothes3.png"), loadImage("tasks/folding/unfoldedClothes4.png")};
+    foldedClothes = new PImage[] {loadImage("tasks/folding/foldedClothes1.png"), loadImage("tasks/folding/foldedClothes2.png"), loadImage("tasks/folding/foldedClothes3.png"), loadImage("tasks/folding/foldedClothes4.png")};
+    cloths = new PImage[] {loadImage("tasks/folding/tshirt1.png"), loadImage("tasks/folding/tshirt2.png"), loadImage("tasks/folding/tshirt3.png"), loadImage("tasks/folding/tshirt4.png")};
     parts = new Quad[3];
-    parts[0] = new Quad(new PVector(754, 300), new PVector(754, 350), new PVector(700, 370), new PVector(700, 320));
-    parts[1] = new Quad(new PVector(754 + cloth.width, 300), new PVector(754 + cloth.width, 350), new PVector(800 + cloth.width, 370), new PVector(800 + cloth.width, 320));
-    parts[2] = new Quad(new PVector(754, 300 + cloth.height), new PVector(754 + cloth.width, 300 + cloth.height), new PVector(754 + cloth.width, 650), new PVector(754, 650));
+    parts[0] = new Quad(new PVector(825.6, 449.4), new PVector(825.6, 499.4), new PVector(750.6, 529.4), new PVector(750.6, 479.4));
+    parts[1] = new Quad(new PVector(754 + cloths[folded + 1].width, 300), new PVector(754 + cloths[folded + 1].width, 350), new PVector(800 + cloths[folded + 1].width, 370), new PVector(800 + cloths[folded + 1].width, 320));
+    parts[2] = new Quad(new PVector(754, 300 + cloths[folded + 1].height), new PVector(754 + cloths[folded + 1].width, 300 + cloths[folded + 1].height), new PVector(754 + cloths[folded + 1].width, 650), new PVector(754, 650));
     mouse = new PVector(0, 0);
   }
 
   void draw()
   {
-    if (folded == 5)
+    if (folded == 3)
     {
       done();
     }
     canvas.image(backgroundImage, 0, 0);
-
-    canvas.image(pileOfClothes, 1297, 488);
-    canvas.image(foldedClothes, 250, 455);
+    if (chlotesLeft < 4)
+      canvas.image(pileOfClothes[chlotesLeft], 1297, 488);
+    if (folded >=0)
+      canvas.image(foldedClothes[folded], 250, 455);
 
     if (hasClothToFold)
     {
-      canvas.image(cloth, 754, 300);
-      canvas.noStroke();
-      canvas.fill(0, 0, 255);
+      canvas.image(cloths[folded + 1], 825.6, 446.4);
+      if (folded + 1 == 0)
+      {
+        canvas.strokeWeight(3);
+        canvas.stroke(#76001d);
+        canvas.fill(#b9153e);
+      } else if (folded + 1 == 1)
+      {
+        canvas.strokeWeight(3);
+        canvas.stroke(#417da9);
+        canvas.fill(#82b7dd);
+      } else if (folded + 1 == 2)
+      {
+        canvas.strokeWeight(3);
+        canvas.stroke(#7ed7a6);
+        canvas.fill(#beffdb);
+      } else {
+        canvas.strokeWeight(3);
+        canvas.stroke(#9c5d00);
+        canvas.fill(#ff9800);
+      }
+
+
       for (int i = 0; i < 3; i++)
       {
         canvas.quad(parts[i].a.x, parts[i].a.y, parts[i].b.x, parts[i].b.y, parts[i].c.x, parts[i].c.y, parts[i].d.x, parts[i].d.y);
@@ -79,7 +102,8 @@ class TaskFolding extends Task {
         }
 
 
-        if ((parts[i].c.x > 754 && parts[i].c.x < 754 + cloth.width && parts[i].c.y > 300 && parts[i].c.y < 300 + cloth.height) && (parts[i].d.x > 754 && parts[i].d.x < 754 + cloth.width && parts[i].d.y > 300 && parts[i].d.y < 300 + cloth.height))
+        if ((parts[i].c.x > 825.6 && parts[i].c.x < 825.6 + cloths[folded + 1].width && parts[i].c.y > 446.4 && parts[i].c.y < 446.4 + cloths[folded + 1].height) 
+          && (parts[i].d.x > 825.6 && parts[i].d.x < 825.6 + cloths[folded + 1].width && parts[i].d.y > 446.4 && parts[i].d.y < 446.4 + cloths[folded + 1].height))
         {
           lock[i] = true;
           released[i] = true;
@@ -92,15 +116,17 @@ class TaskFolding extends Task {
     {
       hasClothToFold = true;
       addedACloth = false;
-      parts[0] = new Quad(new PVector(754, 300), new PVector(754, 350), new PVector(700, 370), new PVector(700, 320));
-      parts[1] = new Quad(new PVector(754 + cloth.width, 300), new PVector(754 + cloth.width, 350), new PVector(800 + cloth.width, 370), new PVector(800 + cloth.width, 320));
-      parts[2] = new Quad(new PVector(754, 300 + cloth.height), new PVector(754 + cloth.width, 300 + cloth.height), new PVector(754 + cloth.width, 650), new PVector(754, 650));
+      parts[0] = new Quad(new PVector(825.6, 449.4), new PVector(825.6, 499.4), new PVector(750.6, 526.4), new PVector(750.6, 479.4));
+      parts[1] = new Quad(new PVector(825.6 + cloths[folded + 1].width, 449.4), new PVector(825.6 + cloths[folded + 1].width, 499.4), new PVector(900.6 + cloths[folded + 1].width, 529.4), new PVector(900.6 + cloths[folded + 1].width, 479.4));
+      parts[2] = new Quad(new PVector(828.6, 446.4 + cloths[folded + 1].height), new PVector(823.6 + cloths[folded + 1].width, 446.4 + cloths[folded + 1].height), 
+        new PVector(823.6 + cloths[folded + 1].width, 750), new PVector(828.6, 750));
       hasSomethingInHand = false;
       for (int i = 0; i < 3; i++)
       {
         lock[i] = false;
         released[i] = true;
       }
+      chlotesLeft++;
     }
 
     if (isMouseOverPile[0] && !addedACloth && theClothIsFolded())
@@ -113,15 +139,16 @@ class TaskFolding extends Task {
 
   void mouseMoved()
   {
-    if (mouse.x > 1297 && mouse.x < 1297 + pileOfClothes.width && mouse.y > 488 && mouse.y < 488 + pileOfClothes.height)
-    {
-      isMouseOverPile[1] = true;
-    } else
-    {
-      isMouseOverPile[1] = false;
-    }
+    if (chlotesLeft < 4)
+      if (mouse.x > 1297 && mouse.x < 1297 + pileOfClothes[chlotesLeft].width && mouse.y > 488 && mouse.y < 488 + pileOfClothes[chlotesLeft].height)
+      {
+        isMouseOverPile[1] = true;
+      } else
+      {
+        isMouseOverPile[1] = false;
+      }
 
-    if (mouse.x > 250 && mouse.x < 250 + foldedClothes.width && mouse.y > 455 && mouse.y < 455 + foldedClothes.height)
+    if (mouse.x > 0 && mouse.x < gwidth/2 && mouse.y > 0 && mouse.y < gheight)
     {
       isMouseOverPile[0] = true;
     } else
