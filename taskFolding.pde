@@ -5,6 +5,7 @@ class TaskFolding extends Task {
   }
 
   PImage[] pileOfClothes;
+  PImage noClothesOnPile;
   PImage[] foldedClothes;
   PImage[] cloths;
   Quad[] parts;
@@ -29,6 +30,7 @@ class TaskFolding extends Task {
   {
     setCursor(ARROW);
     pileOfClothes = new PImage[] { loadImage("tasks/folding/unfoldedClothes1.png"), loadImage("tasks/folding/unfoldedClothes2.png"), loadImage("tasks/folding/unfoldedClothes3.png"), loadImage("tasks/folding/unfoldedClothes4.png")};
+    noClothesOnPile = loadImage("tasks/folding/foldedClothes0.png");
     foldedClothes = new PImage[] {loadImage("tasks/folding/foldedClothes1.png"), loadImage("tasks/folding/foldedClothes2.png"), loadImage("tasks/folding/foldedClothes3.png"), loadImage("tasks/folding/foldedClothes4.png")};
     cloths = new PImage[] {loadImage("tasks/folding/tshirt1.png"), loadImage("tasks/folding/tshirt2.png"), loadImage("tasks/folding/tshirt3.png"), loadImage("tasks/folding/tshirt4.png")};
     parts = new Quad[3];
@@ -47,8 +49,10 @@ class TaskFolding extends Task {
     canvas.image(backgroundImage, 0, 0);
     if (clothesLeft < 4)
       canvas.image(pileOfClothes[clothesLeft], 1297, 488);
-    if (folded >=0)
+    if (folded >= 0)
       canvas.image(foldedClothes[folded], 250, 455);
+    if (folded < 0)
+      canvas.image(noClothesOnPile, 250, 455);
 
     if (hasClothToFold)
     {

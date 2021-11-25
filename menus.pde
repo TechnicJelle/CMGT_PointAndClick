@@ -122,8 +122,13 @@ class IntroVideoScene extends Scene {
     if (introVideo.time() < 2)
       canvas.text("Press space to skip", 50, 50);
 
-    if (introVideo.duration() - introVideo.time() < 0.2)
-      canvas.text("Press space to start the game!", 50, 50);
+    if (introVideo.duration() - introVideo.time() < 0.2) {
+      String s = "Objective: Clean up the house before your parents get home!\n\nPress space to start the game!";
+      canvas.fill(0);
+      canvas.text(s, 52, 53);
+      canvas.fill(255);
+      canvas.text(s, 50, 50);
+    }
 
     if (debugMode)
       println(introVideo.duration()  + " - " + introVideo.time() + " = " + (introVideo.duration() - introVideo.time()), frameRate);

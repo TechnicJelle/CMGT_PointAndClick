@@ -566,7 +566,7 @@ void draw() {
   }
 
   millisLeft = 5 * 60 * 1000 - (millis() - millisAtGameStart);
-  if (score == scoreMax || millisLeft <= 0 && inGame()) {
+  if (score == scoreMax || millisLeft <= 0 && !(sceneManager.getCurrentScene() instanceof EndScreen)) {
     endGame();
   }
 
