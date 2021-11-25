@@ -1,3 +1,9 @@
+void drawTimer() {
+  changeFontSize(34);
+  canvas.fill(0);
+  canvas.text((millisLeft / 1000) / 60 + ":" + nf((millisLeft / 1000.0f) % 60.0f, 2, 2), 89, -7);
+}
+
 class TaskTracker {
   ArrayList<Task> tasks;
   int currentTask;
@@ -41,9 +47,7 @@ class TaskTracker {
 
     //timer
     canvas.translate(210, 7);
-    changeFontSize(34);
-    canvas.fill(0);
-    canvas.text((millisLeft / 1000) / 60 + ":" + nf((millisLeft / 1000.0f) % 60.0f, 2, 2), 89, -7);
+    drawTimer();
 
     //tasks
     canvas.translate(0, 24);

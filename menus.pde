@@ -200,7 +200,7 @@ class EndScreen extends Scene {
     canvas.fill(0);
     changeFontSize(128);
     canvas.textAlign(CENTER, CENTER);
-    canvas.text(score, 0, -20);
+    canvas.text(nfc(score), 0, -20);
     changeFontSize(120);
     canvas.textAlign(CENTER, CENTER);
     canvas.text("Name:", 0, 300);
@@ -215,6 +215,10 @@ class EndScreen extends Scene {
       changeFontSize(48);
       canvas.textAlign(CENTER, CENTER);
       canvas.text("Press enter to save your highscore!", 0, 498);
+    } else {
+      changeFontSize(48);
+      canvas.textAlign(CENTER, CENTER);
+      canvas.text("Press ESC to close the game", 0, 498);
     }
     canvas.popStyle();
     canvas.popMatrix();

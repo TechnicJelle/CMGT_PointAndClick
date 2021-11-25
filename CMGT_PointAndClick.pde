@@ -64,9 +64,9 @@ SoundFile sfxWakeUp;
 Table highscores;
 
 void settings() {
-  size(1600, 900, P2D);
+  //size(1600, 900, P2D);
   //size(1920, 1080, P2D);
-  //fullScreen(P2D);
+  fullScreen(P2D);
   //smooth(1);
   //noSmooth();
 }
@@ -490,7 +490,7 @@ void setup() {
     "piles/clothes/state4.png"};
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "piles/clothes/state4start.png", "TaskFolding");
   RequireObject startFolding = new RequireObject("startFolding", 777.6, 511.2, foldingPileStates, "Bring all clothes here", foldingCollectables, (GameObject)foldingTask);
-  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/folding/FoldingBackground.png", foldingTask, null, "Fold the clothes", new PVector(86, 218), 130500);
+  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/folding/FoldingBackground.png", foldingTask, null, "Fold the clothes", new PVector(38, 88), 130500);
 
   bedroomParents.addGameObject(startFolding);
 
@@ -558,6 +558,13 @@ void draw() {
   if (inGame()) {
     inventoryManager.draw();
     taskTracker.draw();
+  } else if (sceneManager.getCurrentScene() instanceof Task) {
+    canvas.pushMatrix();
+    canvas.translate(-82, 1048);
+    if (sceneManager.getCurrentScene() instanceof TaskVacuum)
+      canvas.translate(45, 0);
+    drawTimer();
+    canvas.popMatrix();
   }
 
   if (debugMode) {
