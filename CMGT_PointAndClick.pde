@@ -13,7 +13,7 @@ int gheight = 1080;
 
 boolean debugMode = false;
 boolean analytics = false;
-Table table;
+Table analyticsTable;
 
 PVector mouse;
 
@@ -61,6 +61,8 @@ SoundFile sfxVacuumStart;
 SoundFile sfxVacuumStop;
 SoundFile sfxWakeUp;
 
+Table highscores;
+
 void settings() {
   size(1600, 900, P2D);
   //size(1920, 1080, P2D);
@@ -98,13 +100,22 @@ void loadMedia() {
 }
 
 void setup() {
-  if (analytics) {
-    table = new Table();
+  //highscores = new Table();
+  //highscores.addColumn("name");
+  //highscores.addColumn("time");
+  //highscores.addColumn("score");
+  highscores = loadTable("data/highscores.csv", "header");
+  highscores.setColumnType("score", Table.INT);
+  highscores.trim();
+  highscores.sortReverse("score");
 
-    table.addColumn("millis");
-    table.addColumn("action");
-    table.addColumn("mouse.x");
-    table.addColumn("mouse.y");
+  if (analytics) {
+    analyticsTable = new Table();
+
+    analyticsTable.addColumn("millis");
+    analyticsTable.addColumn("action");
+    analyticsTable.addColumn("mouse.x");
+    analyticsTable.addColumn("mouse.y");
   }
 
   mediaLoaded = false;
@@ -133,19 +144,41 @@ void setup() {
   //Main menu
   MainMenu mainMenu = new MainMenu("MainMenu", "menus/main/phone.png");
 
+  GameObject logo = new GameObject("logo", gwidth/2, 210, "menus/main/Official_Title.png", true);
+  logo.setClickable(false);
+
   MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 0, 0, "data/menus/main/btn_play.png", "introVideoScene");
   StartGame.setXY(gwidth/2, 400, true);
   StartGame.setHoverImage("data/menus/main/btn_playH.png");
 
-  GameObject HighScoreButton = new GameObject("HighScoreButton", 0, 0, "data/menus/main/btn_high.png");
+  GameObject HighScoreButton = new GameObject("HighScoreButton", 0, 0, "data/menus/main/btn_high.png") {
+    public boolean mouseClicked() {
+      if (super.mouseClicked()) {
+        MainMenu mm = (MainMenu)sceneManager.getCurrentScene();
+        mm.highscoreScreen = true;
+        setCursor(ARROW);
+        return true;
+      }
+      return false;
+    }
+  };
   HighScoreButton.setXY(gwidth/2, 600, true);
   HighScoreButton.setHoverImage("data/menus/main/btn_highH.png");
 
-  GameObject ExitButton = new GameObject("ExitButton", 0, 0, "data/menus/main/btn_exit.png");
+  GameObject ExitButton = new GameObject("ExitButton", 0, 0, "data/menus/main/btn_exit.png") {
+    public boolean mouseClicked() {
+      if (super.mouseClicked()) {
+        exit();
+        return true;
+      }
+      return false;
+    }
+  };
   ExitButton.setXY(gwidth/2, 800, true);
   ExitButton.setHoverImage("data/menus/main/btn_exitH.png");
 
   //StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);
+  mainMenu.addGameObject(logo);
   mainMenu.addGameObject(StartGame);
   mainMenu.addGameObject(HighScoreButton);
   mainMenu.addGameObject(ExitButton);
@@ -586,12 +619,13 @@ void endGame() {
 
 void exit() {
   println("exiting");
+  saveTable(highscores, "data/highscores.csv");
   if (analytics) {
     analyticRecord("exit");
     SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
     Date now = new Date();
     String strDate = sdfDate.format(now);
-    saveTable(table, "analytics/" + strDate + ".csv");
+    saveTable(analyticsTable, "analytics/" + strDate + ".csv");
   }
   super.exit();
 }
@@ -647,8 +681,9 @@ void keyPressed() {
   if (analytics) analyticRecord(String.valueOf(key));
 }
 
+
 void analyticRecord(String action) {
-  TableRow newRow = table.addRow();
+  TableRow newRow = analyticsTable.addRow();
   newRow.setInt("millis", millis());
   newRow.setString("action", action);
   newRow.setFloat("mouse.x", mouse.x);
@@ -766,27 +801,4 @@ boolean inGame() {
 boolean almostEqual(float a, float b, float ep) {
   //https://stackoverflow.com/a/4915479/8109619
   return (a == b || (a - b) < ep && (b - a) < ep);
-}
-
-void playSound(String variableName) {
-  sfxBroom1.play();
-  sfxBroom2.play();
-  sfxClosingCloset.play();
-  sfxDoorOpen1.play();
-  sfxDoorOpen2.play();
-  sfxPing.play();
-  sfxFolding1.play();
-  sfxFolding2.play();
-  sfxOpenCloset.play();
-  sfxSponge1.play();
-  sfxSponge2.play();
-  sfxTrash1.play();
-  sfxTrash2.play();
-  sfxTrash3.play();
-  sfxTrash4.play();
-  sfxUnlockPhone.play();
-  sfxVacuumRunning.play();
-  sfxVacuumStart.play();
-  sfxVacuumStop.play();
-  sfxWakeUp.play();
 }
