@@ -110,7 +110,8 @@ void setup() {
   mediaLoaded = false;
   sndTheme2 = new SoundFile(this, "sound/music/theme2.wav");
   sndTheme2.loop();
-  thread("loadMedia");
+  loadMedia();
+  //thread("loadMedia"); //<-- doesn't load in sounds in time for the CollectableObjects
 
   cursorInt = ARROW;
 
