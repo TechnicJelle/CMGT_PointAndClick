@@ -64,9 +64,9 @@ SoundFile sfxWakeUp;
 Table highscores;
 
 void settings() {
-  size(1600, 900, P2D);
+  //size(1600, 900, P2D);
   //size(1920, 1080, P2D);
-  //fullScreen(P2D);
+  fullScreen(P2D);
   //smooth(1);
   //noSmooth();
 }
