@@ -71,7 +71,6 @@ class IntroVideoScene extends Scene {
       introVideo = null; //allow the gc to clear the video from memory
       sndTheme1.play();
       if (debugMode) println("sndTheme1 dur: " + sndTheme1.duration());
-      println(sfxBroom1);
     } 
     catch (Exception e) {
       println(e);

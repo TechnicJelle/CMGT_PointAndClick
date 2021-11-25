@@ -539,12 +539,12 @@ void draw() {
 
   //hacky sound starters
   if (!sndTheme2.isPlaying() && almostEqual(sndTheme1.duration()*1000, float(millis() - millisAtGameStart), 50)) {
-    println("sndTheme2.play()", sndTheme1.duration()*1000, millis() - millisAtGameStart);
+    if (debugMode) println("sndTheme2.play()", sndTheme1.duration()*1000, millis() - millisAtGameStart);
     sndTheme2.play();
   }
 
   if (!sndTheme3.isPlaying() && almostEqual(sndTheme3.duration()*1000, millisLeft, 1000)) {
-    println("sndTheme3.play()", sndTheme2.duration()*1000, millis() - millisAtGameStart);
+    if (debugMode) println("sndTheme3.play()", sndTheme2.duration()*1000, millis() - millisAtGameStart);
     sndTheme3.play();
   }
 
