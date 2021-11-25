@@ -64,9 +64,9 @@ SoundFile sfxWakeUp;
 Table highscores;
 
 void settings() {
-  //size(1600, 900, P2D);
+  size(1600, 900, P2D);
   //size(1920, 1080, P2D);
-  fullScreen(P2D);
+  //fullScreen(P2D);
   //smooth(1);
   //noSmooth();
 }
@@ -214,6 +214,7 @@ void setup() {
   MoveToSceneObject bk1bedsBackArrow = new MoveToSceneObject("goBackTobk1beds", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
   MoveToSceneObject hwArrow = new MoveToSceneObject("goToHallway", 150, gheight/2 - 105, "hallway");
   hwArrow.setQuad(59, 30.0, 393.6, 97.2, 494, 792.0, 280.8, 1026.0);
+  hwArrow.addSound(sfxDoorOpen2);
 
   bk2desk.addGameObject(bk1bedsBackArrow);
   bk2desk.addGameObject(hwArrow);
@@ -248,6 +249,7 @@ void setup() {
   //broomco.setHoverImage("rooms/cupBoard/cbBroom2outline.png");
 
   MoveToSceneObject hallwayBackArrow = new MoveToSceneObject("goBackToHallway", gwidth/2, gheight- 105, "ui/arrowDown.png", true);
+  hallwayBackArrow.addSound(sfxOpenCloset);
 
   cupBoard.addGameObject(broomco);
   cupBoard.addGameObject(vacuumco);
@@ -267,15 +269,19 @@ void setup() {
   Scene hallway = new Scene("hallway", "rooms/hallWay/Hallway.png", "ui/minimap/Hallway.png");
 
   MoveToSceneObject bk2deskBackArrow = new MoveToSceneObject("goBackTobk2desk", gwidth/2, gheight-105, "ui/arrowDown.png", true);
+  bk2deskBackArrow.addSound(sfxDoorOpen2);
 
   MoveToSceneObject cupBoardArrow = new MoveToSceneObject("goToCupBoard", gwidth/2 - 105, gheight- 500, "cupBoard");
   cupBoardArrow.setQuad(1265.0, 128.0, 1634.0, -86, 1331.0, 1370, 1192.0, 910.0);
+  cupBoardArrow.addSound(sfxDoorOpen2);
 
   MoveToSceneObject br1showerArrow = new MoveToSceneObject("goTobr1shower", gwidth/3, gheight/2, "bathroom");
   br1showerArrow.setQuad(1102.0, 222.0, 1133.0, 205.0, 1111.0, 644.0, 1088.5, 569.0);
+  br1showerArrow.addSound(sfxDoorOpen2);
 
   MoveToSceneObject livingRoomArrow = new MoveToSceneObject("goToLivingRoomReading", gwidth - 500, gheight/2, "livingRoomReading");
   livingRoomArrow.setQuad(814.0, 182.0, 865.0, 208.0, 886.0, 627.0, 848.0, 728.0);
+  livingRoomArrow.addSound(sfxDoorOpen2);
 
   Quad sweepQuad = new Quad(930.0, 492.0, 1064.4, 492.0, 1240.8, 1080, 730.8, 1080);
   MoveToSceneObject startSweepArrow = new MoveToSceneObject("goToSweepTask", 732.5, 493.2, "rooms/hallWay/trashClick.png", "taskSweep");
@@ -296,6 +302,7 @@ void setup() {
     }
   };
   doorOutside.setQuad(932.4, 238.8, 1062.0, 238.8, 1056.0, 492.0, 939.6, 492.0);
+  doorOutside.addSound(sfxDoorOpen1);
 
   hallway.addGameObject(doorOutside);
   hallway.addGameObject(livingRoomArrow);
@@ -310,6 +317,7 @@ void setup() {
 
   MoveToSceneObject hallwayBackArrow_bathroom = new MoveToSceneObject("goBackToHallway_bathroom", gwidth - 105, gheight / 2, true);
   hallwayBackArrow_bathroom.setQuad(1721.0, 157.5, 1920.0, 99.9, 1920.0, 1800, 1584.0, 1069.2);
+  hallwayBackArrow_bathroom.addSound(sfxDoorOpen2);
   MoveToSceneObject br2sinkArrow = new MoveToSceneObject("goTobr2sink", -5, gheight/2, "ui/arrowLeft.png", "bathroomSink");
 
   bathroom.addGameObject(hallwayBackArrow_bathroom);
@@ -332,6 +340,7 @@ void setup() {
   MoveToSceneObject br1showerHallWayArrow = new MoveToSceneObject("goBackToHallway", 0, gheight/2, true);
   br1showerHallWayArrow.setQuad(0, -15, 140.4, 72.0, 296.4, 1080, 0, 1080);
   br1showerHallWayArrow.setBackAmount(2);
+  br1showerHallWayArrow.addSound(sfxDoorOpen2);
 
   bathroomSink.addGameObject(br1showerBackArrow);
   bathroomSink.addGameObject(br1showerHallWayArrow);
@@ -355,6 +364,7 @@ void setup() {
 
   MoveToSceneObject hallwaybackArrow_livingroom = new MoveToSceneObject("goBackToHallway_livingroom", gwidth/3, gheight - 300, true);
   hallwaybackArrow_livingroom.setQuad(334.8, 86.4, 770.4, 102.0, 796.8, 818, 428, 878.4);
+  hallwaybackArrow_livingroom.addSound(sfxDoorOpen2);
   MoveToSceneObject kitchenArrow = new MoveToSceneObject("goToKitchen", -5, gheight/2, "ui/arrowLeft.png", "kitchen");
   MoveToSceneObject TVArrow = new MoveToSceneObject("goToTV", gwidth - 105, gheight/2, "ui/arrowRight.png", "LivingRoomTV");
 
@@ -397,7 +407,7 @@ void setup() {
   bedroomParents.addGameObject(plate3co);
   //<-bedroomparents
 
-  //folding task
+  //dishes task
   Collectable[] dishesCollectables = new Collectable[] { plate1, plate2, plate3, plate4, plate5 };
   String[] dishesPileStates = new String[] {
     "piles/dishes/state0empty.png", 
@@ -408,7 +418,9 @@ void setup() {
     "piles/dishes/state5.png"};
   MoveToSceneObject startDishArrow = new MoveToSceneObject("startDishArrow", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
   RequireObject requireSponge = new RequireObject("requireSponge", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the dishes with a sponge!", sponge, (GameObject)startDishArrow);
+  requireSponge.addSound(sfxSponge2);
   RequireObject requirePlates = new RequireObject("requirePlates", 1152.0, 571.2, dishesPileStates, "Bring all dirty plates here", dishesCollectables, (GameObject)requireSponge);
+  requirePlates.addSound(sfxTrash1);
 
   GameObject endDish = new GameObject("endDish", 516, 560, "rooms/livingRoom/inRackClean.png");
   endDish.setClickable(false);
@@ -443,6 +455,7 @@ void setup() {
   MoveToSceneObject readingLRBackArrow2 = new MoveToSceneObject("goBackToLRReading2", -5, gheight /2, "ui/arrowLeft.png", true);
   MoveToSceneObject bpArrow = new MoveToSceneObject("goTobp", 1300, gheight/2, "bp");
   bpArrow.setQuad(1214.0, 634, 1487.0, 741, 1651.0, 32, 1276.0, 62);
+  bpArrow.addSound(sfxDoorOpen2);
 
 
   MoveToSceneObject tvGoToKitchenArrow = new MoveToSceneObject("tvGoToKitchenArrow", gwidth - 105, gheight/2, "ui/arrowRight.png", true);
@@ -479,6 +492,7 @@ void setup() {
   //bedroom parents -->
 
   MoveToSceneObject TvBackArrow = new MoveToSceneObject("goBackToTv", gwidth/2, gheight - 105, "ui/arrowDown.png", true);
+  TvBackArrow.addSound(sfxOpenCloset);
 
   //folding task
   Collectable[] foldingCollectables = new Collectable[] { clothes1, clothes2, clothes3, clothes4 };
@@ -490,6 +504,7 @@ void setup() {
     "piles/clothes/state4.png"};
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "piles/clothes/state4start.png", "TaskFolding");
   RequireObject startFolding = new RequireObject("startFolding", 777.6, 511.2, foldingPileStates, "Bring all clothes here", foldingCollectables, (GameObject)foldingTask);
+  startFolding.addSound(sfxFolding1);
   TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/folding/FoldingBackground.png", foldingTask, null, "Fold the clothes", new PVector(38, 88), 130500);
 
   bedroomParents.addGameObject(startFolding);

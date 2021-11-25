@@ -42,7 +42,7 @@ class RequireObject extends TextObject {
 
   @Override
     public boolean mouseClicked() {
-    if (mouseIsHovering) {
+    if (super.mouseClicked()) {
       if (collected < collectables.length) {
         for (int i = 0; i < collectables.length; i++) {
           Collectable collectable = collectables[i];

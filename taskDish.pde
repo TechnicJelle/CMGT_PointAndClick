@@ -98,7 +98,6 @@ class TaskDish extends Task {
   void mouseMoved()
   {
     if (mouse.x > 1570 && mouse.x < 1570 + dishes.width && mouse.y > 573 && mouse.y < 573 + dishes.height)
-
     {
       isMouseOver = true;
     } else
@@ -110,11 +109,10 @@ class TaskDish extends Task {
       isMouseOver2 = true;
     } else
     {
-
       isMouseOver2 = false;
     }
 
-    if (hasADishToClean)
+    if (hasADishToClean) {
       for (int i = 0; i < 3; i++)
       {
         if (mouse.x > dirt[i].x  && mouse.x < dirt[i].x + stains[randomStains[i]].width && mouse.y > dirt[i].y && mouse.y < dirt[i].y + stains[randomStains[i]].height)
@@ -125,6 +123,8 @@ class TaskDish extends Task {
           isPlateClean = true;
         }
       }
+    }
+    if (!sfxSponge2.isPlaying()) sfxSponge2.play();
   }
 
   void mouseClicked()

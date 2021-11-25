@@ -45,7 +45,7 @@ class TextObject extends GameObject {
 
   public boolean mouseClicked() {
     displayText = false;
-    if (mouseIsHovering) {
+    if (super.mouseClicked()) {
       displayText = true;
       millisAtLastShow = millis();
       return true;

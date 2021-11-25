@@ -140,6 +140,7 @@ class IntroVideoScene extends Scene {
   private void end() {
     try {
       sceneManager.goToScene("bk1beds");
+      introVideo.stop();
       introVideo = null; //allow the gc to clear the video from memory
       sndTheme1.play();
       if (debugMode) println("sndTheme1 dur: " + sndTheme1.duration());

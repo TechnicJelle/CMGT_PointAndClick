@@ -48,6 +48,7 @@ class TaskTracker {
     //timer
     canvas.translate(210, 7);
     drawTimer();
+    canvas.circle(216, 19, 32);
 
     //tasks
     canvas.translate(0, 24);
@@ -69,7 +70,7 @@ class TaskTracker {
         canvas.strokeWeight(3);
       } else {
         canvas.stroke(255, 0, 0);
-        canvas.strokeWeight(5);
+        canvas.strokeWeight(32);
       }
       canvas.point(task.minimapLocation.x, task.minimapLocation.y);
     }

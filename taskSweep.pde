@@ -28,8 +28,8 @@ class TaskSweep extends Task {
     trashImgs[1] = loadImage("tasks/sweep/JunkChips2.png");
     trashImgs[2] = loadImage("tasks/sweep/JunkPopcorn1.png");
     trashImgs[3] = loadImage("tasks/sweep/JunkPopcorn2.png");
-     trashImgs[4] = loadImage("tasks/sweep/ConfettySmol.png");
-      trashImgs[5] = loadImage("tasks/sweep/PaperBall.png");
+    trashImgs[4] = loadImage("tasks/sweep/ConfettySmol.png");
+    trashImgs[5] = loadImage("tasks/sweep/PaperBall.png");
     if (debugMode) {
       size = 50;
     } else {
@@ -64,6 +64,7 @@ class TaskSweep extends Task {
     curable.draw();
 
     PVector diff = PVector.sub(mouse, broomCenter).mult(0.1f);
+    if (!sfxBroom1.isPlaying() && diff.magSq() >= 1) sfxBroom1.play();
     broomCenter.add(diff);
     broomHitBox.translate(diff);
     broomHitBox.pushMatrix();

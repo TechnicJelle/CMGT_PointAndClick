@@ -95,6 +95,11 @@ class TaskFolding extends Task {
   {
     if (debugMode) println(isMouseOverPile[1]);
 
+    if (random(1.0) < 0.5)
+      sfxFolding1.play();
+    else
+      sfxFolding2.play();
+
     for (int i = 0; i < 3; i++)
     {
       if (!lock[i])

@@ -23,7 +23,6 @@ class MoveToSceneObject extends GameObject {
     this.nextSceneIdentifier = nextSceneIdentifier;
     this.moveBack = false;
   }
-
   public void setBackAmount(int n) {
     backAmount = n;
   }
@@ -34,7 +33,7 @@ class MoveToSceneObject extends GameObject {
 
   @Override
     public boolean mouseClicked() {
-    if (mouseIsHovering) {
+    if (super.mouseClicked()) {
       if (moveBack) {
         if (backAmount != -1) sceneManager.goToPreviousScene(backAmount);
         else sceneManager.goToPreviousScene();

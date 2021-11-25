@@ -13,6 +13,7 @@ class GameObject {
   protected boolean mouseIsHovering;
   private color debugCol;
   private boolean clickable;
+  private SoundFile soundOnInteract;
 
   public GameObject(String identifier, float x, float y) {
     this(identifier, x, y, "");
@@ -93,6 +94,11 @@ class GameObject {
     clickable = c;
   }
 
+  void addSound(SoundFile sf) {
+    soundOnInteract = sf;
+  }
+
+
   public void draw() {
     if (isQuad) {
       if (clickable) {
@@ -148,6 +154,7 @@ class GameObject {
   }
 
   public boolean mouseClicked() {
+    if (mouseIsHovering && soundOnInteract != null) soundOnInteract.play();
     return mouseIsHovering;
   }
 
