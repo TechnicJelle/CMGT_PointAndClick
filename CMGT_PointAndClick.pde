@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 import processing.video.*;
 
 import java.util.Date;
@@ -29,10 +31,14 @@ int score;
 int scoreMax;
 
 Movie introVideo;
-boolean introVideoLoaded;
+boolean mediaLoaded;
 
 int millisAtGameStart;
 int millisLeft;
+
+SoundFile sndTheme1;
+SoundFile sndTheme2;
+SoundFile sndTheme3;
 
 void settings() {
   size(1600, 900, P2D);
@@ -40,6 +46,13 @@ void settings() {
   //fullScreen(P2D);
   //smooth(1);
   //noSmooth();
+}
+
+void loadMedia() {
+  introVideo = new Movie(this, "menus/main/introVideo.mp4");
+  sndTheme1 = new SoundFile(this, "sound/music/theme1.wav");
+  sndTheme3 = new SoundFile(this, "sound/music/theme3.wav");
+  mediaLoaded = true;
 }
 
 void setup() {
@@ -52,8 +65,10 @@ void setup() {
     table.addColumn("mouse.y");
   }
 
-  introVideoLoaded = false;
-  thread("loadVideo");
+  mediaLoaded = false;
+  sndTheme2 = new SoundFile(this, "sound/music/theme2.wav");
+  sndTheme2.loop();
+  thread("loadMedia");
 
   cursorInt = ARROW;
 
@@ -479,6 +494,17 @@ void draw() {
     endGame();
   }
 
+  //hacky sound starters
+  if (!sndTheme2.isPlaying() && almostEqual(sndTheme1.duration()*1000, float(millis() - millisAtGameStart), 50)) {
+    println("sndTheme2.play()", sndTheme1.duration()*1000, millis() - millisAtGameStart);
+    sndTheme2.play();
+  }
+
+  if (!sndTheme3.isPlaying() && almostEqual(sndTheme3.duration()*1000, millisLeft, 1000)) {
+    println("sndTheme3.play()", sndTheme2.duration()*1000, millis() - millisAtGameStart);
+    sndTheme3.play();
+  }
+
   //if (debugMode) canvas.image(loadImage("rooms/livingRoom/CapR.png"), mouse.x, mouse.y);
 
   canvas.endDraw();
@@ -493,7 +519,10 @@ void draw() {
   if (debugMode) { 
     text(frameRate, 10, 10);
     text(score + "/" + scoreMax, 10, 40);
-    text(millisLeft, 10, 90);
+    text(millisLeft, 10, 70);
+    text(sndTheme1.isPlaying() ? "1playing" : "1not", 10, 100); 
+    text(sndTheme2.isPlaying() ? "2playing" : "2not", 10, 130); 
+    text(sndTheme3.isPlaying() ? "3playing" : "3not", 10, 160);
   }
 
   if (analytics && frameCount % 30 == 0) analyticRecord("mousePosition");
@@ -509,6 +538,7 @@ void endGame() {
   EndScreen es = (EndScreen)sceneManager.getCurrentScene();
   es.calculateScore();
   score += millisLeft;
+  if (score < 0) score = 0;
 }
 
 void exit() {
@@ -688,4 +718,9 @@ boolean inGame() {
     ||     sceneManager.getCurrentScene() instanceof MainMenu 
     ||     sceneManager.getCurrentScene() instanceof IntroVideoScene
     ||     sceneManager.getCurrentScene() instanceof EndScreen);
+}
+
+boolean almostEqual(float a, float b, float ep) {
+  //https://stackoverflow.com/a/4915479/8109619
+  return (a == b || (a - b) < ep && (b - a) < ep);
 }
