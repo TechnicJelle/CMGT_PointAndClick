@@ -1,8 +1,8 @@
 class TrashObject extends CollectableObject {
   private int scoreAdd;
 
-  TrashObject(String identifier, float x, float y, String image, int sa) {
-    super(identifier, x, y, image, null);
+  TrashObject(String identifier, float x, float y, String image, SoundFile sf, int sa) {
+    super(identifier, x, y, image, sf, null);
     scoreAdd = sa;
     scoreMax += scoreAdd;
   }
