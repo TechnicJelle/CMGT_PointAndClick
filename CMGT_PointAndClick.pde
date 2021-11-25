@@ -23,7 +23,7 @@ InventoryManager inventoryManager;
 TaskTracker taskTracker;
 
 PFont bothways;
-int fontSize = 48;
+int fontSize = 128;
 
 int cursorInt;
 
@@ -138,6 +138,7 @@ void setup() {
 
   bothways = createFont("fonts/BothWays.ttf", fontSize, true);
   changeFontSize(fontSize);
+  changeFontSize(48);
 
   fullHD = width == gwidth && height == gheight;
 
@@ -662,19 +663,21 @@ void mouseReleased() {
 }
 
 void keyPressed() {
-  if (key == 'd') debugMode = !debugMode;
-  if (debugMode) {
-    if (key == 'c') taskTracker.tasks.get(0).completed = !taskTracker.tasks.get(0).completed;
-    if (key == 't') {
-      try {
-        inventoryManager.increaseTrash();
+  if (!(sceneManager.getCurrentScene() instanceof EndScreen)) {
+    if (key == 'd') debugMode = !debugMode;
+    if (debugMode) {
+      if (key == 'c') taskTracker.tasks.get(0).completed = !taskTracker.tasks.get(0).completed;
+      if (key == 't') {
+        try {
+          inventoryManager.increaseTrash();
+        }
+        catch(Exception e) {
+          println(e);
+        }
       }
-      catch(Exception e) {
-        println(e);
-      }
+      if (key == 'T') inventoryManager.emptyTrash();
+      if (key == 'e') endGame();
     }
-    if (key == 'T') inventoryManager.emptyTrash();
-    if (key == 'e') endGame();
   }
   sceneManager.getCurrentScene().keyPressed();
   inventoryManager.keyPressed();

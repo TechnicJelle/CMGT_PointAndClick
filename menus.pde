@@ -46,9 +46,6 @@ class MainMenu extends Scene {
       canvas.translate(gwidth/2-w/2, 300);
       canvas.rect(0, 0, w, 525, 32);
 
-      highscores.trim();
-      highscores.sortReverse("score");
-
       canvas.fill(0);
       for (int i = 0; i < (highscores.getRowCount() < 10 ? highscores.getRowCount() : 10); i++) {
         float y = i * 50 + 10;
@@ -167,6 +164,8 @@ class EndScreen extends Scene {
   PImage parentsNeutral;
   PImage parentsAngry;
 
+  PImage scoreBubble;
+
   boolean textInputting = false;
   String textInputted = "";
 
@@ -175,6 +174,8 @@ class EndScreen extends Scene {
     parentsHappy = loadImage("menus/end/parentsHappy.png");
     parentsNeutral = loadImage("menus/end/parentsNeutral.png");
     parentsAngry = loadImage("menus/end/parentsAngry.png");
+
+    scoreBubble = loadImage("menus/end/score.png");
   }
 
   void calculateScore() {
@@ -182,15 +183,41 @@ class EndScreen extends Scene {
     else if (score >= scoreMax*2.0/3.0) backgroundImage = parentsNeutral;
     else backgroundImage = parentsAngry;
 
-    textInputting = true;
+    debugMode = false;
     textInputted = "";
+    textInputting = true;
   }
 
   void draw() {
     canvas.image(backgroundImage, 0, 0);
-    //TODO: make this look fancier
-    canvas.text("Score: " + score, 500, 500);
-    canvas.text("Name: " + textInputted, 600, 600);
+
+
+    canvas.pushStyle();
+    canvas.pushMatrix();
+    canvas.translate(gwidth/2, gheight/2);
+    canvas.imageMode(CENTER);
+    canvas.image(scoreBubble, 0, 0);
+    canvas.fill(0);
+    changeFontSize(128);
+    canvas.textAlign(CENTER, CENTER);
+    canvas.text(score, 0, -20);
+    changeFontSize(120);
+    canvas.textAlign(CENTER, CENTER);
+    canvas.text("Name:", 0, 300);
+    canvas.text(textInputted, 0, 400);
+    if (textInputting) {
+      if (millis() % 2000 < 1000) {
+        float x = canvas.textWidth(textInputted)/2;
+        canvas.stroke(0);
+        canvas.strokeWeight(2);
+        canvas.line(x, 389, x, 461);
+      }
+      changeFontSize(48);
+      canvas.textAlign(CENTER, CENTER);
+      canvas.text("Press enter to save your highscore!", 0, 498);
+    }
+    canvas.popStyle();
+    canvas.popMatrix();
   }
 
   void keyPressed() {
@@ -201,7 +228,7 @@ class EndScreen extends Scene {
           textInputted = textInputted.substring(0, textInputted.length() - 1);
         }
       } else if (key == RETURN || key == ENTER && key != ',') {
-        println ("ENTER");
+        if (debugMode) println ("ENTER");
         textInputting = false;
 
         TableRow newRow = highscores.addRow();
@@ -217,8 +244,11 @@ class EndScreen extends Scene {
         saveTable(highscores, "data/highscores.csv");
       } else if (key != CODED) {
         textInputted += key;
+        if (canvas.textWidth(textInputted) > 250) {
+          textInputted = textInputted.substring(0, textInputted.length() - 1);
+        }
       }
-      println (textInputted);
+      if (debugMode) println (textInputted);
     }
   }
 }
