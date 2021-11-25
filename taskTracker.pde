@@ -13,6 +13,13 @@ class TaskTracker {
 
   PImage taskTodo;
   PImage taskDone;
+  PImage taskDoneMinimap;
+
+  PImage imgPinned;
+  PImage imgNotPinned;
+
+  GameObject pin;
+  boolean pinned;
 
   private boolean btm, top;
 
@@ -22,6 +29,13 @@ class TaskTracker {
     phone = loadImage("ui/HandPhone.png");
     taskTodo = loadImage("ui/TaskTodo.png");
     taskDone = loadImage("ui/TaskDone.png");
+    taskDoneMinimap = loadImage("ui/minimap/CheckIcon.png");
+
+    pin = new GameObject("taskTrackerPin", 0, 0, "ui/minimap/NotPinnedIcon.png");
+    putPhoneDown();
+
+    imgPinned = loadImage("ui/minimap/PinnedIcon.png");
+    imgNotPinned = loadImage("ui/minimap/NotPinnedIcon.png");
   }
 
   void addTask(Task t) {
@@ -48,7 +62,6 @@ class TaskTracker {
     //timer
     canvas.translate(210, 7);
     drawTimer();
-    canvas.circle(216, 19, 32);
 
     //tasks
     canvas.translate(0, 24);
@@ -65,30 +78,53 @@ class TaskTracker {
     canvas.image(sceneManager.getCurrentScene().minimapImage, 0, 0);
     for (int i = 0; i < tasks.size(); i++) {
       Task task = tasks.get(i);
+      canvas.pushStyle();
+      canvas.imageMode(CENTER);
       if (task.completed) {
-        canvas.stroke(0, 255, 0);
-        canvas.strokeWeight(3);
+        canvas.image(taskDoneMinimap, task.minimapLocation.x, task.minimapLocation.y);
       } else {
-        canvas.stroke(255, 0, 0);
-        canvas.strokeWeight(32);
+        canvas.image(task.minimapIcon, task.minimapLocation.x, task.minimapLocation.y);
       }
-      canvas.point(task.minimapLocation.x, task.minimapLocation.y);
+      canvas.popStyle();
     }
 
     canvas.popMatrix();
+
+    pin.draw();
   }
 
   void mouseMoved() {
+    pin.mouseMoved();
     btm = pointInRect(mouse.x, mouse.y, 0, 900, phone.width, gheight);
     top = pointInRect(mouse.x, mouse.y, 0, gheight-phone.height, phone.width, gheight);
     if (btm)
-      phoneUp = true;
+      putPhoneUp();
     if (phoneUp && top)
       return;
-    if (!top)
-      phoneUp = false;
+    if (!top && !pinned)
+      putPhoneDown();
   }
 
-  void mouseClicked() {
+  void putPhoneUp() {
+    phoneUp = true;
+    pin.setXY(426.0, 600.0, true);
+  }
+
+  void putPhoneDown() {
+    phoneUp = false;
+    pin.setXY(426, 926.4, true);
+  }
+
+  boolean mouseClicked() {
+    if (pin.mouseClicked()) {
+      pinned = !pinned;
+      if (pinned) {
+        pin.setGameObjectImage(imgPinned);
+      } else {
+        pin.setGameObjectImage(imgNotPinned);
+      }
+      return true;
+    }
+    return false;
   }
 }

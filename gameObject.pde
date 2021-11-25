@@ -98,6 +98,9 @@ class GameObject {
     soundOnInteract = sf;
   }
 
+  void setGameObjectImage(PImage img) {
+    gameObjectImage = img;
+  }
 
   public void draw() {
     if (isQuad) {

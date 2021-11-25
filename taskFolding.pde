@@ -1,7 +1,7 @@
 class TaskFolding extends Task {
 
-  TaskFolding(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation, int sa) {
-    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation, sa);
+  TaskFolding(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation, PImage minimapIcon, int sa) {
+    super(sceneName, backgroundImageFile, sceneStarter, replaceWith, desc, minimapLocation, minimapIcon, sa);
   }
 
   PImage[] pileOfClothes;

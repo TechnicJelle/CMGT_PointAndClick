@@ -289,7 +289,7 @@ void setup() {
   RequireObject startSweep = new RequireObject("startSweep", 732.5, 493.2, "rooms/hallWay/trash.png", "Use a broom to clean up this mess", broom, (GameObject)startSweepArrow);
   startSweep.setQuad(sweepQuad);
 
-  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow, null, "Sweep the hallway", new PVector(155, 52), 175000);
+  TaskSweep taskSweep = new TaskSweep("taskSweep", "tasks/sweep/taskSweepBackground.png", startSweepArrow, null, "Sweep the hallway", new PVector(155, 52), loadImage("ui/minimap/SweepIcon.png"), 175000);
 
   GameObject doorOutside = new GameObject("doorOutside", 500, 100) {
     public boolean mouseClicked() {
@@ -424,7 +424,7 @@ void setup() {
 
   GameObject endDish = new GameObject("endDish", 516, 560, "rooms/livingRoom/inRackClean.png");
   endDish.setClickable(false);
-  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes", new PVector(101, 57), 100000);
+  TaskDish taskDish = new TaskDish("taskDish", "tasks/dishes/bg.png", startDishArrow, endDish, "Do the dishes", new PVector(101, 57), loadImage("ui/minimap/DishIcon.png"), 100000);
 
   kitchen.addGameObject(kitchenGoToTVArrow);
   kitchen.addGameObject(readingLRBackArrow);
@@ -467,7 +467,7 @@ void setup() {
   startVacuumArrow.setQuad(vacuumQuad);
   RequireObject startVacuum = new RequireObject("startVacuum", 117, 531, "rooms/livingRoom/dust.png", "Use a vacuum to suck up this dust!", vacuum, (GameObject)startVacuumArrow);
   startVacuum.setQuad(vacuumQuad);
-  TaskVacuum taskVacuum = new TaskVacuum("taskVacuum", "tasks/vacuum/rug.png", startVacuumArrow, null, "Vacuum the livingroom", new PVector(80, 134), 125000);
+  TaskVacuum taskVacuum = new TaskVacuum("taskVacuum", "tasks/vacuum/rug.png", startVacuumArrow, null, "Vacuum the livingroom", new PVector(80, 134), loadImage("ui/minimap/VacuumIcon.png"), 125000);
 
   livingRoomTV.addGameObject(tvGoToKitchenArrow);
   livingRoomTV.addGameObject(readingLRBackArrow2);
@@ -505,7 +505,7 @@ void setup() {
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "piles/clothes/state4start.png", "TaskFolding");
   RequireObject startFolding = new RequireObject("startFolding", 777.6, 511.2, foldingPileStates, "Bring all clothes here", foldingCollectables, (GameObject)foldingTask);
   startFolding.addSound(sfxFolding1);
-  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/folding/FoldingBackground.png", foldingTask, null, "Fold the clothes", new PVector(38, 88), 130500);
+  TaskFolding taskFolding = new TaskFolding("TaskFolding", "tasks/folding/FoldingBackground.png", foldingTask, null, "Fold the clothes", new PVector(38, 88), loadImage("ui/minimap/FoldingIcon.png"), 130500);
 
   bedroomParents.addGameObject(startFolding);
 
@@ -674,14 +674,12 @@ void mouseDragged() {
 void mouseReleased() {
   mouse = screenScale(new PVector(mouseX, mouseY));
   if (debugMode) println("new PVector(" + mouse.x + ", " + mouse.y + ");");
+  if (analytics) analyticRecord("mouseReleased");
+  if (inGame() && taskTracker.mouseClicked()) return;
   sceneManager.getCurrentScene().mouseMoved();
   sceneManager.getCurrentScene().mouseClicked();
   sceneManager.getCurrentScene().mouseMoved();
-  if (inGame()) {
-    inventoryManager.mouseClicked();
-    taskTracker.mouseClicked();
-  }
-  if (analytics) analyticRecord("mouseReleased");
+  if (inGame()) inventoryManager.mouseClicked();
 }
 
 void keyPressed() {

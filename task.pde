@@ -4,10 +4,11 @@ class Task extends Scene {
   protected String description;
   public boolean completed;
   protected PVector minimapLocation;
+  protected PImage minimapIcon;
 
   private int scoreAdd;
 
-  Task(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation, int sa) {
+  Task(String sceneName, String backgroundImageFile, MoveToSceneObject sceneStarter, GameObject replaceWith, String desc, PVector minimapLocation, PImage minimapIcon, int sa) {
     super(sceneName, backgroundImageFile, null);
     this.sceneStarter = sceneStarter;
     this.replaceWith = replaceWith;
@@ -15,6 +16,7 @@ class Task extends Scene {
     completed = false;
     taskTracker.addTask(this);
     this.minimapLocation = minimapLocation;
+    this.minimapIcon = minimapIcon;
     scoreAdd = sa;
     scoreMax += scoreAdd;
   }
