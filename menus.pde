@@ -18,14 +18,14 @@ class MainMenu extends Scene {
     }
     super.draw(); //draws backgroundImage and all objects (the buttons)
 
-    if (!introVideoLoaded)
-      canvas.text("Loading intro video...", 50, 50);
+    if (!mediaLoaded)
+      canvas.text("Loading game media assets...", 50, 50);
 
     millisAtGameStart = millis();
   }
 
   void mouseClicked() {
-    if (introVideoLoaded) super.mouseClicked();
+    if (mediaLoaded) super.mouseClicked();
   }
 }
 
@@ -41,6 +41,7 @@ class IntroVideoScene extends Scene {
     if (firstTime) {
       introVideo.play();
       firstTime = false;
+      sndTheme2.stop();
     }
 
     if (introVideo.available())
@@ -68,6 +69,8 @@ class IntroVideoScene extends Scene {
     try {
       sceneManager.goToScene("bk1beds");
       introVideo = null; //allow the gc to clear the video from memory
+      sndTheme1.play();
+      println("sndTheme1 dur: " + sndTheme1.duration());
     } 
     catch (Exception e) {
       println(e);
@@ -77,11 +80,6 @@ class IntroVideoScene extends Scene {
   void keyPressed() {
     if (key == ' ') end();
   }
-}
-
-void loadVideo() {
-  introVideo = new Movie(this, "menus/main/introVideo.mp4");
-  introVideoLoaded = true;
 }
 
 void movieEvent(Movie m) {
