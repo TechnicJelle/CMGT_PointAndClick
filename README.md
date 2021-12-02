@@ -1,4 +1,4 @@
-# CMGT-PointAndClick
+# Afterparty (CMGT-PointAndClick)
 ![Lines of Code](https://github.com/TechnicJelle/CMGT_PointAndClick/blob/badges/badgelines.svg)
 [![GitHub Total Downloads](https://img.shields.io/github/downloads/TechnicJelle/CMGT_PointAndClick/total?label=Downloads&color=success "Click here to download the game")](https://github.com/TechnicJelle/CMGT_PointAndClick/releases)
 
