@@ -1,7 +1,7 @@
 # CMGT-PointAndClick
 ![Lines of Code](https://github.com/TechnicJelle/CMGT_PointAndClick/blob/badges/badgelines.svg)
 
-A hectic and fast-paced game about cleaning up after a giant party before your parents come home (<-- this should also be improved)
+"Afterparty" sweeps in hectic and fast-paced cleanup you must complete before your parents arrive home.
 
 ## Trailer
 [![Trailer Video](.github/trailer_thumb.png)](https://www.youtube.com/watch?v=F-jFcIH40gY)
