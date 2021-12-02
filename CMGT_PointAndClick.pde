@@ -148,11 +148,11 @@ void setup() {
   GameObject logo = new GameObject("logo", gwidth/2, 210, "menus/main/Official_Title.png", true);
   logo.setClickable(false);
 
-  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 0, 0, "data/menus/main/btn_play.png", "introVideoScene");
+  MoveToSceneObject StartGame = new MoveToSceneObject("StartObject", 0, 0, "menus/main/btn_play.png", "introVideoScene");
   StartGame.setXY(gwidth/2, 400, true);
-  StartGame.setHoverImage("data/menus/main/btn_playH.png");
+  StartGame.setHoverImage("menus/main/btn_playH.png");
 
-  GameObject HighScoreButton = new GameObject("HighScoreButton", 0, 0, "data/menus/main/btn_high.png") {
+  GameObject HighScoreButton = new GameObject("HighScoreButton", 0, 0, "menus/main/btn_high.png") {
     public boolean mouseClicked() {
       if (super.mouseClicked()) {
         MainMenu mm = (MainMenu)sceneManager.getCurrentScene();
@@ -164,9 +164,9 @@ void setup() {
     }
   };
   HighScoreButton.setXY(gwidth/2, 600, true);
-  HighScoreButton.setHoverImage("data/menus/main/btn_highH.png");
+  HighScoreButton.setHoverImage("menus/main/btn_highH.png");
 
-  GameObject ExitButton = new GameObject("ExitButton", 0, 0, "data/menus/main/btn_exit.png") {
+  GameObject ExitButton = new GameObject("ExitButton", 0, 0, "menus/main/btn_exit.png") {
     public boolean mouseClicked() {
       if (super.mouseClicked()) {
         exit();
@@ -176,13 +176,25 @@ void setup() {
     }
   };
   ExitButton.setXY(gwidth/2, 800, true);
-  ExitButton.setHoverImage("data/menus/main/btn_exitH.png");
+  ExitButton.setHoverImage("menus/main/btn_exitH.png");
+
+  GameObject sourceCode = new GameObject("sourceCode", 1664, 980, "menus/main/sourceCode.png") {
+    public boolean mouseClicked() {
+      if (super.mouseClicked()) {
+        link("https://github.com/TechnicJelle/CMGT_PointAndClick");
+        return true;
+      }
+      return false;
+    }
+  };
+  sourceCode.setHoverImage("menus/main/sourceCodeH.png");
 
   //StartGame.setQuad(703.2, 136.8, 1219.2, 133.2, 1219.2, 949.2, 703.2, 949.2);
   mainMenu.addGameObject(logo);
   mainMenu.addGameObject(StartGame);
   mainMenu.addGameObject(HighScoreButton);
   mainMenu.addGameObject(ExitButton);
+  mainMenu.addGameObject(sourceCode);
 
   //Intro video
   IntroVideoScene introVideoScene = new IntroVideoScene("introVideoScene", "menus/main/phone.png");
@@ -684,7 +696,7 @@ void mouseReleased() {
 
 void keyPressed() {
   if (!(sceneManager.getCurrentScene() instanceof EndScreen)) {
-    if (key == 'd') debugMode = !debugMode;
+    if (key == 'D') debugMode = !debugMode;
     if (debugMode) {
       if (key == 'c') taskTracker.tasks.get(0).completed = !taskTracker.tasks.get(0).completed;
       if (key == 't') {
