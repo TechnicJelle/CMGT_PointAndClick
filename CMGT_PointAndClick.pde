@@ -422,11 +422,11 @@ void setup() {
   //dishes task
   Collectable[] dishesCollectables = new Collectable[] { plate1, plate2, plate3, plate4, plate5 };
   String[] dishesPileStates = new String[] {
-    "piles/dishes/state0empty.png", 
-    "piles/dishes/state1.png", 
-    "piles/dishes/state2.png", 
-    "piles/dishes/state3.png", 
-    "piles/dishes/state4.png", 
+    "piles/dishes/state0empty.png",
+    "piles/dishes/state1.png",
+    "piles/dishes/state2.png",
+    "piles/dishes/state3.png",
+    "piles/dishes/state4.png",
     "piles/dishes/state5.png"};
   MoveToSceneObject startDishArrow = new MoveToSceneObject("startDishArrow", 508, 549, "rooms/livingRoom/counterDirtyStart.png", "taskDish");
   RequireObject requireSponge = new RequireObject("requireSponge", 508, 549, "rooms/livingRoom/counterDirty.png", "Wash the dishes with a sponge!", sponge, (GameObject)startDishArrow);
@@ -509,10 +509,10 @@ void setup() {
   //folding task
   Collectable[] foldingCollectables = new Collectable[] { clothes1, clothes2, clothes3, clothes4 };
   String[] foldingPileStates = new String[] {
-    "piles/clothes/state0empty.png", 
-    "piles/clothes/state1.png", 
-    "piles/clothes/state2.png", 
-    "piles/clothes/state3.png", 
+    "piles/clothes/state0empty.png",
+    "piles/clothes/state1.png",
+    "piles/clothes/state2.png",
+    "piles/clothes/state3.png",
     "piles/clothes/state4.png"};
   MoveToSceneObject foldingTask = new MoveToSceneObject("goToFoldingTask", 777.6, 511.2, "piles/clothes/state4start.png", "TaskFolding");
   RequireObject startFolding = new RequireObject("startFolding", 777.6, 511.2, foldingPileStates, "Bring all clothes here", foldingCollectables, (GameObject)foldingTask);
@@ -559,7 +559,7 @@ void setup() {
 
   //try {
   //  sceneManager.goToScene("taskDish");
-  //} 
+  //}
   //catch(Exception e) {
   //  println(e);
   //}
@@ -627,12 +627,12 @@ void draw() {
     image(canvas, 0, 0, width, height);
   }
 
-  if (debugMode) { 
+  if (debugMode) {
     text(frameRate, 10, 10);
     text(score + "/" + scoreMax, 10, 40);
     text(millisLeft, 10, 70);
-    text(sndTheme1.isPlaying() ? "1playing" : "1not", 10, 100); 
-    text(sndTheme2.isPlaying() ? "2playing" : "2not", 10, 130); 
+    text(sndTheme1.isPlaying() ? "1playing" : "1not", 10, 100);
+    text(sndTheme2.isPlaying() ? "2playing" : "2not", 10, 130);
     text(sndTheme3.isPlaying() ? "3playing" : "3not", 10, 160);
   }
 
@@ -642,7 +642,7 @@ void draw() {
 void endGame() {
   try {
     sceneManager.goToScene("endscreen");
-  } 
+  }
   catch (Exception e) {
     println(e);
   }
@@ -662,7 +662,39 @@ void exit() {
     String strDate = sdfDate.format(now);
     saveTable(analyticsTable, "analytics/" + strDate + ".csv");
   }
+  surface.setVisible(false);
+  try {
+    introVideo.stop();
+    sndTheme1.stop();
+    sndTheme2.stop();
+    sndTheme3.stop();
+
+    sfxBroom1.stop();
+    sfxBroom2.stop();
+    sfxClosingCloset.stop();
+    sfxDoorOpen1.stop();
+    sfxDoorOpen2.stop();
+    sfxPing.stop();
+    sfxFolding1.stop();
+    sfxFolding2.stop();
+    sfxOpenCloset.stop();
+    sfxSponge1.stop();
+    sfxSponge2.stop();
+    sfxTrash1.stop();
+    sfxTrash2.stop();
+    sfxTrash3.stop();
+    sfxTrash4.stop();
+    sfxUnlockPhone.stop();
+    sfxVacuumRunning.stop();
+    sfxVacuumStart.stop();
+    sfxVacuumStop.stop();
+    sfxWakeUp.stop();
+  }
+  catch (Exception e) {
+    e.printStackTrace();
+  }
   super.exit();
+  //System.exit(0);
 }
 
 void mouseMoved() {
@@ -787,7 +819,7 @@ int textHeight(String str, int specificWidth, int leading) {
     // anything with length 0 ignore and increment empty line count
     if (paragraphs[i].length() == 0) {
       numberEmptyLines++;
-    } else {      
+    } else {
       numTextLines++;
       // word wrap
       String[] wordsArray = split(paragraphs[i], " ");
@@ -827,8 +859,8 @@ void setCursor(PImage p) {
 }
 
 boolean inGame() {
-  return !(sceneManager.getCurrentScene() instanceof Task 
-    ||     sceneManager.getCurrentScene() instanceof MainMenu 
+  return !(sceneManager.getCurrentScene() instanceof Task
+    ||     sceneManager.getCurrentScene() instanceof MainMenu
     ||     sceneManager.getCurrentScene() instanceof IntroVideoScene
     ||     sceneManager.getCurrentScene() instanceof EndScreen);
 }
