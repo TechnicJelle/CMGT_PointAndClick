@@ -12,6 +12,4 @@ A hectic and fast-paced game about cleaning up after a giant party before your p
 ## Poster
 ![Poster](ConceptArt/Afterparty_Poster.png)
 
-## How to play
-Due to Processing problems, I couldn't manage to export the game as a playable executable.\
-So for now, you need to install [Processing **3.5.4**](https://processing.org/download) itself, [download the project](https://github.com/TechnicJelle/CMGT_PointAndClick/releases/latest), open it in Processing and run it from there...
+## [Click here to download the game!](../../releases/latest)
