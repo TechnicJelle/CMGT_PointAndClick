@@ -106,29 +106,30 @@ class IntroVideoScene extends Scene {
 
   void draw() {
     if (firstTime) {
-      introVideo.play();
+      //introVideo.play();
       firstTime = false;
       sndTheme2.stop();
+      end();
     }
 
-    if (introVideo.available())
-      introVideo.read();
+    //if (introVideo.available())
+    //  introVideo.read();
 
-    canvas.image(introVideo, 0, 0);
+    //canvas.image(introVideo, 0, 0);
 
-    if (introVideo.time() < 2)
-      canvas.text("Press space to skip", 50, 50);
+    //if (introVideo.time() < 2)
+    //  canvas.text("Press space to skip", 50, 50);
 
-    if (introVideo.duration() - introVideo.time() < 0.2) {
-      String s = "Objective: Clean up the house before your parents get home!\n\nPress space to start the game!";
-      canvas.fill(0);
-      canvas.text(s, 52, 53);
-      canvas.fill(255);
-      canvas.text(s, 50, 50);
-    }
+    //if (introVideo.duration() - introVideo.time() < 0.2) {
+    //  String s = "Objective: Clean up the house before your parents get home!\n\nPress space to start the game!";
+    //  canvas.fill(0);
+    //  canvas.text(s, 52, 53);
+    //  canvas.fill(255);
+    //  canvas.text(s, 50, 50);
+    //}
 
-    if (debugMode)
-      println(introVideo.duration()  + " - " + introVideo.time() + " = " + (introVideo.duration() - introVideo.time()), frameRate);
+    //if (debugMode)
+    //  println(introVideo.duration()  + " - " + introVideo.time() + " = " + (introVideo.duration() - introVideo.time()), frameRate);
 
     //if (introVideo.time() >= introVideo.duration() - 0.01) {
     //  end();
@@ -140,8 +141,8 @@ class IntroVideoScene extends Scene {
   private void end() {
     try {
       sceneManager.goToScene("bk1beds");
-      introVideo.stop();
-      introVideo = null; //allow the gc to clear the video from memory
+      //introVideo.stop();
+      //introVideo = null; //allow the gc to clear the video from memory
       sndTheme1.play();
       if (debugMode) println("sndTheme1 dur: " + sndTheme1.duration());
     } 
@@ -155,9 +156,9 @@ class IntroVideoScene extends Scene {
   }
 }
 
-void movieEvent(Movie m) {
-  m.read();
-}
+//void movieEvent(Movie m) {
+//  m.read();
+//}
 
 class EndScreen extends Scene {
 

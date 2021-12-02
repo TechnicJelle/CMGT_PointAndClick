@@ -1,6 +1,6 @@
 import processing.sound.*;
 
-import processing.video.*;
+//import processing.video.*;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -30,7 +30,7 @@ int cursorInt;
 int score;
 int scoreMax;
 
-Movie introVideo;
+//Movie introVideo;
 boolean mediaLoaded;
 
 int millisAtGameStart;
@@ -72,7 +72,7 @@ void settings() {
 }
 
 void loadMedia() {
-  introVideo = new Movie(this, "menus/main/introVideo.mp4");
+  //introVideo = new Movie(this, "menus/main/introVideo.mp4");
   sndTheme1 = new SoundFile(this, "sound/music/theme1.wav");
   sndTheme3 = new SoundFile(this, "sound/music/theme3.wav");
 
