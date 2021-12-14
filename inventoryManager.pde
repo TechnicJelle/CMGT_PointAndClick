@@ -97,26 +97,26 @@ class InventoryManager {
   public void draw() {
     hoverOptim = true;
     for (int i = 0; i < slots; i++) {
-      canvas.stroke(0);
+     stroke(0);
       if (i == selected) {
-        canvas.strokeWeight(4);
+       strokeWeight(4);
       } else if (i == hovered) {
-        canvas.strokeWeight(3);
+       strokeWeight(3);
       } else {
-        canvas.strokeWeight(2);
+       strokeWeight(2);
       }
-      canvas.fill(128, 50);
-      canvas.rect(slotPositions[i].x, slotPositions[i].y, slotW, slotH, 12);
+     fill(128, 50);
+     rect(slotPositions[i].x, slotPositions[i].y, slotW, slotH, 12);
       if (collectables[i] != null) {
-        canvas.image(collectables[i].image, slotPositions[i].x, slotPositions[i].y, slotW, slotH);
+       image(collectables[i].image, slotPositions[i].x, slotPositions[i].y, slotW, slotH);
       }
     }
 
     if (selected != -1 && collectables[selected] != null) {
-      canvas.image(collectables[selected].image, mouse.x-collectables[selected].image.width/2, mouse.y-collectables[selected].image.height/2);
+     image(collectables[selected].image, mouse.x-collectables[selected].image.width/2, mouse.y-collectables[selected].image.height/2);
     }
 
-    canvas.image(trashBagStates[trashBagState], 1631, 871);
+   image(trashBagStates[trashBagState], 1631, 871);
   }
 
   public void mouseClicked() {

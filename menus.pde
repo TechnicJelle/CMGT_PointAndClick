@@ -26,53 +26,54 @@ class MainMenu extends Scene {
   }
 
   void draw() {
-
-    canvas.background(lerpColor(#78C8A1, #F69E86, (((millis()/5000)%2==0)?millis()%5000:5000-millis()%5000)/5000.0));
+traceFunctionTime("MainMenu.draw()" );
+   background(lerpColor(#78C8A1, #F69E86, (((millis()/5000)%2==0)?millis()%5000:5000-millis()%5000)/5000.0));
 
     for (int i = 0; i < perPattern; i++)
     {
-      canvas.image(pattern, (i * pattern.width + millis() / 10.0f)% (gwidth + 3.455 * pattern.width) -  pattern.width, 0);
-      canvas.image(pattern, (i * pattern.width + millis() / 10.0f)% (gwidth + 3.455 * pattern.width) -  pattern.width, pattern.height);
+     image(pattern, (i * pattern.width + millis() / 10.0f)% (gwidth + 3.455 * pattern.width) -  pattern.width, 0);
+     image(pattern, (i * pattern.width + millis() / 10.0f)% (gwidth + 3.455 * pattern.width) -  pattern.width, pattern.height);
     }
 
     if (highscoreScreen) {
-      canvas.image(backgroundImage, 0, 0);
+     image(backgroundImage, 0, 0);
       float w = 475;
-      canvas.pushStyle();
-      canvas.fill(255, 100);
-      canvas.stroke(#7f5b84);
-      canvas.strokeWeight(6);
-      canvas.pushMatrix();
-      canvas.translate(gwidth/2-w/2, 300);
-      canvas.rect(0, 0, w, 525, 32);
+     pushStyle();
+     fill(255, 100);
+     stroke(#7f5b84);
+     strokeWeight(6);
+     pushMatrix();
+     translate(gwidth/2-w/2, 300);
+     rect(0, 0, w, 525, 32);
 
-      canvas.fill(0);
+     fill(0);
       for (int i = 0; i < (highscores.getRowCount() < 10 ? highscores.getRowCount() : 10); i++) {
         float y = i * 50 + 10;
         TableRow tr = highscores.getRow(i);
-        canvas.textAlign(LEFT, TOP);
-        canvas.text(tr.getString("name"), 32, y);
-        canvas.textAlign(RIGHT, TOP);
-        canvas.text(nfc(tr.getInt("score")), w-32, y);
+       textAlign(LEFT, TOP);
+       text(tr.getString("name"), 32, y);
+       textAlign(RIGHT, TOP);
+       text(nfc(tr.getInt("score")), w-32, y);
       }
 
-      canvas.popStyle();
-      canvas.popMatrix();
+     popStyle();
+     popMatrix();
 
       backbutton.draw();
 
-      canvas.pushStyle();
-      canvas.imageMode(CENTER);
-      canvas.image(highscoreImage, gwidth/2, 220);
-      canvas.popStyle();
+     pushStyle();
+     imageMode(CENTER);
+     image(highscoreImage, gwidth/2, 220);
+     popStyle();
     } else {
       super.draw(); //draws backgroundImage and all objects (the buttons)
     }
 
     if (!mediaLoaded)
-      canvas.text("Loading game media assets...", 50, 50);
+     text("Loading game media assets...", 50, 50);
 
     millisAtGameStart = millis();
+traceFunctionTime("MainMenu.draw()" );
   }
 
   void mouseMoved() {
@@ -114,17 +115,17 @@ class IntroVideoScene extends Scene {
     if (introVideo.available())
       introVideo.read();
 
-    canvas.image(introVideo, 0, 0);
+   image(introVideo, 0, 0);
 
     if (introVideo.time() < 2)
-      canvas.text("Press space to skip", 50, 50);
+     text("Press space to skip", 50, 50);
 
     if (introVideo.duration() - introVideo.time() < 0.2) {
       String s = "Objective: Clean up the house before your parents get home!\n\nPress space to start the game!";
-      canvas.fill(0);
-      canvas.text(s, 52, 53);
-      canvas.fill(255);
-      canvas.text(s, 50, 50);
+     fill(0);
+     text(s, 52, 53);
+     fill(255);
+     text(s, 50, 50);
     }
 
     if (debugMode)
@@ -190,39 +191,39 @@ class EndScreen extends Scene {
   }
 
   void draw() {
-    canvas.image(backgroundImage, 0, 0);
+   image(backgroundImage, 0, 0);
 
 
-    canvas.pushStyle();
-    canvas.pushMatrix();
-    canvas.translate(gwidth/2, gheight/2);
-    canvas.imageMode(CENTER);
-    canvas.image(scoreBubble, 0, 0);
-    canvas.fill(0);
+   pushStyle();
+   pushMatrix();
+   translate(gwidth/2, gheight/2);
+   imageMode(CENTER);
+   image(scoreBubble, 0, 0);
+   fill(0);
     changeFontSize(128);
-    canvas.textAlign(CENTER, CENTER);
-    canvas.text(nfc(score), 0, -20);
+   textAlign(CENTER, CENTER);
+   text(nfc(score), 0, -20);
     changeFontSize(120);
-    canvas.textAlign(CENTER, CENTER);
-    canvas.text("Name:", 0, 300);
-    canvas.text(textInputted, 0, 400);
+   textAlign(CENTER, CENTER);
+   text("Name:", 0, 300);
+   text(textInputted, 0, 400);
     if (textInputting) {
       if (millis() % 2000 < 1000) {
-        float x = canvas.textWidth(textInputted)/2;
-        canvas.stroke(0);
-        canvas.strokeWeight(2);
-        canvas.line(x, 389, x, 461);
+        float x =textWidth(textInputted)/2;
+       stroke(0);
+       strokeWeight(2);
+       line(x, 389, x, 461);
       }
       changeFontSize(48);
-      canvas.textAlign(CENTER, CENTER);
-      canvas.text("Press enter to save your highscore!", 0, 498);
+     textAlign(CENTER, CENTER);
+     text("Press enter to save your highscore!", 0, 498);
     } else {
       changeFontSize(48);
-      canvas.textAlign(CENTER, CENTER);
-      canvas.text("Press ESC to close the game", 0, 498);
+     textAlign(CENTER, CENTER);
+     text("Press ESC to close the game", 0, 498);
     }
-    canvas.popStyle();
-    canvas.popMatrix();
+   popStyle();
+   popMatrix();
   }
 
   void keyPressed() {
@@ -247,9 +248,10 @@ class EndScreen extends Scene {
         highscores.trim();
         highscores.sortReverse("score");
         saveTable(highscores, "data/highscores.csv");
+        loadGame();
       } else if (key != CODED) {
         textInputted += key;
-        if (canvas.textWidth(textInputted) > 250) {
+        if (textWidth(textInputted) > 250) {
           textInputted = textInputted.substring(0, textInputted.length() - 1);
         }
       }

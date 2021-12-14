@@ -105,13 +105,13 @@ class GameObject {
   public void draw() {
     if (isQuad) {
       if (clickable) {
-        canvas.noFill();
+       noFill();
         if (mouseIsHovering) {
-          canvas.stroke(0);
-          canvas.strokeWeight(2);
+         stroke(0);
+         strokeWeight(2);
         } else {
-          canvas.stroke(0, 100);
-          canvas.strokeWeight(1);
+         stroke(0, 100);
+         strokeWeight(1);
         }
 
         if (clickable) quad.draw();
@@ -119,26 +119,26 @@ class GameObject {
     }
 
     if (hasImage) {
-      canvas.image(gameObjectImage, x, y);
+     image(gameObjectImage, x, y);
     }
 
     if (hasHoverImage && mouseIsHovering) {
-      canvas.pushStyle();
-      canvas.imageMode(CENTER);
-      canvas.image(gameObjectImageHover, x+gameObjectImage.width/2, y+gameObjectImage.height/2);
-      canvas.popStyle();
+     pushStyle();
+     imageMode(CENTER);
+     image(gameObjectImageHover, x+gameObjectImage.width/2, y+gameObjectImage.height/2);
+     popStyle();
     }
 
 
 
     if (debugMode) {
-      canvas.stroke(mouseIsHovering ? 255 : debugCol);
-      canvas.strokeWeight(1);
-      canvas.noFill();
+     stroke(mouseIsHovering ? 255 : debugCol);
+     strokeWeight(1);
+     noFill();
       if (isQuad) {
         quad.drawDebug();
       } else {
-        canvas.rect(x, y, owidth, oheight);
+       rect(x, y, owidth, oheight);
       }
     }
   }

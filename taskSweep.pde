@@ -60,7 +60,7 @@ class TaskSweep extends Task {
   }
 
   void draw() {
-    canvas.image(backgroundImage, 0, 0);
+   image(backgroundImage, 0, 0);
     curable.draw();
 
     PVector diff = PVector.sub(mouse, broomCenter).mult(0.1f);
@@ -110,15 +110,15 @@ class TaskSweep extends Task {
         acc.mult(0);
       }
       if (debugMode) {
-        canvas.stroke(0);
-        canvas.strokeWeight(2);
-        canvas.fill(255);
-        canvas.circle(trashPos[i].x, trashPos[i].y, 50);
+       stroke(0);
+       strokeWeight(2);
+       fill(255);
+       circle(trashPos[i].x, trashPos[i].y, 50);
       }
-      canvas.pushStyle();
-      canvas.imageMode(CENTER);
-      canvas.image(trashImgs[trashImg[i]], trashPos[i].x, trashPos[i].y);
-      canvas.popStyle();
+     pushStyle();
+     imageMode(CENTER);
+     image(trashImgs[trashImg[i]], trashPos[i].x, trashPos[i].y);
+     popStyle();
     }
 
     //canvas.stroke(255, 0, 0);
@@ -126,13 +126,13 @@ class TaskSweep extends Task {
     //line(broom.x, broom.y, broom.x + diff.x, broom.y + diff.y);
 
     if (debugMode) {
-      canvas.stroke(0);
-      canvas.strokeWeight(2);
-      canvas.fill(255);
+     stroke(0);
+     strokeWeight(2);
+     fill(255);
       broomHitBox.draw();
-      canvas.stroke(255, 0, 0);
-      canvas.strokeWeight(1);
-      canvas.noFill();
+     stroke(255, 0, 0);
+     strokeWeight(1);
+     noFill();
       broomHitBox.drawDebug();
     }
 
@@ -140,16 +140,16 @@ class TaskSweep extends Task {
       done();
     }
 
-    canvas.pushMatrix();
-    canvas.translate(broomCenter.x, broomCenter.y);
-    canvas.rotate(diff.heading() + HALF_PI);
-    canvas.translate(-100, 0);
+   pushMatrix();
+   translate(broomCenter.x, broomCenter.y);
+   rotate(diff.heading() + HALF_PI);
+   translate(-100, 0);
     //canvas.stroke(0);
     //canvas.strokeWeight(2);
     //canvas.fill(255);
     //canvas.rect(0, 0, 200, 70);
-    canvas.image(broomCursor, 0, 0);
-    canvas.popMatrix();
+   image(broomCursor, 0, 0);
+   popMatrix();
 
     broomHitBox.popMatrix();
   }

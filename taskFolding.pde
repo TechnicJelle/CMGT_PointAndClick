@@ -46,42 +46,42 @@ class TaskFolding extends Task {
     {
       done();
     }
-    canvas.image(backgroundImage, 0, 0);
+   image(backgroundImage, 0, 0);
     if (clothesLeft < 4)
-      canvas.image(pileOfClothes[clothesLeft], 1297, 488);
+     image(pileOfClothes[clothesLeft], 1297, 488);
     if (folded >= 0)
-      canvas.image(foldedClothes[folded], 250, 455);
+     image(foldedClothes[folded], 250, 455);
     if (folded < 0)
-      canvas.image(noClothesOnPile, 250, 455);
+     image(noClothesOnPile, 250, 455);
 
     if (hasClothToFold)
     {
-      canvas.image(cloths[folded + 1], 825.6, 446.4);
+     image(cloths[folded + 1], 825.6, 446.4);
       if (folded + 1 == 0)
       {
-        canvas.strokeWeight(3);
-        canvas.stroke(#76001d);
-        canvas.fill(#b9153e);
+       strokeWeight(3);
+       stroke(#76001d);
+       fill(#b9153e);
       } else if (folded + 1 == 1)
       {
-        canvas.strokeWeight(3);
-        canvas.stroke(#417da9);
-        canvas.fill(#82b7dd);
+       strokeWeight(3);
+       stroke(#417da9);
+       fill(#82b7dd);
       } else if (folded + 1 == 2)
       {
-        canvas.strokeWeight(3);
-        canvas.stroke(#7ed7a6);
-        canvas.fill(#beffdb);
+       strokeWeight(3);
+       stroke(#7ed7a6);
+       fill(#beffdb);
       } else {
-        canvas.strokeWeight(3);
-        canvas.stroke(#9c5d00);
-        canvas.fill(#ff9800);
+       strokeWeight(3);
+       stroke(#9c5d00);
+       fill(#ff9800);
       }
 
 
       for (int i = 0; i < 3; i++)
       {
-        canvas.quad(parts[i].a.x, parts[i].a.y, parts[i].b.x, parts[i].b.y, parts[i].c.x, parts[i].c.y, parts[i].d.x, parts[i].d.y);
+       quad(parts[i].a.x, parts[i].a.y, parts[i].b.x, parts[i].b.y, parts[i].c.x, parts[i].c.y, parts[i].d.x, parts[i].d.y);
       }
     }
     /*

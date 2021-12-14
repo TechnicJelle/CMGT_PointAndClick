@@ -28,13 +28,13 @@ class Quad {
   }
 
   void draw() {
-    canvas.quad(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y);
+   quad(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y);
   }
 
 
   void drawDebug() {
-    canvas.triangle(a.x, a.y, b.x, b.y, c.x, c.y);
-    canvas.triangle(a.x, a.y, c.x, c.y, d.x, d.y);
+   triangle(a.x, a.y, b.x, b.y, c.x, c.y);
+   triangle(a.x, a.y, c.x, c.y, d.x, d.y);
   }
 
   void pushMatrix() {

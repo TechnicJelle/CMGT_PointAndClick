@@ -1,7 +1,7 @@
 void drawTimer() {
   changeFontSize(34);
-  canvas.fill(0);
-  canvas.text((millisLeft / 1000) / 60 + ":" + nf((millisLeft / 1000.0f) % 60.0f, 2, 2), 89, -7);
+ fill(0);
+ text((millisLeft / 1000) / 60 + ":" + nf((millisLeft / 1000.0f) % 60.0f, 2, 2), 89, -7);
 }
 
 class TaskTracker {
@@ -43,52 +43,52 @@ class TaskTracker {
   }
 
   void draw() {
-    canvas.pushMatrix();
+   pushMatrix();
     if (phoneUp) {
-      canvas.translate(0, 574);
+     translate(0, 574);
     } else {
-      canvas.translate(0, 900);
+     translate(0, 900);
     }
-    canvas.image(phone, 0, 0);
+   image(phone, 0, 0);
 
     if (debugMode) {
-      canvas.stroke(0);
-      canvas.strokeWeight(1);
-      canvas.noFill();
-      canvas.rect(0, 0, phone.width, gheight);
-      canvas.rect(0, 326, phone.width, 180);
+     stroke(0);
+     strokeWeight(1);
+     noFill();
+     rect(0, 0, phone.width, gheight);
+     rect(0, 326, phone.width, 180);
     }
 
     //timer
-    canvas.translate(210, 7);
+   translate(210, 7);
     drawTimer();
 
     //tasks
-    canvas.translate(0, 24);
+   translate(0, 24);
     changeFontSize(32);
     for (int i = 0; i < tasks.size(); i++) {
       Task task = tasks.get(i);
       PImage img = task.completed ? taskDone : taskTodo;
-      canvas.image(img, 0, fontSize*(i+1)-img.height);
+     image(img, 0, fontSize*(i+1)-img.height);
       drawText(task.description, 36, fontSize*i);
     }
 
     //minimap
-    canvas.translate(0, 119);
-    canvas.image(sceneManager.getCurrentScene().minimapImage, 0, 0);
+   translate(0, 119);
+   image(sceneManager.getCurrentScene().minimapImage, 0, 0);
     for (int i = 0; i < tasks.size(); i++) {
       Task task = tasks.get(i);
-      canvas.pushStyle();
-      canvas.imageMode(CENTER);
+     pushStyle();
+     imageMode(CENTER);
       if (task.completed) {
-        canvas.image(taskDoneMinimap, task.minimapLocation.x, task.minimapLocation.y);
+       image(taskDoneMinimap, task.minimapLocation.x, task.minimapLocation.y);
       } else {
-        canvas.image(task.minimapIcon, task.minimapLocation.x, task.minimapLocation.y);
+       image(task.minimapIcon, task.minimapLocation.x, task.minimapLocation.y);
       }
-      canvas.popStyle();
+     popStyle();
     }
 
-    canvas.popMatrix();
+   popMatrix();
 
     pin.draw();
   }

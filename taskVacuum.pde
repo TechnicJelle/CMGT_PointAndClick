@@ -34,8 +34,8 @@ class TaskVacuum extends Task {
 
 
   void draw() {
-    canvas.image(backgroundImage, 0, 0);
-    canvas.tint(128);
+   image(backgroundImage, 0, 0);
+   tint(128);
     if (!sfxVacuumStart.isPlaying() && !sfxVacuumRunning.isPlaying()) sfxVacuumRunning.play();
     for (int i = 0; i < specks; i++) {
       if (dustP[i] == null) 
@@ -52,14 +52,14 @@ class TaskVacuum extends Task {
 
       v.mult(0.9);
       p.add(v);
-      canvas.image(speck, p.x, p.y);
+     image(speck, p.x, p.y);
     }
-    canvas.noTint();
+   noTint();
 
-    canvas.pushStyle();
-    canvas.imageMode(CENTER);
-    canvas.image(head, mse.x, mse.y);
-    canvas.popStyle();
+   pushStyle();
+   imageMode(CENTER);
+   image(head, mse.x, mse.y);
+   popStyle();
 
     float x1 = -100;
     float y1 = gheight/2;
@@ -71,17 +71,17 @@ class TaskVacuum extends Task {
     float x4 = mse.x-47;
     float y4 = mse.y-0.4;
 
-    canvas.strokeCap(ROUND);
-    canvas.strokeJoin(ROUND);
-    canvas.noFill();
+   strokeCap(ROUND);
+   strokeJoin(ROUND);
+   noFill();
 
-    canvas.strokeWeight(28.5);
-    canvas.stroke(0);
-    canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
+   strokeWeight(28.5);
+   stroke(0);
+   bezier(x1, y1, x2, y2, x3, y3, x4, y4);
 
-    canvas.strokeWeight(20.5);
-    canvas.stroke(75);
-    canvas.bezier(x1, y1, x2, y2, x3, y3, x4, y4);
+   strokeWeight(20.5);
+   stroke(75);
+   bezier(x1, y1, x2, y2, x3, y3, x4, y4);
 
     if (float(sucked)/specks > 0.99f) {
       sfxVacuumStop.play();

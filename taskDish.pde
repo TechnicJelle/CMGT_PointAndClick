@@ -68,26 +68,26 @@ class TaskDish extends Task {
     }
 
 
-    canvas.image(backgroundImage, 0, 0);
+   image(backgroundImage, 0, 0);
 
-    canvas.pushMatrix();
-    canvas.image(dishes, 1570, 573);
-    canvas.image(dryingRack[cleanPlates], 266, 543);
-    canvas.popMatrix();
+   pushMatrix();
+   image(dishes, 1570, 573);
+   image(dryingRack[cleanPlates], 266, 543);
+   popMatrix();
 
     if (hasADishToClean)
     {
 
-      canvas.image(plate, 667, 288);
+     image(plate, 667, 288);
 
 
 
       if (!isPlateClean)
         for (int i = 0; i < 3; i++)
         {
-          canvas.fill(0);
+         fill(0);
           if (!hasBeenCleaned[i])
-            canvas.image(stains[randomStains[i]], dirt[i].x, dirt[i].y);
+           image(stains[randomStains[i]], dirt[i].x, dirt[i].y);
         }
     }
 
